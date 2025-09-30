@@ -6,30 +6,26 @@ Property agents juggle scattered client and property data across multiple projec
 
 Given below are my contributions to the project.
 
-* **New Feature**: 
-    * What it does: 
-    * Justification: 
-    * Highlights: 
-    * Credits: 
+* **New Feature**:
+    * What it does:
+    * Justification:
+    * Highlights:
+    * Credits:
 
-* **New Feature**: 
+* **New Feature**:
 
 * **Code contributed**: [RepoSense link]()
 
 * **Project management**:
-    * Managed releases 
+    * Managed releases
 
 * **Enhancements to existing features**:
-    * 
+  
 
 * **Documentation**:
     * User Guide:
-        * 
     * Developer Guide:
-        * 
 
 * **Community**:
-    * 
 
 * **Tools**:
-    * 
