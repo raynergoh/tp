@@ -26,7 +26,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/luciusyeo.png" width="200px">
 
 [[github](http://github.com/luciusyeo)]
-[[portfolio](team/luciusYeo.md)]
+[[portfolio](team/luciusyeo.md)]
 
 * Role: Team Lead
 * Responsibilities: UI
