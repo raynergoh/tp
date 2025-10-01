@@ -274,29 +274,51 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
+* is a property agent with many different kinds of contacts
 * has a need to manage a significant number of contacts
+* has a need to track information about each contact
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* is comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: manage and organise different kinds of contacts and their information faster than a typical mouse/GUI driven app
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
-
-*{More to be added}*
+| Priority | As a …​                 | I can …​                                               | So that …​                                                                    |
+|----------|-------------------------|--------------------------------------------------------|-------------------------------------------------------------------------------|
+| `* *`    | potential user          | see sample contacts                                    | I can expect how the contacts will look like before using the App             |
+| `* * *`  | new user                | see usage instructions                                 | I can refer to instructions when I forget how to use the App                  |
+| `* *`    | new user                | purge all sample contacts                              | I can start using the app proper                                              |
+| `* * *`  | new user                | create a new contact                                   | I can track my contacts                                                       |
+| `* * *`  | new user                | delete a contact                                       | I can remove entries I no longer need                                         |
+| `* *`    | new user                | update a contact's information                         | I can make amends easily                                                      |
+| `* *`    | new user                | give a contact a role tag                              | I can identify the different types of my clients easily                       |
+| `* *`    | new user                | delete a role tag from a contact                       | I can remove roles that no longer apply to the contact                        |
+| `* *`    | new user                | assign a client a property price tag                   | I can identify the prices which clients are buying/selling/renting            |
+| `* *`    | new user                | assign a client a property type tag                    | I can identify contacts by property type                                      |
+| `* *`    | new user                | give a client a location tag                           | I can identify contacts by property location                                  |
+| `* *`    | new user                | give a client a status tag                             | I can know each client's transaction status                                   |
+| `* *`    | new user                | give a client a property size tag                      | I can know the square feet of the property of each client                     |
+| `* *`    | new user                | give a client of role tenant a lease duration tag      | I can know the tenancy period of each tenant                                  |
+| `* *`    | new user                | search a contact by name                               | I can locate details of a person without having to go through the entire list |
+| `* *`    | expert user             | create a contact with a role tag in one command        | I can add contacts already with confirmed roles more efficiently              |
+| `*`      | expert user             | quickly update the status tag of clients               | I can track the latest transaction status of clients                          |
+| `*`      | expert user             | quickly filter based on expiring rental contracts      | I know which contacts to follow up next                                       |
+| `*`      | expert user             | quickly filter contacts based on the tag of client     | I can group clients of the same tags together                                 |
+| `*`      | expert user             | quickly view all contacts related to a specific client | I can have a full picture of their portfolio                                  |
+| `*`      | expert user             | update the status of clients from potential to buying  | I know the status of the properties my clients are buying                     |
+| `*`      | expert user             | update the status of clients from potential to selling | I know the status of the properties my clients are selling                    |
+| `*`      | expert user             | view summary statistics like total clients             | I can have an overview of my own portfolio                                    |
+| `*`      | expert user             | quickly view all urgent clients by due date            | I can immediately know which clients to follow up with next                   |
+| `*`      | expert user             | undo commands quickly from the cli                     | I can quickly rectify mistakes                                                |
+| `*`      | expert user             | export my contact book                                 | I can migrate my data to other devices                                        |
+| `*`      | expert user             | import existing client data from a csv file            | I can start from an existing database                                         |
+| `*`      | user with many contacts | sort contacts based on certain parameters              | I can find the most suitable clients                                          |
 
 ### Use cases
 
