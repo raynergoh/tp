@@ -33,7 +33,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Jovan Teo
 
-<img src="images/jovanteo.png" width="200px">
+<img src="images/jovanteo1103.png" width="200px">
 
 [[github](http://github.com/JovanTeo1103)] [[portfolio](team/jovanTeo.md)]
 
