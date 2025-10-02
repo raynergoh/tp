@@ -45,7 +45,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/soomin-k.png" width="200px">
 
 [[github](http://github.com/soomin-k)]
-[[portfolio](team/soomin-k.md)]
+[[portfolio](team/soomink.md)]
 
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
