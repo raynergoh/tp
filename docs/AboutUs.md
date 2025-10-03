@@ -41,7 +41,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Kim Soomin
 
-<img src="images/soomink.png" width="200px">
+<img src="images/soomin-k.png" width="200px">
 
 [[github](http://github.com/soomin-k)]
 [[portfolio](team/soomink.md)]
