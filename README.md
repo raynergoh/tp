@@ -11,4 +11,3 @@
   * For the detailed documentation of this project, see the **[TrackerGuru Product Website](https://ay2526s1-cs2103t-f15b-3.github.io/tp)**.
 * This project is a **part of the se-education.org** initiative and based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
 * If you would like to contribute code to this project, see [se-education.org](https://se-education.org/#contributing-to-se-edu) for more info.
-<\!-- test commit to trigger CI -->
