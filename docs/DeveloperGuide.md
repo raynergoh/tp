@@ -337,10 +337,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list persons.
+2.  AddressBook shows a list of persons.
+3.  User requests to delete a specific person in the list.
+4.  AddressBook deletes the person.
 
     Use case ends.
 
@@ -356,7 +356,53 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-*{More to be added}*
+**Use case: Edit a contact**
+
+**MSS**
+1. User requests to edit contact.
+2. TrackerGuru edits the contact information and displays success message.
+3. TrackerGuru contact list reflects the new contact information.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. TrackerGuru detects an error in the entered data (invalid index).
+
+  * 1a1. TrackerGuru displays error message that the specified index is invalid.
+  
+    Use case resumes from step 1.
+
+* 2a. TrackerGuru fails to edit the contact information due to a system error.
+
+  * 2a1. TrackerGuru displays an error message indicating the failure. 
+  
+    Use case ends.
+
+**Use case: Sort contacts**
+
+**MSS**
+
+1. Property Agent requests to sort the contact list
+2. TrackerGuru sorts the contact list based on the specified criterion
+3. TrackerGuru displays the sorted contact list
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. TrackerGuru detects an error in the entered data (invalid or missing sorting criterion)
+
+  * 1a1. TrackerGuru displays an error message indicating that the criterion is invalid or missing.
+    
+    Use case resumes from step 1.
+
+* 2a. TrackerGuru fails to sort the contacts due to a system error. 
+
+  * 2a1. TrackerGuru displays an error message indicating the failure. 
+  
+    Use case ends.
+
 
 ### Non-Functional Requirements
 
