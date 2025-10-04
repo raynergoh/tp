@@ -360,7 +360,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Actor: Property Agent**
 
+**Guarantees**
+
+* Existing contact information will be updated to the address book only if MSS completes.
+* All the fields in the contact will be of valid type.
+
 **MSS**
+
 1. User requests to edit contact.
 2. TrackerGuru edits the contact information and displays success message.
 3. TrackerGuru contact list reflects the new contact information.
