@@ -274,29 +274,60 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* is a property agent with many different kinds of contacts
+* has a need to manage a big number of contacts
+* has a need to track information about each contact
+* has a need to categorize different contacts
 * prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* is a fast typist, preferring typing to mouse interactions
+* is comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: manage and organise different kinds of contacts and their information faster than a typical mouse/GUI driven app
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
-
-*{More to be added}*
+| Priority | As a …​                     | I can …​                                                                                    | So that …​                                                                    |
+|----------|-----------------------------|---------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
+| `* *`    | potential user              | see sample contacts                                                                         | I can expect how the contacts will look like before using the App             |
+| `* * *`  | new user                    | see usage instructions                                                                      | I can refer to instructions when I forget how to use the App                  |
+| `*`      | new user                    | purge all sample contacts                                                                   | I can start using the app proper                                              |
+| `* * *`  | new user                    | view a list of my contacts                                                                  | I can see all my current contacts                                             |
+| `* * *`  | new user                    | add a new contact                                                                           | I can keep track of my growing contacts                                       |
+| `* * *`  | new user                    | delete a contact                                                                            | I can remove contacts I no longer need                                        |
+| `* * *`  | new user                    | view a contact's information                                                                | I can easily reference information about a contact                            |
+| `* *`    | new user                    | edit a contact's information                                                                | I can make amends to changes easily                                           |
+| `* * *`  | new user                    | view all the tags of a contact                                                              | I can identify the specific characteristics of each contact                   |
+| `* *`    | new user                    | give a contact a role tag                                                                   | I can identify the different types of my clients easily                       |
+| `* *`    | new user                    | delete a role tag from a contact                                                            | I can remove roles that no longer apply to the contact                        |
+| `* *`    | new user                    | assign a client a property price tag                                                        | I can identify the property price which a client is willing to buy/sell/rent  |
+| `* *`    | new user                    | remove a property price tag from a client                                                   | I can remove property prices that no longer describe the client               |
+| `* *`    | new user                    | update a property price tag of a client                                                     | I can easily update the most recent property prices a client want             |
+| `* *`    | new user                    | give a client a property location tag                                                       | I can identify contacts by property location                                  |
+| `* *`    | new user                    | remove a property location tag from a client                                                | I can remove a property location that the contact no longer owns/wants        |
+| `* *`    | new user                    | give a client a status tag                                                                  | I can know each client's transaction status                                   |
+| `* *`    | new user                    | remove the status tag from a client                                                         | I can remove a transaction status from a client that no longer applies        |
+| `* *`    | new user                    | give a client a property size tag                                                           | I can know the size of the property a client wants/owns                       |
+| `* *`    | new user                    | remove the property size tag from a client                                                  | I can remove outdated information about the property size of a client         |
+| `* *`    | new user                    | give a client a property type tag                                                           | I can know the type of the property a client wants/owns                       |
+| `* *`    | new user                    | remove the property type tag from a client                                                  | I can remove outdated information about the property type of a client         |
+| `* *`    | new user                    | give a tenant client a rental duration tag                                                  | I can know the tenancy period of each tenant                                  |
+| `* *`    | user with sensitive clients | hide contact details                                                                        | I can minimize chance of someone else seeing them by accident                 |
+| `* *`    | expert user                 | create a contact with a role tag in one command                                             | I can add contacts already with confirmed roles more efficiently              |
+| `*`      | expert user                 | quickly filter tenants based on expiring rental contracts                                   | I know which tenant to follow up next                                         |
+| `*`      | expert user                 | easily advance the status tag of clients to the next state (e.g. looking to buy to signing) | I can easily know the transaction status of my clients                        |
+| `*`      | expert user                 | view summary statistics like total clients or total buyers                                  | I can have an overview of my own portfolio                                    |
+| `*`      | expert user                 | undo commands quickly from the cli                                                          | I can quickly rectify mistakes                                                |
+| `*`      | expert user                 | export my contact book                                                                      | I can migrate my data to other devices                                        |
+| `*`      | expert user                 | import existing client data from a csv file                                                 | I can start from an existing database                                         |
+| `* *`    | user with many contacts     | search a contact by name                                                                    | I can locate details of a person without having to go through the entire list |
+| `*`      | user with many contacts     | quickly filter contacts based on their role                                                 | I can easily view a list of clients of the same role together                 |
+| `*`      | user with many contacts     | quickly filter contacts based on their property location tag                                | I can easily view a list of clients of the same property location together    |
+| `*`      | user with many contacts     | sort contacts by name alphabetically                                                        | I can locate them easily                                                      |
+| `*`      | user with many contacts     | sort contacts by property size tag                                                          | I can explore contacts that want to buy/sell property at similar sizes        |
+| `*`      | user with many contacts     | sort contacts by property price tag                                                         | I can explore contacts that want to buy/sell property at similar prices       |
 
 ### Use cases
 
@@ -337,9 +368,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
-
+* **client**: A specific kind of contact that represents customers of the property agent (i.e. property buyers, sellers, landlords, tenants) 
+* **contact information**: Exact contact details of a person; name, phone number, email, address
+* **contact tags**: Labels or categories used to group contacts
+* **role tag**: A label that defines the function or relationship of a contact (e.g. buyer, seller, landlord, tenant) in the property business 
+* **status tag**: A label indicating the current state of a client transaction (e.g. looking to sell, looking to buy, signing).
+* **property size**: A label describing the size of a property in sqft that the client is offering/looking for
+* **property type**: A label describing the type of property that the client is offering/looking for (e.g. studio, terrace, hdb)
+* **property location**: A label specifying the geographical area of a property that the client is offering/looking for (e.g. Bishan, Woodlands)
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
