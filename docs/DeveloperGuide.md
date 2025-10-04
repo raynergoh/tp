@@ -363,16 +363,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### Performance/Capacity requirements
 - The system should be able to store up to 200 contacts at once
 - The system should load and display contact lists within 2 seconds, even at maximum capacity
-- The system should boot within 3 seconds on a computer with at least 8GB RAM and an Intel Core i5/Ryzen 5-class processor (or equivalent).
+- The system should boot within 3 seconds on a computer with at least 8GB RAM and an Intel Core i5/Ryzen 5-class processor (or equivalent)
 
 #### Technical requirements
 - The system should work on any computer that runs Java 17
 - The system should not have a remote server
 - The system should be functional without internet connection
 - The system should only use local storage to store contacts
+- The system should support using a local .json file to store and retrieve contact data 
 
 #### Reliability requirements
-- The system should prevent loss of saved data in the event of unexpected termination
+- The system should not lose saved data in the event of unexpected termination
 
 #### Security requirements
 - The system should not transmit contact data over the internet
@@ -384,7 +385,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 #### Quality requirements
 - The system should provide help and usage instructions
 - Command syntax should be consistent and documented
-- The system should support efficient keyboard-only operation for experienced users
+- All operations can be completed in no more than one typed line
 - The system should display clear error messages for invalid inputs instead of crashing
 
 
