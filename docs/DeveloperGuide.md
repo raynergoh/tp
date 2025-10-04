@@ -358,7 +358,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use case: Edit a contact**
 
-**Actor: Property Agent**
+**Actor: User**
 
 **Guarantees**
 
@@ -367,29 +367,30 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to edit contact.
-2. TrackerGuru edits the contact information and displays success message.
-3. TrackerGuru contact list reflects the new contact information.
+1. User requests to edit contact with together with their relevant details.
+2. System edits and saves the updated contact information.
+3. System displays success message to the user. 
+4. System's contact list reflects the updated contact information.
 
     Use case ends.
 
 **Extensions**
 
-* 1a. TrackerGuru detects an error in the entered data (invalid index).
+* 1a. System detects an error in the entered data (invalid index).
 
-  * 1a1. TrackerGuru displays error message that the specified index is invalid.
+  * 1a1. System displays error message that the specified index is invalid.
   
     Use case resumes from step 1.
 
-* 2a. TrackerGuru fails to edit the contact information due to a system error.
+* 2a. System fails to edit the contact information due to a system error.
 
-  * 2a1. TrackerGuru displays an error message indicating the failure. 
+  * 2a1. System displays an error message indicating the failure. 
   
     Use case ends.
 
 **Use case: Sort contacts**
 
-**Actor: Property Agent**
+**Actor: User**
 
 **Guarantees**
 
@@ -398,23 +399,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. Property Agent requests to sort the contact list.
-2. TrackerGuru sorts the contact list based on the specified criterion.
-3. TrackerGuru displays the sorted contact list.
+1. User requests to sort the contact list.
+2. System sorts the contact list based on the specified criterion.
+3. System displays the sorted contact list.
 
    Use case ends.
 
 **Extensions**
 
-* 1a. TrackerGuru detects an error in the entered data (invalid or missing sorting criterion).
+* 1a. System detects an error in the entered data (invalid or missing sorting criterion).
 
-  * 1a1. TrackerGuru displays an error message indicating that the criterion is invalid or missing.
+  * 1a1. System displays an error message indicating that the criterion is invalid or missing.
     
     Use case resumes from step 1.
 
-* 2a. TrackerGuru fails to sort the contacts due to a system error. 
+* 2a. System fails to sort the contacts due to a system error. 
 
-  * 2a1. TrackerGuru displays an error message indicating the failure. 
+  * 2a1. System displays an error message indicating the failure. 
   
     Use case ends.
 
