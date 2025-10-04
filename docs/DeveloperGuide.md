@@ -358,6 +358,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use case: Edit a contact**
 
+**Actor: Property Agent**
+
 **MSS**
 1. User requests to edit contact.
 2. TrackerGuru edits the contact information and displays success message.
@@ -381,17 +383,24 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use case: Sort contacts**
 
+**Actor: Property Agent**
+
+**Guarantees**
+
+* The contact list remains intact with no data lost or modified.
+* The contact list will be displayed in the specified sorted order.
+
 **MSS**
 
-1. Property Agent requests to sort the contact list
-2. TrackerGuru sorts the contact list based on the specified criterion
-3. TrackerGuru displays the sorted contact list
+1. Property Agent requests to sort the contact list.
+2. TrackerGuru sorts the contact list based on the specified criterion.
+3. TrackerGuru displays the sorted contact list.
 
    Use case ends.
 
 **Extensions**
 
-* 1a. TrackerGuru detects an error in the entered data (invalid or missing sorting criterion)
+* 1a. TrackerGuru detects an error in the entered data (invalid or missing sorting criterion).
 
   * 1a1. TrackerGuru displays an error message indicating that the criterion is invalid or missing.
     
