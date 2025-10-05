@@ -447,6 +447,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1b1. TrackerGuru displays an error message.  
       Use case ends.
 
+---
 
 **Use case: UC-5 Edit a contact**
 
@@ -478,7 +479,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   
     Use case ends.
 
-**Use case: Sort contacts**
+---
+
+**Use case: UC-6 Sort contacts**
 
 **Guarantees**
 
