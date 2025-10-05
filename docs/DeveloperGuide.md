@@ -331,10 +331,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
----
-**Use case: UC1 - Add a contact**
+(For all use cases below, the **System** is the 'TrackerGuru' and the **Actor** is the 'Property Agent', unless specified otherwise. The term 'User' will be synonymous to 'Property Agent')
 
-**Actor:** Property Agent
+**Use case: UC1 - Add a contact**
 
 **Guarantees**
 
@@ -368,8 +367,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use case: UC2 - Delete a contact**
 
-**Actor:** Property Agent
-
 **MSS**
 
 1. User requests to delete a contact.
@@ -401,8 +398,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use case: UC3 - Tag contact with role**
 
-**Actor:** Property Agent
-
 **Guarantees**
 
 * Role tags associated with updated contacts will be of a valid role type (buyer, seller, ...).
@@ -429,8 +424,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use case: UC4 - Search contact by name**
 
-**Actor:** Property Agent
-
 **Guarantees**
 
 * Only contacts whose names match the given keywords will be displayed to the user (if MSS completes).
@@ -455,15 +448,96 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case ends.
 
 
-*{More to be added}*
+**Use case: UC-5 Edit a contact**
+
+**Guarantees**
+
+* Existing contact information will be updated to the address book only if MSS completes.
+* All the fields in the contact will be of valid type.
+
+**MSS**
+
+1. User requests to edit contact with together with their relevant details.
+2. System edits and saves the updated contact information.
+3. System displays success message to the user. 
+4. System's contact list reflects the updated contact information.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. System detects an error in the entered data (invalid index).
+
+  * 1a1. System displays error message that the specified index is invalid.
+  
+    Use case resumes from step 1.
+
+* 2a. System fails to edit the contact information due to a system error.
+
+  * 2a1. System displays an error message indicating the failure. 
+  
+    Use case ends.
+
+**Use case: Sort contacts**
+
+**Guarantees**
+
+* The contact list remains intact with no data lost or modified.
+* The contact list will be displayed in the specified sorted order.
+
+**MSS**
+
+1. User requests to sort the contact list.
+2. System sorts the contact list based on the specified criterion.
+3. System displays the sorted contact list.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. System detects an error in the entered data (invalid or missing sorting criterion).
+
+  * 1a1. System displays an error message indicating that the criterion is invalid or missing.
+    
+    Use case resumes from step 1.
+
+* 2a. System fails to sort the contacts due to a system error. 
+
+  * 2a1. System displays an error message indicating the failure. 
+  
+    Use case ends.
+
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+#### Performance/Capacity requirements
+- The system should be able to store up to 200 contacts at once
+- The system should load and display contact lists within 2 seconds, even at maximum capacity
+- The system should boot within 3 seconds on a computer with at least 8GB RAM and an Intel Core i5/Ryzen 5-class processor (or equivalent)
 
-*{More to be added}*
+#### Technical requirements
+- The system should work on any computer that runs Java 17
+- The system should not have a remote server
+- The system should be functional without internet connection
+- The system should only use local storage to store contacts
+- The system should support using a local .json file to store and retrieve contact data 
+
+#### Reliability requirements
+- The system should not lose saved data in the event of unexpected termination
+
+#### Security requirements
+- The system should not transmit contact data over the internet
+
+#### Maintainability requirements
+- The code should be modular and well documented
+- The system should allow adding new contact fields without major refactoring
+
+#### Quality requirements
+- The system should provide help and usage instructions
+- Command syntax should be consistent and documented
+- All operations can be completed in no more than one typed line
+- The system should display clear error messages for invalid inputs instead of crashing
+
 
 ### Glossary
 
