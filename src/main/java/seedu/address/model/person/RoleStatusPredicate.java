@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.Objects;
 
-import seedu.address.commons.util.StringUtil;
-
 /**
  * Tests that a {@code Person}'s role and/or status matches any of the given keywords.
  */
