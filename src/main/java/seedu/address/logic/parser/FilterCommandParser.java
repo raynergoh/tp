@@ -51,30 +51,35 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     /**
      * Extracts all keywords associated with the specified prefix from the token list.
      * Collection starts from the first occurrence of the prefix and stops when another
-     * prefix (any token starting with the pattern "x/") begins or when the tokens end.
+     * prefix (any token matching ".+/") begins or when the tokens end.
      *
      * @param tokens the array of input tokens
      * @param prefix the prefix to look for (e.g. r/, s/, t/, b/)
      * @return a list of extracted keywords with the prefix removed
      */
     private List<String> extractKeywords(String[] tokens, String prefix) {
-        return Arrays.stream(tokens)
-                .dropWhile(token -> !token.startsWith(prefix)) // skip until this prefix is found
-                .takeWhile(token -> !isPrefixToken(token, prefix)) // collect until another prefix starts
-                .map(token -> token.substring(prefix.length())) // strip prefix from collected tokens
-                .collect(Collectors.toList());
-    }
+        List<String> keywords = new java.util.ArrayList<>();
+        boolean collecting = false;
 
-    /**
-     * Returns true if the given token is a prefix (e.g. starts with any pattern like x/)
-     * and is not the same as the current prefix.
-     *
-     * @param token  the token to check
-     * @param prefix the current prefix being processed
-     * @return true if the token represents a different prefix, false otherwise
-     */
-    private boolean isPrefixToken(String token, String prefix) {
-        return token.matches(".+/") && !token.startsWith(prefix);
+        for (String rawToken : tokens) {
+            String token = rawToken.trim(); // trim whitespace
+
+            if (token.startsWith(prefix)) {
+                collecting = true;
+                keywords.add(token.substring(prefix.length()));
+                continue;
+            }
+
+            if (collecting) {
+                // stop collecting if we hit any other prefix token
+                if (token.matches("^[a-z]/.*")) { // must start with letter + /
+                    break; // stop BEFORE adding this token
+                }
+                keywords.add(token); // safe to add
+            }
+        }
+
+        return keywords;
     }
 }
 

@@ -35,10 +35,11 @@ public class RoleStatusPredicate implements Predicate<Person> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this
-                || (other instanceof RoleStatusPredicate
-                && roleKeywords.equals(((RoleStatusPredicate) other).roleKeywords)
-                && statusKeywords.equals(((RoleStatusPredicate) other).statusKeywords));
+        if (this == other) return true;
+        if (!(other instanceof RoleStatusPredicate)) return false;
+        RoleStatusPredicate otherPredicate = (RoleStatusPredicate) other;
+        return roleKeywords.equals(otherPredicate.roleKeywords)
+                && statusKeywords.equals(otherPredicate.statusKeywords);
     }
 
     @Override
