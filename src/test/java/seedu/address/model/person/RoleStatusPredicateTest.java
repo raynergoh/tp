@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
@@ -53,6 +54,30 @@ class RoleStatusPredicateTest {
 
         // TODO: Replace with actual test assertion
         assertTrue(predicate.test(person));
+    }
+    @Test
+    void test_equals() {
+        RoleStatusPredicate predicate1 = new RoleStatusPredicate(
+                Arrays.asList("buyer"), Arrays.asList("completed"));
+        RoleStatusPredicate predicate2 = new RoleStatusPredicate(
+                Arrays.asList("buyer"), Arrays.asList("completed"));
+        RoleStatusPredicate predicate3 = new RoleStatusPredicate(
+                Arrays.asList("seller"), Arrays.asList("pending"));
+
+        // same object
+        assertTrue(predicate1.equals(predicate1));
+
+        // same values
+        assertTrue(predicate1.equals(predicate2));
+
+        // different values
+        assertFalse(predicate1.equals(predicate3));
+
+        // null
+        assertFalse(predicate1.equals(null));
+
+        // different type
+        assertFalse(predicate1.equals("not a predicate"));
     }
 }
 

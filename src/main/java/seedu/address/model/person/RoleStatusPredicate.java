@@ -32,7 +32,6 @@ public class RoleStatusPredicate implements Predicate<Person> {
         return true;
     }
 
-
     @Override
     public boolean equals(Object other) {
         if (this == other) {
@@ -46,8 +45,4 @@ public class RoleStatusPredicate implements Predicate<Person> {
                 && statusKeywords.equals(otherPredicate.statusKeywords);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(roleKeywords, statusKeywords);
-    }
 }
