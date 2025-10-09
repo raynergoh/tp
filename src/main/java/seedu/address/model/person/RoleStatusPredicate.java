@@ -1,8 +1,8 @@
 package seedu.address.model.person;
 
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 /**
  * Tests that a {@code Person}'s role and/or status matches any of the given keywords.
