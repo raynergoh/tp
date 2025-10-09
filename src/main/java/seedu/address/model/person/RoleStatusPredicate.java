@@ -35,8 +35,12 @@ public class RoleStatusPredicate implements Predicate<Person> {
 
     @Override
     public boolean equals(Object other) {
-        if (this == other) return true;
-        if (!(other instanceof RoleStatusPredicate)) return false;
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof RoleStatusPredicate)) {
+            return false;
+        }
         RoleStatusPredicate otherPredicate = (RoleStatusPredicate) other;
         return roleKeywords.equals(otherPredicate.roleKeywords)
                 && statusKeywords.equals(otherPredicate.statusKeywords);
