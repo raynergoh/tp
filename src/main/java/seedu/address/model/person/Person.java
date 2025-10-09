@@ -27,7 +27,7 @@ public class Person {
 
     // v1.2: New fields for future migration
     private final Set<Role> roles; // TODO: Implement fully
-    private final Status status;   // TODO: Implement fully
+    private final Status status; // TODO: Implement fully
 
     /**
      * Legacy constructor (DO NOT REMOVE YET).

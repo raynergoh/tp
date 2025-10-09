@@ -109,7 +109,8 @@ public class EditCommand extends Command {
         Status updatedStatus = editPersonDescriptor.getStatus().orElse(personToEdit.getStatus());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRoles, updatedStatus, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRoles,
+                updatedStatus, updatedTags);
     }
 
     @Override
@@ -196,13 +197,9 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
-        }
+        public void setAddress(Address address) { this.address = address; }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
-        }
+        public Optional<Address> getAddress() { return Optional.ofNullable(address); }
 
         public void setStatus(Status status) { this.status = status; }
 
