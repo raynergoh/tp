@@ -107,7 +107,7 @@ public class ParserUtil {
         requireNonNull(status);
         String trimmedStatus = status.trim();
         // TODO: validate Status string format when Status implemented
-        return new Status();
+        return new Status(trimmedStatus);
     }
 
     /**
@@ -120,7 +120,7 @@ public class ParserUtil {
         requireNonNull(role);
         String trimmedRole = role.trim();
         // TODO: implement validation when Role class is ready
-        return new Role();
+        return new Role(trimmedRole);
     }
 
     /**

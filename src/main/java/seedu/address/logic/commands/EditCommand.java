@@ -197,13 +197,21 @@ public class EditCommand extends Command {
             return Optional.ofNullable(email);
         }
 
-        public void setAddress(Address address) { this.address = address; }
+        public void setAddress(Address address) {
+            this.address = address;
+        }
 
-        public Optional<Address> getAddress() { return Optional.ofNullable(address); }
+        public Optional<Address> getAddress() {
+            return Optional.ofNullable(address);
+        }
 
-        public void setStatus(Status status) { this.status = status; }
+        public void setStatus(Status status) {
+            this.status = status;
+        }
 
-        public Optional<Status> getStatus() { return Optional.ofNullable(status); }
+        public Optional<Status> getStatus() {
+            return Optional.ofNullable(status);
+        }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -222,10 +230,16 @@ public class EditCommand extends Command {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
-        public void setRoles(Set<Role> roles) { this.roles = (roles != null) ? new HashSet<>(roles) : null; }
+        public void setRoles(Set<Role> roles) {
+            this.roles = (roles != null)
+                    ? new HashSet<>(roles)
+                    : null;
+        }
 
         public Optional<Set<Role>> getRoles() {
-            return (roles != null) ? Optional.of(Collections.unmodifiableSet(roles)) : Optional.empty();
+            return (roles != null)
+                    ? Optional.of(Collections.unmodifiableSet(roles))
+                    : Optional.empty();
         }
 
         @Override
