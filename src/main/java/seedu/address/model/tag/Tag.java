@@ -9,15 +9,21 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String MESSAGE_CONSTRAINTS = "Tags should be in the format "
+            + "GROUP.VALUE where both GROUP and VALUE are alphanumeric";
+
+    /**
+     * Regex to validate tags of the form GROUP.VALUE,
+     * where both GROUP and VALUE contain one or more alphanumeric characters.
+     */
+    public static final String VALIDATION_REGEX = "^[A-Za-z0-9]+\\.[A-Za-z0-9]+$";
 
     public final String tagName;
 
     /**
      * Constructs a {@code Tag}.
      *
-     * @param tagName A valid tag name.
+     * @param tagName A valid tag name, which must conform to GROUP.VALUE format.
      */
     public Tag(String tagName) {
         requireNonNull(tagName);
@@ -27,6 +33,9 @@ public class Tag {
 
     /**
      * Returns true if a given string is a valid tag name.
+     * The valid format is "GROUP.VALUE" where GROUP and VALUE are alphanumeric.
+     * @param test String to test.
+     * @return true if valid format, false otherwise.
      */
     public static boolean isValidTagName(String test) {
         return test.matches(VALIDATION_REGEX);
