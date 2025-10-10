@@ -34,5 +34,16 @@ public enum Status {
         return this == PENDING ? COMPLETED : PENDING;
     }
 
+    public static final String MESSAGE_CONSTRAINTS = "Status should be either 'pending' or 'completed'";
+
+    public static boolean isValidStatus(String status) {
+        try {
+            Status.valueOf(status.toUpperCase());
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
+
 
 }

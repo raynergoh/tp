@@ -24,6 +24,7 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Role> roles = new HashSet<>();
+    private final Status status;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -31,19 +32,20 @@ public class Person {
      * This constructor is for backward compatibility with code that has not yet use roles.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        this(name, phone, email, address, new HashSet<>(), tags); // default empty roles
+        this(name, phone, email, address, new HashSet<>(), null, tags); // default empty roles
     }
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Role> roles, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Role> roles, Status status, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, roles, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.roles.addAll(roles);
+        this.status = status;
         this.tags.addAll(tags);
     }
 
@@ -62,6 +64,8 @@ public class Person {
     public Address getAddress() {
         return address;
     }
+
+    public Status getStatus() { return status; }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
