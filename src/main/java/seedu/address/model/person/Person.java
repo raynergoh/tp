@@ -23,17 +23,27 @@ public class Person {
 
     // Data fields
     private final Address address;
+    private final Set<Role> roles = new HashSet<>();
     private final Set<Tag> tags = new HashSet<>();
+
+    /**
+     * Creates a Person without any specified roles, using an empty set of roles.
+     * This constructor is for backward compatibility with code that has not yet use roles.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+        this(name, phone, email, address, new HashSet<>(), tags); // default empty roles
+    }
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, Set<Role> roles, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, roles, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.roles.addAll(roles);
         this.tags.addAll(tags);
     }
 
@@ -59,6 +69,14 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Role> getRoles() {
+        return Collections.unmodifiableSet(roles);
     }
 
     /**
