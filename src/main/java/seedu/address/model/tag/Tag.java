@@ -16,7 +16,7 @@ public class Tag {
      * Regex to validate tags of the form GROUP.VALUE,
      * where both GROUP and VALUE contain one or more alphanumeric characters.
      */
-    public static final String VALIDATION_REGEX = "^[A-Za-z0-9]+\\.[A-Za-z0-9]+$";
+    public static final String VALIDATION_REGEX = "^[A-Za-z0-9]+$|^[A-Za-z0-9]+\\.[A-Za-z0-9]+$";
 
     public final String tagName;
 
