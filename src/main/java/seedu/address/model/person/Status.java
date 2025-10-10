@@ -39,11 +39,16 @@ public enum Status {
 
     /**
      * Returns true if a given string is a valid status.
+     * Valid statuses are defined in the {@link Status} enum.
      *
      * @param status the string to validate
      * @return true if the string matches a valid status, false otherwise
+     * @throws IllegalArgumentException if the input string is null
      */
-    public static boolean isValidStatus(String status) {
+    public static boolean isValidStatus(String status) throws IllegalArgumentException{
+        if (status == null) {
+            return false;
+        }
         try {
             Status.valueOf(status.toUpperCase());
             return true;
@@ -51,6 +56,5 @@ public enum Status {
             return false;
         }
     }
-
 
 }
