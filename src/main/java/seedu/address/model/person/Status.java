@@ -45,7 +45,7 @@ public enum Status {
      * @return true if the string matches a valid status, false otherwise
      * @throws IllegalArgumentException if the input string is null
      */
-    public static boolean isValidStatus(String status) throws IllegalArgumentException{
+    public static boolean isValidStatus(String status) throws IllegalArgumentException {
         if (status == null) {
             return false;
         }
