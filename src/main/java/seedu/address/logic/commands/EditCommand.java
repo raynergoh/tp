@@ -230,15 +230,11 @@ public class EditCommand extends Command {
         }
 
         public void setRoles(Set<Role> roles) {
-            this.roles = (roles != null)
-                    ? new HashSet<>(roles)
-                    : null;
+            this.roles = (roles != null) ? new HashSet<>(roles) : null;
         }
 
         public Optional<Set<Role>> getRoles() {
-            return (roles != null)
-                    ? Optional.of(Collections.unmodifiableSet(roles))
-                    : Optional.empty();
+            return (roles != null) ? Optional.of(Collections.unmodifiableSet(roles)) : Optional.empty();
         }
 
         @Override
