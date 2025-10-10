@@ -11,8 +11,8 @@ public class Phone {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should only contain alphanumeric characters, spaces, parentheses, or dashes, " +
-                    "and must be at least 3 characters long.";
+            "Phone numbers should only contain alphanumeric characters, spaces, parentheses, or dashes, "
+                    + "and must be at least 3 characters long.";
     public static final String VALIDATION_REGEX = "[A-Za-z0-9()\\-\\s]{3,}";
     public final String value;
 

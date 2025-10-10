@@ -20,6 +20,9 @@ public enum Status {
      */
     COMPLETED;
 
+    public static final String MESSAGE_CONSTRAINTS =
+            "Status should be either 'pending' or 'completed'";
+
     /**
      * Returns the opposite {@code Status} of this instance.
      * <p>
@@ -34,8 +37,12 @@ public enum Status {
         return this == PENDING ? COMPLETED : PENDING;
     }
 
-    public static final String MESSAGE_CONSTRAINTS = "Status should be either 'pending' or 'completed'";
-
+    /**
+     * Returns true if a given string is a valid status.
+     *
+     * @param status the string to validate
+     * @return true if the string matches a valid status, false otherwise
+     */
     public static boolean isValidStatus(String status) {
         try {
             Status.valueOf(status.toUpperCase());
