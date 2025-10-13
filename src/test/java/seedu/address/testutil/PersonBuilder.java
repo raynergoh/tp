@@ -1,7 +1,9 @@
 package seedu.address.testutil;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -103,6 +105,16 @@ public class PersonBuilder {
      */
     public PersonBuilder withStatus(Status status) {
         this.status = status;
+        return this;
+    }
+
+    /**
+     * Sets the {@code Role}s of the {@code Person} that we are building.
+     */
+    public PersonBuilder withRoles(String... roles) {
+        this.roles = Arrays.stream(roles)
+                .map(Role::new) // create Role objects
+                .collect(Collectors.toSet());
         return this;
     }
 

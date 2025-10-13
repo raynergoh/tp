@@ -14,54 +14,42 @@ class RoleStatusPredicateTest {
 
     @Test
     void test_matchesRoleOnly_returnsTrue() {
-        // TODO: Implement test once RoleStatusPredicate.test() is implemented
-        // TODO: Implement PersonBuilder.withRole(String) method
-        Person person = new PersonBuilder()/* .withRole("buyer") */.build();
+        Person person = new PersonBuilder().withRoles("buyer").build();
         Set<Role> roles = Set.of(new Role("buyer"));
         Set<Status> statuses = Collections.emptySet();
         RoleStatusPredicate predicate = new RoleStatusPredicate(roles, statuses);
 
-        // TODO: Replace with actual test assertion
         assertTrue(predicate.test(person));
     }
 
     @Test
     void test_matchesStatusOnly_returnsTrue() {
-        // TODO: Implement test once RoleStatusPredicate.test() is implemented
-        // TODO: Implement PersonBuilder.withStatus(String) method
-        Person person = new PersonBuilder()/* .withStatus("completed") */.build();
+        Person person = new PersonBuilder().withStatus(Status.COMPLETED).build();
         Set<Role> roles = Collections.emptySet();
         Set<Status> statuses = Set.of(Status.COMPLETED);
         RoleStatusPredicate predicate = new RoleStatusPredicate(roles, statuses);
 
-        // TODO: Replace with actual test assertion
         assertTrue(predicate.test(person));
     }
 
     @Test
     void test_matchesRoleAndStatus_returnsTrue() {
-        // TODO: Implement test once RoleStatusPredicate.test() is implemented
-        // TODO: Implement PersonBuilder.withRole(String) and withStatus(String)
-        Person person = new PersonBuilder()/* .withRole("buyer").withStatus("completed") */.build();
+        Person person = new PersonBuilder().withRoles("buyer").withStatus(Status.COMPLETED).build();
         Set<Role> roles = Set.of(new Role("buyer"));
         Set<Status> statuses = Set.of(Status.COMPLETED);
         RoleStatusPredicate predicate = new RoleStatusPredicate(roles, statuses);
 
-        // TODO: Replace with actual test assertion
         assertTrue(predicate.test(person));
     }
 
     @Test
-    void test_emptyKeywords_matchesAll() {
-        // TODO: Implement test once RoleStatusPredicate.test() is implemented
-        // TODO: Implement PersonBuilder.withRole(String) and withStatus(String)
-        Person person = new PersonBuilder()/* .withRole("anyrole").withStatus("anystatus") */.build();
-        Set<Role> roles = Collections.emptySet();
-        Set<Status> statuses = Collections.emptySet();
+    void test_noMatches_returnsFalse() {
+        Person person = new PersonBuilder().withRoles("buyer").withStatus(Status.PENDING).build();
+        Set<Role> roles = Set.of(new Role("seller"));
+        Set<Status> statuses = Set.of(Status.COMPLETED);
         RoleStatusPredicate predicate = new RoleStatusPredicate(roles, statuses);
 
-        // TODO: Replace with actual test assertion
-        assertTrue(predicate.test(person));
+        assertFalse(predicate.test(person));
     }
 
     @Test

@@ -25,12 +25,16 @@ public class RoleStatusPredicate implements Predicate<Person> {
     }
 
     /**
-     * Returns true if the given {@code Person} matches the role and/or status keywords.
-     * TODO: Implement the actual matching logic for role and status keywords.
+     * Returns true if the given {@code Person} matches the roles or statuses.
      */
     @Override
     public boolean test(Person person) {
-        return true;
+        Set<Role> personRoles = person.getRoles();
+        Status personStatus = person.getStatus();
+
+        boolean hasMatchingRole = this.roles.stream().anyMatch(personRoles::contains);
+        boolean hasMatchingStatus = this.statuses.stream().anyMatch(status -> status.equals(personStatus));
+        return hasMatchingRole || hasMatchingStatus;
     }
 
     @Override
