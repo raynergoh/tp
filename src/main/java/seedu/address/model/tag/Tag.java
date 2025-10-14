@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Tag in the address book.
- * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
+ * Guarantees: immutable; name is valid as declared in {@link #isValidTagFormat(String)}
  */
 public class Tag {
 
@@ -18,17 +18,17 @@ public class Tag {
      */
     public static final String VALIDATION_REGEX = "^[A-Za-z0-9]+$|^[A-Za-z0-9]+\\.[A-Za-z0-9]+$";
 
-    public final String tagName;
+    public final String tagFormat;
 
     /**
      * Constructs a {@code Tag}.
      *
-     * @param tagName A valid tag name, which must conform to GROUP.VALUE format.
+     * @param tagFormat A valid tag format, which must conform to GROUP.VALUE format.
      */
-    public Tag(String tagName) {
-        requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
-        this.tagName = tagName;
+    public Tag(String tagFormat) {
+        requireNonNull(tagFormat);
+        checkArgument(isValidTagFormat(tagFormat), MESSAGE_CONSTRAINTS);
+        this.tagFormat = tagFormat;
     }
 
     /**
@@ -37,7 +37,7 @@ public class Tag {
      * @param test String to test.
      * @return true if valid format, false otherwise.
      */
-    public static boolean isValidTagName(String test) {
+    public static boolean isValidTagFormat(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -53,19 +53,19 @@ public class Tag {
         }
 
         Tag otherTag = (Tag) other;
-        return tagName.equals(otherTag.tagName);
+        return tagFormat.equals(otherTag.tagFormat);
     }
 
     @Override
     public int hashCode() {
-        return tagName.hashCode();
+        return tagFormat.hashCode();
     }
 
     /**
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + tagName + ']';
+        return '[' + tagFormat + ']';
     }
 
 }
