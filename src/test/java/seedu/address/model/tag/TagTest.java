@@ -1,6 +1,8 @@
 package seedu.address.model.tag;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -17,6 +19,9 @@ public class TagTest {
     public void constructor_invalidTagFormat_throwsIllegalArgumentException() {
         String invalidTagFormat = "";
         assertThrows(IllegalArgumentException.class, () -> new Tag(invalidTagFormat));
+
+        String invalidTag = "propertyType!HDB"; // invalid character '!'
+        assertThrows(IllegalArgumentException.class, () -> new Tag(invalidTag));
     }
 
     @Test
@@ -52,6 +57,50 @@ public class TagTest {
         assertFalse(Tag.isValidTagFormat("propertyType.H*DB"));
         assertFalse(Tag.isValidTagFormat("loca@tion.Sengk@ng"));
         assertFalse(Tag.isValidTagFormat("group1.v@lue"));
+    }
+
+    @Test
+    public void getterMethods_simpleTag_noGroup() {
+        Tag tag = new Tag("priority");
+        assertEquals("priority", tag.getTagFormat());
+        assertNull(tag.getGroup()); // no group
+        assertEquals("priority", tag.getValue());
+    }
+
+    @Test
+    public void getterMethods_groupedTag() {
+        Tag tag = new Tag("propertyType.HDB");
+        assertEquals("propertyType.HDB", tag.getTagFormat());
+        assertEquals(new TagGroup("propertyType"), tag.getGroup());
+        assertEquals("HDB", tag.getValue());
+    }
+
+    @Test
+    public void equals_sameTagName_isEqual() {
+        Tag tag1 = new Tag("propertyType.HDB");
+        Tag tag2 = new Tag("propertyType.HDB");
+        assertTrue(tag1.equals(tag2));
+        assertTrue(tag1.equals(tag1));
+    }
+
+    @Test
+    public void equals_differentTagNames_notEqual() {
+        Tag tag1 = new Tag("propertyType.HDB");
+        Tag tag2 = new Tag("priority");
+        assertFalse(tag1.equals(tag2));
+    }
+
+    @Test
+    public void hashCode_sameContent_sameHashCode() {
+        Tag tag1a = new Tag("priority");
+        Tag tag1b = new Tag("priority");
+        assertEquals(tag1a.hashCode(), tag1b.hashCode());
+    }
+
+    @Test
+    public void toString_returnsTagName() {
+        Tag tag = new Tag("location.Sengkang");
+        assertEquals("[location.Sengkang]", tag.toString());
     }
 
 }

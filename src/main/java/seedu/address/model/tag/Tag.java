@@ -9,8 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags should be in the format "
-            + "GROUP.VALUE where both GROUP and VALUE are alphanumeric";
+    public static final String MESSAGE_CONSTRAINTS = "To utilise Tag Groups, Tags should " +
+            "be in the format GROUP.VALUE where both GROUP and VALUE are alphanumeric " +
+            "OR it could be a simple Tag with any alphanumeric string";
 
     /**
      * Regex to validate tags of the form GROUP.VALUE,
@@ -18,17 +19,32 @@ public class Tag {
      */
     public static final String VALIDATION_REGEX = "^[A-Za-z0-9]+$|^[A-Za-z0-9]+\\.[A-Za-z0-9]+$";
 
-    public final String tagFormat;
+    public final String tagFormat;  // original string
+    private final TagGroup group;   // null if simple tag
+    private final String value;     // either entire tag or value after "."
 
     /**
      * Constructs a {@code Tag}.
+     * Parses the string to set group and value if grouped.
      *
-     * @param tagFormat A valid tag format, which must conform to GROUP.VALUE format.
+     * @param tagFormat A valid tag format, which must conform to either GROUP.VALUE or ALPHANUMERIC format.
      */
     public Tag(String tagFormat) {
         requireNonNull(tagFormat);
         checkArgument(isValidTagFormat(tagFormat), MESSAGE_CONSTRAINTS);
         this.tagFormat = tagFormat;
+
+        if (tagFormat.contains(".")) {
+            // Parse group and value from "GROUP.VALUE"
+            // No check yet for the existence of TagGroup instances; will be added when registry logic is implemented
+            String[] parts = tagFormat.split("\\.", 2);
+            this.group = new TagGroup(parts[0]);
+            this.value = parts[1];
+        } else {
+            // Simple Tag: no group, entire value is tagName
+            this.group = null;
+            this.value = tagFormat;
+        }
     }
 
     /**
@@ -54,6 +70,27 @@ public class Tag {
 
         Tag otherTag = (Tag) other;
         return tagFormat.equals(otherTag.tagFormat);
+    }
+
+    /**
+     * Returns the tag's original string, i.e., what was passed into the constructor.
+     */
+    public String getTagFormat() {
+        return tagFormat;
+    }
+
+    /**
+     * Returns the TagGroup if any, or null if this is a legacy tag.
+     */
+    public TagGroup getGroup() {
+        return group;
+    }
+
+    /**
+     * Returns the value part of the tag.
+     */
+    public String getValue() {
+        return value;
     }
 
     @Override
