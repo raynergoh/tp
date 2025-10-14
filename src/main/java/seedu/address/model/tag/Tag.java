@@ -9,9 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "To utilise Tag Groups, Tags should " +
-            "be in the format GROUP.VALUE where both GROUP and VALUE are alphanumeric " +
-            "OR it could be a simple Tag with any alphanumeric string";
+    public static final String MESSAGE_CONSTRAINTS = "To utilise Tag Groups, Tags should "
+            + "be in the format GROUP.VALUE where both GROUP and VALUE are alphanumeric "
+            + "OR it could be a simple Tag with any alphanumeric string";
 
     /**
      * Regex to validate tags of the form GROUP.VALUE,
@@ -19,9 +19,9 @@ public class Tag {
      */
     public static final String VALIDATION_REGEX = "^[A-Za-z0-9]+$|^[A-Za-z0-9]+\\.[A-Za-z0-9]+$";
 
-    public final String tagFormat;  // original string
-    private final TagGroup group;   // null if simple tag
-    private final String value;     // either entire tag or value after "."
+    public final String tagFormat; // original string
+    private final TagGroup group; // null if simple tag
+    private final String value; // either entire tag or value after "."
 
     /**
      * Constructs a {@code Tag}.
