@@ -25,7 +25,7 @@ public class TagTest {
     }
 
     @Test
-    public void isValidTagFormat() {
+    public void isValidTagFormat_null_throwsNullPointerException() {
         // null tag name
         assertThrows(NullPointerException.class, () -> Tag.isValidTagFormat(null));
     }
