@@ -32,7 +32,7 @@ public class Person {
      * This constructor is for backward compatibility with code that has not yet use roles and status.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        this(name, phone, email, address, new HashSet<>(), null, tags); // default empty roles
+        this(name, phone, email, address, new HashSet<>(), Status.PENDING, tags); // default empty roles
     }
 
     /**
