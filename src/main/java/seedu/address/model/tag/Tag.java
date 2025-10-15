@@ -18,6 +18,7 @@ public class Tag {
      * where both GROUP and VALUE contain one or more alphanumeric characters.
      */
     public static final String VALIDATION_REGEX = "^[A-Za-z0-9]+$|^[A-Za-z0-9]+\\.[A-Za-z0-9]+$";
+    private static final String TAG_GROUP_IDENTIFIER = ".";
 
     public final String tagFormat; // original string
     private final TagGroup group; // null if simple tag
@@ -34,7 +35,7 @@ public class Tag {
         checkArgument(isValidTagFormat(tagFormat), MESSAGE_CONSTRAINTS);
         this.tagFormat = tagFormat;
 
-        if (tagFormat.contains(".")) {
+        if (tagFormat.contains(TAG_GROUP_IDENTIFIER)) {
             // Parse group and value from "GROUP.VALUE"
             // No check yet for the existence of TagGroup instances; will be added when registry logic is implemented
             String[] parts = tagFormat.split("\\.", 2);

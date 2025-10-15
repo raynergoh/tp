@@ -38,13 +38,24 @@ public class TagTest {
         assertTrue(Tag.isValidTagFormat("G2.V2"));
     }
 
-    // Currently will not work as REGEX is still an OR
-    //    @Test
-    //    public void isValidTagFormat_missingDot_returnsFalse() {
-    //        assertFalse(Tag.isValidTagFormat("propertyTypeHDB"));
-    //        assertFalse(Tag.isValidTagFormat("locationSengkang"));
-    //        assertFalse(Tag.isValidTagFormat("group1value1"));
-    //    }
+    @Test
+    public void isValidTagFormat_missingDot_returnsTrue() {
+        assertTrue(Tag.isValidTagFormat("propertyTypeHDB"));
+        assertTrue(Tag.isValidTagFormat("locationSengkang"));
+        assertTrue(Tag.isValidTagFormat("group1value1"));
+    }
+
+    @Test
+    public void isValidTagFormat_startWithDot_returnsFalse() {
+        assertFalse(Tag.isValidTagFormat(".propertyTypeHDB"));
+        assertFalse(Tag.isValidTagFormat(".locationSengkang"));
+    }
+
+    @Test
+    public void isValidTagFormat_endWithDot_returnsFalse() {
+        assertFalse(Tag.isValidTagFormat("propertyTypeHDB."));
+        assertFalse(Tag.isValidTagFormat("locationSengkang."));
+    }
 
     @Test
     public void isValidTagFormat_multipleDots_returnsFalse() {
@@ -81,6 +92,13 @@ public class TagTest {
         Tag tag2 = new Tag("propertyType.HDB");
         assertTrue(tag1.equals(tag2));
         assertTrue(tag1.equals(tag1));
+    }
+
+    @Test
+    public void equals_notTag_notEqual() {
+        Tag tag1 = new Tag("propertyType.HDB");
+        String tag2 = "propertyType.HDB";
+        assertFalse(tag1.equals(tag2));
     }
 
     @Test
