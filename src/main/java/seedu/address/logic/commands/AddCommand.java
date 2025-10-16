@@ -64,7 +64,7 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        if (model.hasPersonWithPhone(toAdd)) {
+        if (model.hasSamePhoneNumber(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PHONE);
         }
 

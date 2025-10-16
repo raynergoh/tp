@@ -154,7 +154,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPersonWithPhone(Person person) {
+        public boolean hasSamePhoneNumber(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -197,7 +197,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPersonWithPhone(Person person) {
+        public boolean hasSamePhoneNumber(Person person) {
             requireNonNull(person);
             return this.person.isSamePhone(person);
         }
@@ -216,7 +216,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPersonWithPhone(Person person) {
+        public boolean hasSamePhoneNumber(Person person) {
             requireNonNull(person);
             return personsAdded.stream().anyMatch(person::isSamePhone);
         }
