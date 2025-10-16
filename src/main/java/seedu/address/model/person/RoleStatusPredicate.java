@@ -4,6 +4,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import seedu.address.commons.util.ToStringBuilder;
+
 /**
  * Tests that a {@code Person}'s role and/or status matches any of the given keywords.
  */
@@ -47,6 +49,12 @@ public class RoleStatusPredicate implements Predicate<Person> {
         RoleStatusPredicate otherPredicate = (RoleStatusPredicate) other;
         return Objects.equals(roles, otherPredicate.roles)
                 && Objects.equals(statuses, otherPredicate.statuses);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this).add("roles", roles)
+                .add("statuses", statuses).toString();
     }
 
 }

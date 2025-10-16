@@ -71,7 +71,7 @@ public class FilterCommandTest {
     }
 
     @Test
-    public void execute_hasRoleOrStatus_multiplePersonsFound() {
+    public void execute_hasRoleAndStatus_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         Set<Role> roles = Set.of(new Role("seller"));
         Set<Status> statuses = Set.of(Status.COMPLETED);
@@ -80,6 +80,16 @@ public class FilterCommandTest {
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE, BENSON, CARL), model.getFilteredPersonList());
+    }
+
+    @Test
+    public void toStringMethod() {
+        Set<Role> roles = Set.of(new Role("seller"));
+        Set<Status> statuses = Set.of(Status.COMPLETED);
+        RoleStatusPredicate predicate = new RoleStatusPredicate(roles, statuses);
+        FilterCommand filterCommand = new FilterCommand(predicate);
+        String expected = FilterCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
+        assertEquals(expected, filterCommand.toString());
     }
 
 }
