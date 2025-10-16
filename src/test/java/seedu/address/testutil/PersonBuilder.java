@@ -69,6 +69,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Parses the {@code roles} into a {@code Set<Role>} and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withRoles(String ... roles) {
+        this.roles = SampleDataUtil.getRoleSet(roles);
+        return this;
+    }
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
@@ -105,16 +113,6 @@ public class PersonBuilder {
      */
     public PersonBuilder withStatus(Status status) {
         this.status = status;
-        return this;
-    }
-
-    /**
-     * Sets the {@code Role}s of the {@code Person} that we are building.
-     */
-    public PersonBuilder withRoles(String... roles) {
-        this.roles = Arrays.stream(roles)
-                .map(Role::new) // create Role objects
-                .collect(Collectors.toSet());
         return this;
     }
 
