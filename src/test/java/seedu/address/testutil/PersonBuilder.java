@@ -67,6 +67,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Parses the {@code roles} into a {@code Set<Role>} and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withRoles(String ... roles) {
+        this.roles = SampleDataUtil.getRoleSet(roles);
+        return this;
+    }
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
