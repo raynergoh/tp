@@ -42,6 +42,8 @@ public class PersonCard extends UiPart<Region> {
     private FlowPane roles;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label status;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -57,8 +59,9 @@ public class PersonCard extends UiPart<Region> {
         person.getRoles().stream()
                 .sorted(Comparator.comparing(role -> role.roleName))
                 .forEach(role -> roles.getChildren().add(new Label(role.roleName)));
+        status.setText(person.getStatus().toString());
         person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .sorted(Comparator.comparing(tag -> tag.tagFormat))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagFormat)));
     }
 }

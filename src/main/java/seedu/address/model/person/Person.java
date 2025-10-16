@@ -28,11 +28,19 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
 
     /**
+     * Creates a Person without any specified roles and status, using an empty set of roles and status.
+     * This constructor is for backward compatibility with code that has not yet use roles and status.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+        this(name, phone, email, address, new HashSet<>(), Status.PENDING, tags); // default empty roles
+    }
+
+    /**
      * Creates a Person without any specified roles, using an empty set of roles.
      * This constructor is for backward compatibility with code that has not yet use roles.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        this(name, phone, email, address, new HashSet<>(), null, tags); // default empty roles
+    public Person(Name name, Phone phone, Email email, Address address, Status status, Set<Tag> tags) {
+        this(name, phone, email, address, new HashSet<>(), status, tags); // default empty roles
     }
 
     /**
