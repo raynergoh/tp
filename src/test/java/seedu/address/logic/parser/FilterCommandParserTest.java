@@ -1,12 +1,12 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.ROLE_DESC_CUSTOMER;
+import static seedu.address.logic.commands.CommandTestUtil.STATUS_DESC_COMPLETED;
+import static seedu.address.logic.commands.CommandTestUtil.STATUS_DESC_PENDING;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_CUSTOMER;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.ROLE_DESC_CUSTOMER;
-import static seedu.address.logic.commands.CommandTestUtil.STATUS_DESC_PENDING;
-import static seedu.address.logic.commands.CommandTestUtil.STATUS_DESC_COMPLETED;
 
 import java.util.Collections;
 import java.util.HashSet;

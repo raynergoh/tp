@@ -284,8 +284,9 @@ public class ParserUtilTest {
 
     @Test
     public void parseStatuses_collectionWithInvalidStatuses_throwsParseException() {
-        assertThrows(ParseException.class,
-                () -> ParserUtil.parseStatuses(Arrays.asList(VALID_STATUS, INVALID_STATUS)));
+        assertThrows(ParseException.class, () -> ParserUtil.parseStatuses(
+                Arrays.asList(VALID_STATUS, INVALID_STATUS)
+        ));
     }
 
     @Test
