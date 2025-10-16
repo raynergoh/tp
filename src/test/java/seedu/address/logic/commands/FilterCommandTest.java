@@ -5,10 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.ISABEL;
+import static seedu.address.testutil.TypicalPersons.JACK;
+import static seedu.address.testutil.TypicalPersons.KAREN;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,6 +15,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -24,8 +24,8 @@ import seedu.address.model.person.RoleStatusPredicate;
 import seedu.address.model.person.Status;
 
 public class FilterCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTestAddressBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTestAddressBook(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -79,7 +79,7 @@ public class FilterCommandTest {
         FilterCommand command = new FilterCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, BENSON, CARL), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(ISABEL, JACK, KAREN), model.getFilteredPersonList());
     }
 
     @Test
@@ -90,6 +90,14 @@ public class FilterCommandTest {
         FilterCommand filterCommand = new FilterCommand(predicate);
         String expected = FilterCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
         assertEquals(expected, filterCommand.toString());
+    }
+
+    public AddressBook getTestAddressBook() {
+        AddressBook addressBook = new AddressBook();
+        addressBook.addPerson(ISABEL);
+        addressBook.addPerson(JACK);
+        addressBook.addPerson(KAREN);
+        return addressBook;
     }
 
 }
