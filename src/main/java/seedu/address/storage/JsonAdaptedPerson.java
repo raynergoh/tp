@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -31,6 +32,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final List<JsonAdaptedRole> roles = new ArrayList<>();
+    private final String status;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -39,7 +41,8 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
         @JsonProperty("email") String email, @JsonProperty("address") String address,
-         @JsonProperty("role") List<JsonAdaptedRole> roles, @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+         @JsonProperty("role") List<JsonAdaptedRole> roles, @JsonProperty("status") String status,
+         @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -47,6 +50,7 @@ class JsonAdaptedPerson {
         if (roles != null) {
             this.roles.addAll(roles);
         }
+        this.status = status;
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -63,6 +67,7 @@ class JsonAdaptedPerson {
         roles.addAll(source.getRoles().stream()
                 .map(JsonAdaptedRole::new)
                 .collect(Collectors.toList()));
+        status = source.getStatus().toString();
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -114,11 +119,14 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
         final Address modelAddress = new Address(address);
+        if (status == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));
+        }
+        final Status modelStatus = ParserUtil.parseStatus(status);
 
         final Set<Role> modelRoles = new HashSet<>(personRoles);
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRoles,
-                /*TODO: Handle Status Logic*/ Status.PENDING, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRoles, modelStatus, modelTags);
     }
 
 }
