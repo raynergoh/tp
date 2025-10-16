@@ -54,6 +54,21 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_duplicatePhone_throwsCommandException() {
+        Person validPerson = new PersonBuilder().withPhone("12345678").build();
+        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+
+        Person personWithSamePhone = new PersonBuilder()
+                .withName("Different Name")
+                .withPhone("12345678")
+                .build();
+        AddCommand addCommand = new AddCommand(personWithSamePhone);
+
+        assertThrows(CommandException.class,
+                AddCommand.MESSAGE_DUPLICATE_PHONE, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
     public void equals() {
         Person alice = new PersonBuilder().withName("Alice").build();
         Person bob = new PersonBuilder().withName("Bob").build();
