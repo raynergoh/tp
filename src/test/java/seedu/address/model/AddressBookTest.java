@@ -93,6 +93,32 @@ public class AddressBookTest {
         assertEquals(expected, addressBook.toString());
     }
 
+    @Test
+    public void addTagGroup_and_hasTagGroup_works() {
+        TagGroup group = new TagGroup("propertyType");
+        assertFalse(addressBook.hasTagGroup(group));
+        addressBook.addTagGroup(group);
+        assertTrue(addressBook.hasTagGroup(group));
+    }
+
+    @Test
+    public void getTagGroups_returnsUnmodifiableSet() {
+        TagGroup group = new TagGroup("location");
+        addressBook.addTagGroup(group);
+        Set<TagGroup> tagGroups = addressBook.getTagGroups();
+
+        assertThrows(UnsupportedOperationException.class, () -> tagGroups.remove(group));
+    }
+
+    @Test
+    public void removeTagGroup_removesProperly() {
+        TagGroup group = new TagGroup("propertyType");
+        addressBook.addTagGroup(group);
+        assertTrue(addressBook.hasTagGroup(group));
+        addressBook.removeTagGroup(group);
+        assertFalse(addressBook.hasTagGroup(group));
+    }
+
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
@@ -120,19 +146,11 @@ public class AddressBookTest {
             return tagGroups.contains(group);
         }
 
-        /**
-         * Adds the given TagGroup to the registry.
-         * @param group TagGroup to add
-         */
         public void addTagGroup(TagGroup group) {
             requireNonNull(group);
             tagGroups.add(group);
         }
 
-        /**
-         * Removes the given TagGroup from the registry.
-         * @param group TagGroup to remove
-         */
         public void removeTagGroup(TagGroup group) {
             requireNonNull(group);
             tagGroups.remove(group);
