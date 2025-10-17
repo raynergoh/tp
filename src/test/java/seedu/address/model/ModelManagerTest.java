@@ -96,7 +96,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void addTagGroup_and_hasTagGroup_viaModelManager() {
+    public void addTagGroup_hasTagGroup_groupAdded() {
         TagGroup group = new TagGroup("propertyType");
         assertFalse(modelManager.hasTagGroup(group));
         modelManager.addTagGroup(group);
@@ -104,7 +104,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getTagGroups_returnsUnmodifiableSet() {
+    public void getTagGroups_modifyReturnedSet_throwsUnsupportedOperationException() {
         TagGroup group = new TagGroup("location");
         modelManager.addTagGroup(group);
         Set<TagGroup> tagGroups = modelManager.getTagGroups();
@@ -112,7 +112,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void removeTagGroup_removesProperly_viaModelManager() {
+    public void removeTagGroup_hasTagGroup_groupRemoved() {
         TagGroup group = new TagGroup("propertyType");
         modelManager.addTagGroup(group);
         assertTrue(modelManager.hasTagGroup(group));

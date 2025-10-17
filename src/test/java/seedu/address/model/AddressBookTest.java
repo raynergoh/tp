@@ -94,7 +94,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void addTagGroup_and_hasTagGroup_works() {
+    public void addTagGroup_hasTagGroup_groupAdded() {
         TagGroup group = new TagGroup("propertyType");
         assertFalse(addressBook.hasTagGroup(group));
         addressBook.addTagGroup(group);
@@ -102,16 +102,15 @@ public class AddressBookTest {
     }
 
     @Test
-    public void getTagGroups_returnsUnmodifiableSet() {
+    public void getTagGroups_modifyReturnedSet_throwsUnsupportedOperationException() {
         TagGroup group = new TagGroup("location");
         addressBook.addTagGroup(group);
         Set<TagGroup> tagGroups = addressBook.getTagGroups();
-
         assertThrows(UnsupportedOperationException.class, () -> tagGroups.remove(group));
     }
 
     @Test
-    public void removeTagGroup_removesProperly() {
+    public void removeTagGroup_hasTagGroup_groupRemoved() {
         TagGroup group = new TagGroup("propertyType");
         addressBook.addTagGroup(group);
         assertTrue(addressBook.hasTagGroup(group));
