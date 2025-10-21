@@ -11,9 +11,6 @@ import seedu.address.model.tag.TagGroup;
 
 /**
  * Creates a new TagGroup or lists all TagGroups.
- * Format:
- *  - "tg"                : Lists all existing TagGroups.
- *  - "tg <TagGroup>"     : Creates a new TagGroup.
  */
 public class TagGroupCommand extends Command {
 
