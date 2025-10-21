@@ -55,7 +55,7 @@ TrackerGuru is a **keyboard-focused desktop app built for property agents to man
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[t/TAG]…​` an be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -99,6 +99,28 @@ Examples:
 Shows a list of all persons in the address book.
 
 Format: `list`
+
+### Listing all Tag Groups : `tg`
+
+Lists all TagGroups already created
+
+Format: `tg`
+
+### Create a Tag Group : `tg`
+
+Creates a new TagGroup
+
+Format: `tg/TagGroup`
+
+Example: `tg/PropertyType`
+
+### Delete a Tag Group : `tg/delete`
+
+Deletes an existing TagGroup
+
+Format: `tg/delete TagGroup` 
+
+Example: `tg/delete PropertyType`
 
 ### Editing a person : `edit`
 
@@ -207,5 +229,8 @@ Action     | Format, Examples
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [s/STATUS] [t/TAG] [t/GROUP.VALUE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Create Tag Group**| `tg GROUP` <br> e.g., `tg PropertyType`
+**Delete Tag Group**| `dtg GROUP` <br> e.g., `dtg PropertyType`
+**List Tag Groups**| `tg`
 **List**   | `list`
 **Help**   | `help`
