@@ -11,8 +11,10 @@ public class Role {
     public static final String MESSAGE_CONSTRAINTS =
             "Roles should only contain alphanumeric characters, with spaces and hyphens in between words and no blanks";
     /*
-     * The first character of the role must not be a whitespace or hyphen,
+     * The first character of the role must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
+     * The first character can only be alphanumeric,
+     * to guard against pasted inputs from external sources (e.g. bullet points)
      */
     public static final String VALIDATION_REGEX = "^[\\p{Alnum}][\\p{Alnum} \\\\-]*$";
 
