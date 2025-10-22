@@ -99,9 +99,11 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        // Edit command does not allow editing roles or status, so we use the original values.
+        Set<seedu.address.model.person.Role> updatedRoles = personToEdit.getRoles();
+        Optional<seedu.address.model.person.Status> updatedStatus = personToEdit.getStatus();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
-
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRoles, updatedStatus, updatedTags);
     }
 
     @Override

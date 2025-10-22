@@ -42,7 +42,7 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
         roles = new HashSet<>();
-        status = Optional.of(Status.PENDING);
+        status = Optional.empty();
     }
 
     /**
@@ -112,6 +112,14 @@ public class PersonBuilder {
      */
     public PersonBuilder withStatus(Status status) {
         this.status = Optional.ofNullable(status);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Person} that we are building to have no status.
+     */
+    public PersonBuilder withoutStatus() {
+        this.status = Optional.ofNullable(null);
         return this;
     }
 
