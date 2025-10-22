@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -70,7 +70,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code roles} into a {@code Set<Role>} and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withRoles(String ... roles) {
+    public PersonBuilder withRoles(String... roles) {
         this.roles = SampleDataUtil.getRoleSet(roles);
         return this;
     }
@@ -78,7 +78,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public PersonBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
