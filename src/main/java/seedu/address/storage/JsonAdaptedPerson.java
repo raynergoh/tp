@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -67,7 +68,9 @@ class JsonAdaptedPerson {
         roles.addAll(source.getRoles().stream()
                 .map(JsonAdaptedRole::new)
                 .collect(Collectors.toList()));
-        status = source.getStatus().toString();
+        // If status is present, store its name (e.g., "PENDING"). If not, store null.
+        // Jackson will omit null fields from the JSON output.
+        status = source.getStatus().map(Status::name).orElse(null);
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -119,10 +122,13 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
         final Address modelAddress = new Address(address);
-        if (status == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));
+
+        final Optional<Status> modelStatus;
+        if (status != null) {
+            modelStatus = Optional.of(ParserUtil.parseStatus(status));
+        } else {
+            modelStatus = Optional.empty();
         }
-        final Status modelStatus = ParserUtil.parseStatus(status);
 
         final Set<Role> modelRoles = new HashSet<>(personRoles);
         final Set<Tag> modelTags = new HashSet<>(personTags);

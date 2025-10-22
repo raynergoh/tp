@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -24,7 +25,7 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Role> roles = new HashSet<>();
-    private final Status status;
+    private final Optional<Status> status;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -32,7 +33,7 @@ public class Person {
      * This constructor is for backward compatibility with code that has not yet use roles and status.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        this(name, phone, email, address, new HashSet<>(), Status.PENDING, tags); // default empty roles
+        this(name, phone, email, address, new HashSet<>(), Optional.empty(), tags); // default empty roles and no status
     }
 
     /**
@@ -40,13 +41,13 @@ public class Person {
      * This constructor is for backward compatibility with code that has not yet use roles.
      */
     public Person(Name name, Phone phone, Email email, Address address, Status status, Set<Tag> tags) {
-        this(name, phone, email, address, new HashSet<>(), status, tags); // default empty roles
+        this(name, phone, email, address, new HashSet<>(), Optional.ofNullable(status), tags); // default empty roles
     }
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Role> roles, Status status, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Role> roles, Optional<Status> status, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, roles, tags);
         this.name = name;
         this.phone = phone;
@@ -73,7 +74,7 @@ public class Person {
         return address;
     }
 
-    public Status getStatus() {
+    public Optional<Status> getStatus() {
         return status;
     }
 
@@ -139,13 +140,15 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
+                && roles.equals(otherPerson.roles)
+                && status.equals(otherPerson.status) // Compare Optional<Status>
                 && tags.equals(otherPerson.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, roles, status, tags);
     }
 
     @Override
@@ -155,6 +158,8 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
+                .add("roles", roles)
+                .add("status", status.map(Object::toString).orElse("N/A")) // Handle Optional<Status> for display
                 .add("tags", tags)
                 .toString();
     }

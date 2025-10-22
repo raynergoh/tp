@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Optional;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -28,7 +29,7 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private Set<Role> roles;
-    private Status status;
+    private Optional<Status> status;
     private Set<Tag> tags;
 
     /**
@@ -41,7 +42,7 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
         roles = new HashSet<>();
-        status = Status.PENDING;
+        status = Optional.of(Status.PENDING);
     }
 
     /**
@@ -110,7 +111,7 @@ public class PersonBuilder {
      * Sets the {@code Status} of the {@code Person} that we are building.
      */
     public PersonBuilder withStatus(Status status) {
-        this.status = status;
+        this.status = Optional.ofNullable(status);
         return this;
     }
 
