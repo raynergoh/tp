@@ -103,7 +103,8 @@ public class EditCommand extends Command {
         Set<seedu.address.model.person.Role> updatedRoles = personToEdit.getRoles();
         Optional<seedu.address.model.person.Status> updatedStatus = personToEdit.getStatus();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRoles, updatedStatus, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRoles, updatedStatus,
+                updatedTags);
     }
 
     @Override
