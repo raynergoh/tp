@@ -119,6 +119,7 @@ public class PersonBuilder {
      * Sets the {@code Person} that we are building to have no status.
      */
     public PersonBuilder withoutStatus() {
+         this.status = Optional.empty();
         this.status = Optional.ofNullable(null);
         return this;
     }
