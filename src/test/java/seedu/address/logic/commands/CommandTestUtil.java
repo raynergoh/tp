@@ -68,12 +68,9 @@ public class CommandTestUtil {
 
     // Role constants for testing
     public static final String VALID_ROLE_CUSTOMER = "customer";
-    public static final String VALID_ROLE_SELLER = "seller";
 
     // Role descriptions for parser input
     public static final String ROLE_DESC_CUSTOMER = " " + PREFIX_ROLE + VALID_ROLE_CUSTOMER;
-    public static final String ROLE_DESC_SELLER = " " + PREFIX_ROLE + VALID_ROLE_SELLER;
-
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
