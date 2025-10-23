@@ -39,6 +39,8 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_ROLE_BUYER = "buyer";
+    public static final String VALID_ROLE_SELLER = "seller";
+    public static final String VALID_ROLE_CUSTOMER = "customer";
     public static final String VALID_STATUS_PENDING = "PENDING";
     public static final String VALID_STATUS_COMPLETED = "COMPLETED";
 
@@ -51,6 +53,8 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String ROLE_DESC_BUYER = " " + PREFIX_ROLE + VALID_ROLE_BUYER;
+    public static final String ROLE_DESC_SELLER = " " + PREFIX_ROLE + VALID_ROLE_SELLER;
+    public static final String ROLE_DESC_CUSTOMER = " " + PREFIX_ROLE + VALID_ROLE_CUSTOMER;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String STATUS_DESC_PENDING = " " + PREFIX_STATUS + VALID_STATUS_PENDING;
