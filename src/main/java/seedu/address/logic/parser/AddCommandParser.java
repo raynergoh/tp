@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -52,9 +53,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Role> roleList = ParserUtil.parseRoles(argMultimap.getAllValues(PREFIX_ROLE));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Status status = argMultimap.getValue(PREFIX_STATUS).isPresent()
-                ? ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get())
-                : Status.PENDING;
+        Optional<Status> status = Optional.empty();
+        if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
+            status = Optional.of(ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get()));
+        }
 
         Person person = new Person(name, phone, email, address, roleList, status, tagList);
 

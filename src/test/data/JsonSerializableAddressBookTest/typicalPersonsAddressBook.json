@@ -13,6 +13,7 @@
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
     "status": "PENDING",
+    "roles": [ "Renter", "Buyer"],
     "tags" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",

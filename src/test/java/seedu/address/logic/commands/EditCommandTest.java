@@ -37,14 +37,25 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Person editedPerson = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
+        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(new PersonBuilder().build()).build();
+        Person expectedEditedPerson = new PersonBuilder()
+                .withName(descriptor.getName().get().fullName)
+                .withPhone(descriptor.getPhone().get().value)
+                .withEmail(descriptor.getEmail().get().value)
+                .withAddress(descriptor.getAddress().get().value)
+                .withRoles(personToEdit.getRoles().stream().map(role -> role.roleName).toArray(String[]::new))
+                .withStatus(personToEdit.getStatus().orElse(null))
+                .withTags(descriptor.getTags().get().stream().map(tag -> tag.tagFormat).toArray(String[]::new))
+                .build();
+
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS,
+                Messages.format(expectedEditedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+        expectedModel.setPerson(personToEdit, expectedEditedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }

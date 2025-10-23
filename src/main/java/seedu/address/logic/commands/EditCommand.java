@@ -28,7 +28,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
-import seedu.address.model.person.Status;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -109,11 +108,12 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Role> updatedRoles = editPersonDescriptor.getRoles().orElse(personToEdit.getRoles());
+        // Edit command does not allow editing roles or status, so we use the original values.
+        Set<seedu.address.model.person.Role> updatedRoles = personToEdit.getRoles();
+        Optional<seedu.address.model.person.Status> updatedStatus = personToEdit.getStatus();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
-
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRoles,
-                /*TODO: Update once Status is implemented*/ Status.PENDING, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRoles, updatedStatus,
+                updatedTags);
     }
 
     @Override

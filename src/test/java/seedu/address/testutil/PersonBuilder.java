@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
@@ -28,7 +29,7 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private Set<Role> roles;
-    private Status status;
+    private Optional<Status> status;
     private Set<Tag> tags;
 
     /**
@@ -41,7 +42,7 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
         roles = new HashSet<>();
-        status = Status.PENDING;
+        status = Optional.empty();
     }
 
     /**
@@ -69,7 +70,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code roles} into a {@code Set<Role>} and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withRoles(String ... roles) {
+    public PersonBuilder withRoles(String... roles) {
         this.roles = SampleDataUtil.getRoleSet(roles);
         return this;
     }
@@ -77,7 +78,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public PersonBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -110,7 +111,15 @@ public class PersonBuilder {
      * Sets the {@code Status} of the {@code Person} that we are building.
      */
     public PersonBuilder withStatus(Status status) {
-        this.status = status;
+        this.status = Optional.ofNullable(status);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Person} that we are building to have no status.
+     */
+    public PersonBuilder withoutStatus() {
+        this.status = Optional.empty();
         return this;
     }
 
