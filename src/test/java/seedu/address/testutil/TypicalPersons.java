@@ -50,7 +50,24 @@ public class TypicalPersons {
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
             .withEmail("stefan@example.com").withAddress("little india").build();
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com").withAddress("chicago ave").build();
+            .withEmail("hans@example.com").withAddress("chicago ave")
+            .build();
+    public static final Person ISABEL = new PersonBuilder().withName("Isabel Tan").withPhone("98765432")
+            .withEmail("isabel@example.com").withAddress("orchard road").withTags("friends")
+            .withRoles("buyer")
+            .withStatus(Status.COMPLETED)
+            .build();
+
+    public static final Person JACK = new PersonBuilder().withName("Jack Lim").withPhone("91239876")
+            .withEmail("jack@example.com").withAddress("bukit timah street 21").withRoles("buyer", "seller")
+            .withStatus(Status.COMPLETED)
+            .build();
+
+    public static final Person KAREN = new PersonBuilder().withName("Karen Ong").withPhone("90112233")
+            .withEmail("karen@example.com").withAddress("raffles place").withTags("colleagues")
+            .withRoles("seller")
+            .withStatus(Status.PENDING)
+            .build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
