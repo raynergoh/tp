@@ -17,8 +17,8 @@ public class RoleStatusPredicate implements Predicate<Person> {
     /**
      * Creates a predicate with the given roles and statuses.
      *
-     * @param roles   the list of role keywords to match
-     * @param statuses the list of status keywords to match
+     * @param roles   the set of roles to match
+     * @param statuses the set of statuses to match
      */
     public RoleStatusPredicate(Set<Role> roles, Set<Status> statuses) {
         this.roles = roles;
@@ -30,17 +30,23 @@ public class RoleStatusPredicate implements Predicate<Person> {
      */
     @Override
     public boolean test(Person person) {
-        Set<Role> personRoles = person.getRoles();
-        Status personStatus = person.getStatus();
+        // If no filter criteria are provided, no person should match.
+        if (roles.isEmpty() && statuses.isEmpty()) {
+            return false;
+        }
 
-        boolean hasMatchingRole = this.roles.stream().anyMatch(personRoles::contains);
-        boolean hasMatchingStatus = this.statuses.stream().anyMatch(status -> status.equals(personStatus));
-        return hasMatchingRole || hasMatchingStatus;
+        // A person matches if they match any of the specified roles OR any of the specified statuses.
+        boolean roleMatch = !roles.isEmpty() && person.getRoles().stream()
+                .anyMatch(roles::contains);
+        boolean statusMatch = !statuses.isEmpty() && person.getStatus()
+                .map(statuses::contains).orElse(false);
+
+        return roleMatch || statusMatch;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (this == other) {
+        if (other == this) {
             return true;
         }
         if (!(other instanceof RoleStatusPredicate)) {
@@ -56,5 +62,4 @@ public class RoleStatusPredicate implements Predicate<Person> {
         return new ToStringBuilder(this).add("roles", roles)
                 .add("statuses", statuses).toString();
     }
-
 }
