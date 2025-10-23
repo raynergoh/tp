@@ -29,6 +29,7 @@ public class TagGroupTest {
 
         // invalid group names
         assertFalse(TagGroup.isValidTagGroupName(""));
+        assertFalse(TagGroup.isValidTagGroupName(" "));
         assertFalse(TagGroup.isValidTagGroupName("propertyType!"));
         assertFalse(TagGroup.isValidTagGroupName("group 1"));
 
