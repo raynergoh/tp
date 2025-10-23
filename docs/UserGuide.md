@@ -100,6 +100,30 @@ Shows a list of all persons in the address book.
 
 Format: `list`
 
+### Listing all Tag Groups : `tg`
+
+Lists all TagGroups already created
+
+Format: `tg`
+
+### Create a Tag Group : `tg`
+
+Creates a new TagGroup
+
+Format: `tg TagGroup`
+
+Examples:
+* `tg PropertyType`
+
+### Delete a Tag Group : `dtg`
+
+Deletes an existing TagGroup
+
+Format: `dtg TagGroup` 
+
+Examples: 
+* `dtg PropertyType`
+
 ### Editing a person : `edit`
 
 Edits an existing person in the address book.
@@ -207,5 +231,8 @@ Action     | Format, Examples
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [s/STATUS] [t/TAG] [t/GROUP.VALUE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Create Tag Group**| `tg GROUP` <br> e.g., `tg PropertyType`
+**Delete Tag Group**| `dtg GROUP` <br> e.g., `dtg PropertyType`
+**List Tag Groups**| `tg`
 **List**   | `list`
 **Help**   | `help`
