@@ -18,8 +18,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -38,8 +38,6 @@ import seedu.address.model.tag.Tag;
  * Edits the details of an existing person in the address book.
  */
 public class EditCommand extends Command {
-
-    private static final Logger logger = LogsCenter.getLogger(EditCommand.class);
 
     public static final String COMMAND_WORD = "edit";
 
@@ -62,6 +60,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
     public static final String MESSAGE_DUPLICATE_PHONE = "This phone number already exists in the address book";
+
+    private static final Logger logger = LogsCenter.getLogger(EditCommand.class);
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
