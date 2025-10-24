@@ -11,6 +11,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
+import seedu.address.model.person.Status;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -79,6 +80,14 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder withRoles(String... roles) {
         Set<Role> roleSet = Stream.of(roles).map(Role::new).collect(Collectors.toSet());
         descriptor.setRoles(roleSet);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Status} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withStatus(String status) {
+        descriptor.setStatus(Status.valueOf(status.toUpperCase()));
         return this;
     }
 
