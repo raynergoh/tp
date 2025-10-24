@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 public class StatusTest {
 
-   @Test
+    @Test
     public void equals_sameStatus_returnsTrue() {
         // same enum value -> returns true
         assertEquals(Status.PENDING, Status.PENDING);
