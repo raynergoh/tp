@@ -24,20 +24,6 @@ public enum Status {
             "Status should be either 'pending' or 'completed'";
 
     /**
-     * Returns the opposite {@code Status} of this instance.
-     * <p>
-     * If the current status is {@code PENDING}, this method returns {@code COMPLETED}.
-     * If the current status is {@code COMPLETED}, this method returns {@code PENDING}.
-     * <p>
-     * This is a convenience method to easily switch between the two fixed statuses.
-     *
-     * @return the opposite {@code Status} of this instance
-     */
-    public Status toggle() {
-        return this == PENDING ? COMPLETED : PENDING;
-    }
-
-    /**
      * Returns true if a given string is a valid status.
      * Valid statuses are defined in the {@link Status} enum.
      *

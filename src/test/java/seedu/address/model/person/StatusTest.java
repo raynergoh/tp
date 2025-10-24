@@ -9,19 +9,7 @@ import org.junit.jupiter.api.Test;
 
 public class StatusTest {
 
-    @Test
-    public void toggle_pending_returnsCompleted() {
-        // PENDING should toggle to COMPLETED
-        assertEquals(Status.COMPLETED, Status.PENDING.toggle());
-    }
-
-    @Test
-    public void toggle_completed_returnsPending() {
-        // COMPLETED should toggle to PENDING
-        assertEquals(Status.PENDING, Status.COMPLETED.toggle());
-    }
-
-    @Test
+   @Test
     public void equals_sameStatus_returnsTrue() {
         // same enum value -> returns true
         assertEquals(Status.PENDING, Status.PENDING);
