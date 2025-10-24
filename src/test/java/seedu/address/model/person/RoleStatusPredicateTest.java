@@ -16,7 +16,7 @@ class RoleStatusPredicateTest {
     void test_matchesRoleOnly_returnsTrue() {
         Person person = new PersonBuilder().withRoles("buyer").build();
         Set<Role> roles = Set.of(new Role("buyer"));
-        Set<Status> statuses = Collections.emptySet();
+        Set<Status> statuses = Set.of(Status.COMPLETED);
         RoleStatusPredicate predicate = new RoleStatusPredicate(roles, statuses);
 
         assertTrue(predicate.test(person));
