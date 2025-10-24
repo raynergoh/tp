@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import java.util.logging.Logger;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -9,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -19,6 +21,8 @@ import seedu.address.model.person.Person;
  * Adds a person to the address book.
  */
 public class AddCommand extends Command {
+
+    private static final Logger logger = LogsCenter.getLogger(AddCommand.class);
 
     public static final String COMMAND_WORD = "add";
 
@@ -60,15 +64,20 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        logger.info("Executing AddCommand for person: " + toAdd.getName().fullName);
+
         if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            logger.warning("AddCommand failed: Duplicate person detected.");
         }
 
         if (model.hasSamePhoneNumber(toAdd)) {
+            logger.warning("AddCommand failed: Duplicate phone number detected.");
             throw new CommandException(MESSAGE_DUPLICATE_PHONE);
         }
 
         model.addPerson(toAdd);
+
+        logger.info("Successfully added person: " + toAdd.getName().fullName);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 
