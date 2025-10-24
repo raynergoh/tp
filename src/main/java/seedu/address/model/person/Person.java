@@ -160,7 +160,7 @@ public class Person {
                 .add("email", email)
                 .add("address", address)
                 .add("roles", roles)
-                .add("status", status.map(Object::toString).orElse("N/A")) // Handle Optional<Status> for display
+                .add("status", status.map(Object::toString).orElse("N/A"))
                 .add("tags", tags)
                 .toString();
     }

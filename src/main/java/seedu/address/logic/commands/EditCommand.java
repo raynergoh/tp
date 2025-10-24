@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -28,6 +29,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
+import seedu.address.model.person.Status;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -45,6 +47,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_STATUS + "STATUS] "
             + "[" + PREFIX_ROLE + "ROLE]... "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -60,7 +63,7 @@ public class EditCommand extends Command {
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param index                of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
     public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
@@ -108,10 +111,9 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        // Edit command does not allow editing roles or status, so we use the original values.
-        Set<seedu.address.model.person.Role> updatedRoles = personToEdit.getRoles();
-        Optional<seedu.address.model.person.Status> updatedStatus = personToEdit.getStatus();
+        Optional<Status> updatedStatus = editPersonDescriptor.getStatus().or(personToEdit::getStatus);
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Set<Role> updatedRoles = editPersonDescriptor.getRoles().orElse(personToEdit.getRoles());
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRoles, updatedStatus,
                 updatedTags);
     }
@@ -150,9 +152,11 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Set<Role> roles;
+        private Status status;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditPersonDescriptor() {
+        }
 
         /**
          * Copy constructor.
@@ -164,6 +168,7 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setRoles(toCopy.roles);
+            setStatus(toCopy.status);
             setTags(toCopy.tags);
         }
 
@@ -171,7 +176,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, roles, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, roles, status, tags);
         }
 
         public void setName(Name name) {
@@ -223,6 +228,14 @@ public class EditCommand extends Command {
             return (roles != null) ? Optional.of(Collections.unmodifiableSet(roles)) : Optional.empty();
         }
 
+        public void setStatus(Status status) {
+            this.status = status;
+        }
+
+        public Optional<Status> getStatus() {
+            return Optional.ofNullable(status);
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -257,6 +270,7 @@ public class EditCommand extends Command {
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
                     && Objects.equals(roles, otherEditPersonDescriptor.roles)
+                    && Objects.equals(status, otherEditPersonDescriptor.status)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags);
         }
 
@@ -268,6 +282,7 @@ public class EditCommand extends Command {
                     .add("email", email)
                     .add("address", address)
                     .add("roles", roles)
+                    .add("status", status)
                     .add("tags", tags)
                     .toString();
         }
