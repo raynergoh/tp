@@ -159,6 +159,24 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
+### Filtering persons by role and/or status: `filter`
+
+Filters the contact list to show only persons matching the specified roles and/or statuses.
+
+Format: `filter [r/ROLE [MORE_ROLES] ...] [s/STATUS [MORE_STATUS] ...]`
+
+* The search is **case-sensitive**. e.g. `buyer` will not match `Buyer`
+* You can filter by **role(s)**, **status(es)**, or **both**
+* You may specify multiple roles and/or statuses
+* A person will be shown if they match **any** of the specified roles **and/or** statuses
+* If no parameters are provided, no filtering will occur
+
+Examples:
+* `filter r/buyer` returns all persons with the role **buyer**
+* `filter s/pending s/completed` returns all persons whose status is **pending** or **completed**
+* `filter r/seller s/completed` returns all persons who are **sellers** or have a **completed** status
+* `filter r/buyer r/seller s/completed s/pending` returns all persons who are **buyers or sellers**, or whose status is **completed or pending**
+
 ### Deleting a person : `delete`
 
 Deletes the specified person from the address book.
