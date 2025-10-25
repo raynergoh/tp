@@ -5,7 +5,7 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model as ModelPackage <<Rectangle>>{
-Class "<<enumeration>>\nStatus\nPENDING\nCOMPLETED" as Status
+Class "<<enumeration>>\nStatus" as Status
 Class "<<interface>>\nReadOnlyAddressBook" as ReadOnlyAddressBook
 Class "<<interface>>\nReadOnlyUserPrefs" as ReadOnlyUserPrefs
 Class "<<interface>>\nModel" as Model
@@ -46,7 +46,7 @@ Person *--> Email
 Person *--> Address
 Person *--> "*" Role
 Person *--> "*" Tag
-Person --> "0..1" Status
+Person *--> "0..1" Status
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
