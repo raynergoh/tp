@@ -121,7 +121,7 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same email.
+     * Returns true if both persons have the same email address.
      */
     public boolean isSameEmail(Person otherPerson) {
         if (otherPerson == this) {
