@@ -4,18 +4,10 @@
 !include <office/Users/user>
 !include style.puml
 
-' --- Layout & Spacing ---
-skinparam packageStyle rectangle
-skinparam linetype ortho
+'--- Basic spacing ---
 skinparam ranksep 50
 skinparam nodesep 80
-skinparam class {
-    BackgroundColor White
-    BorderColor Black
-    FontSize 14
-}
 
-' --- Package contents ---
 package " " <<Rectangle>> {
     class UI UI_COLOR
     class Logic LOGIC_COLOR
@@ -28,12 +20,12 @@ package " " <<Rectangle>> {
 class "<$user>" as User MODEL_COLOR_T2
 class "<$documents>" as File UI_COLOR_T1
 
-' --- Relative placement hints ---
+'--- Layout hints (invisible) ---
 UI -[hidden]-> Logic
 Logic -[hidden]-> Storage
 Storage -[hidden]-> Model
 
-' --- Connections ---
+'--- Relationships ---
 UI -[#green]> Logic
 UI -right[#green]-> Model
 
