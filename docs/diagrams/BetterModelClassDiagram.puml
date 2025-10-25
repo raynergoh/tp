@@ -1,26 +1,57 @@
 @startuml
+
 !include style.puml
+
 skinparam arrowThickness 1.1
+
 skinparam arrowColor MODEL_COLOR
+
 skinparam classBackgroundColor MODEL_COLOR
 
+
+
+Class "<<enumeration>>\nStatus\nPENDING\nCOMPLETED" as Status
+
+
+
 AddressBook *-right-> "1" UniquePersonList
+
 AddressBook *-right-> "1" UniqueTagList
-UniqueTagList -[hidden]down- UniquePersonList
+
 UniqueTagList -[hidden]down- UniquePersonList
 
+UniqueTagList -[hidden]down- UniquePersonList
+
+
+
 UniqueTagList -right-> "*" Tag
+
 UniquePersonList -right-> Person
+
+
 
 Person -up-> "*" Tag
 
+
+
 Person *--> Name
+
 Person *--> Phone
+
 Person *--> Email
+
 Person *--> Address
 
+Person --> "0..1" Status
+
+
+
 UniqueRoleList -right-> "*" Role
+
 UniqueRoleList -[hidden]down- UniquePersonList
+
 Person -up-> "*" Role
+
+
 
 @enduml
