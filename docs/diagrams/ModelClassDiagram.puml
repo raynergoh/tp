@@ -58,4 +58,4 @@ Email -[hidden]right-> Role
 Role -[hidden]right-> Status
 
 ModelManager --> "~* filtered" Person
-@enduml i think this is the correct way ur wrong
+@enduml
