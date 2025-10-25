@@ -136,7 +136,11 @@ public class ParserUtil {
         if (!Status.isValidStatus(trimmedStatus)) {
             throw new ParseException(Status.MESSAGE_CONSTRAINTS);
         }
-        return Status.valueOf(trimmedStatus.toUpperCase());
+        Status result = Status.valueOf(trimmedStatus.toUpperCase());
+
+        assert result != null : "Status.valueOf() returned null for a valid string.";
+
+        return result;
     }
 
     /**
