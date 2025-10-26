@@ -158,6 +158,13 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+
+### Duplicate phone number handling
+
+<puml src="diagrams/DuplicatePhoneHandlingSequenceDiagram.puml"/>
+
+// To add on description on this later
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
