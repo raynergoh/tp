@@ -83,7 +83,7 @@ Format: `help`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE s/STATUS [t/TAG]…`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE] [s/STATUS] [t/TAG]…`
 
 <box type="tip" seamless>
 
@@ -128,7 +128,7 @@ Examples:
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [s/STATUS] [t/TAG]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -226,10 +226,10 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE] [t/TAG] [t/GROUP.VALUE]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 r/Buyer t/priority t/propertyType.HDB`
+**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE] [s/STATUS] [t/TAG] [t/GROUP.VALUE]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 r/Buyer s/Pending t/priority t/propertyType.HDB`
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [s/STATUS] [t/TAG] [t/GROUP.VALUE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [s/STATUS] [t/TAG] [t/GROUP.VALUE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com s/Completed`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **Create Tag Group**| `tg GROUP` <br> e.g., `tg PropertyType`
 **Delete Tag Group**| `dtg GROUP` <br> e.g., `dtg PropertyType`

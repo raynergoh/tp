@@ -629,7 +629,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **contact information**: Exact contact details of a person; name, phone number, email, address
 * **contact tags**: Labels or categories used to group contacts
 * **role**: A field that defines the function or relationship of a contact (e.g. buyer, seller, landlord, tenant) in the property business 
-* **status**: A label indicating the current state of a client transaction (e.g. looking to sell, looking to buy, signing).
+* **status**: A label indicating the current state of a client transaction (e.g. Pending, Completed).
 * **property size**: A label describing the size of a property in sqft that the client is offering/looking for
 * **property type**: A label describing the type of property that the client is offering/looking for (e.g. studio, terrace, hdb)
 * **property location**: A label specifying the geographical area of a property that the client is offering/looking for (e.g. Bishan, Woodlands)
