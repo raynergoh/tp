@@ -19,9 +19,9 @@ TrackerGuru is a **keyboard-focused desktop app built for property agents to man
 
 1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for your application.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar trackerguru.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
@@ -58,16 +58,16 @@ TrackerGuru is a **keyboard-focused desktop app built for property agents to man
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. `n/NAME p/PHONE_NUMBER` and `p/PHONE_NUMBER n/NAME` are both acceptable.
 
 * Tags should either be in the format:
   - `t/GROUP.VALUE` where both `GROUP` and `VALUE` are alphanumeric 
   - a simple Tag `t/TAG` with an alphanumeric string
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+* Commands that do not require parameters (such as help, list, exit, and clear) will ignore any additional input.
+  e.g. `help 123` will be interpreted as `help`.
 
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+* When using the PDF version of this document, note that copying multiple-line commands may remove spaces around line breaks. Please check that spaces are correct before pasting into the application.
 </box>
 
 ### Viewing help : `help`
@@ -87,12 +87,12 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE] [s/STATUS] [t/TAG]
 
 <box type="tip" seamless>
 
-**Note:** A person can have any number of tags (including 0)
+**Note:** No two persons can share the same `NAME`, `PHONE_NUMBER` or `EMAIL`.
 </box>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Buyer s/Pending`
-* `add n/Betsy Crowe e/betsycrowe@example.com a/Bishan block 123 r/Seller s/Completed p/1234567 t/friend`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/Betsy Crowe p/12345678 e/betsycrowe@example.com a/Betsy street, block 123 r/Seller s/Completed t/friend`
 
 ### Listing all persons : `list`
 
@@ -160,6 +160,23 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
+### Filtering persons by Role, Status, Tag Group: `filter`
+
+Filters the contact list to show only persons matching the specified parameters.
+
+Format: `filter [r/ROLE] [MORE_ROLES] [s/STATUS] [MORE_STATUSES] [tg/TAG_GROUP] [MORE_TAG_GROUPS]`
+
+* The search is **case-sensitive**. e.g. `buyer` will not match `Buyer`
+* You can filter with any combination of: **Role(s)**, **Status(es)**, **TagGroup(s)**
+* You may specify multiple Roles, Statuses, and Tag Groups
+* A person will be shown if they match **any** of the specified parameters
+* If no parameters are provided, no filtering will occur
+
+Examples:
+* `filter r/buyer` returns all persons with the role **buyer**
+* `filter s/pending s/completed` returns all persons whose status is **pending** or **completed**
+* `filter r/buyer s/completed tg/price` returns all persons who are **buyers**, or whose status is **completed**, or has a tag whose Tag Group is **price**
+
 ### Deleting a person : `delete`
 
 Deletes the specified person from the address book.
@@ -212,7 +229,7 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app on the new computer. Then, locate the new TrackerGuru home folder and replace its data folder with the data folder from your old computer.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -231,6 +248,7 @@ Action     | Format, Examples
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [s/STATUS] [t/TAG] [t/GROUP.VALUE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com s/Completed`
+**Filter** | `filter [r/ROLE] [MORE_ROLES] [s/STATUS] [MORE_STATUSES] [tg/TAG_GROUP] [MORE_TAG_GROUPS]`<br> e.g., `filter r/buyer tg/price`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **Create Tag Group**| `tg GROUP` <br> e.g., `tg PropertyType`
 **Delete Tag Group**| `dtg GROUP` <br> e.g., `dtg PropertyType`
