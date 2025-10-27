@@ -92,6 +92,14 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
+     * Sets the {@code EditPersonDescriptor} to indicate that status should be removed.
+     */
+    public EditPersonDescriptorBuilder withStatusRemoval() {
+        descriptor.setStatusForRemoval();
+        return this;
+    }
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
