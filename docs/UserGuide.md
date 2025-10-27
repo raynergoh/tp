@@ -163,7 +163,7 @@ Examples:
 
 Filters the contact list to show only persons matching the specified parameters.
 
-Format: `filter r/ROLE [MORE_ROLES] s/STATUS [MORE_STATUSES] tg/[TAG_GROUP] [MORE_TAG_GROUPS]`
+Format: `filter [r/ROLE] [MORE_ROLES] [s/STATUS] [MORE_STATUSES] [tg/TAG_GROUP] [MORE_TAG_GROUPS]`
 
 * The search is **case-sensitive**. e.g. `buyer` will not match `Buyer`
 * You can filter with any combination of: **Role(s)**, **Status(es)**, **TagGroup(s)**
