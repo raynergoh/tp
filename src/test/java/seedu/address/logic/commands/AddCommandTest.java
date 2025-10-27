@@ -10,6 +10,8 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -88,6 +90,36 @@ public class AddCommandTest {
         assertThrows(CommandException.class,
                 AddCommand.MESSAGE_DUPLICATE_EMAIL, () -> addCommand.execute(modelStub));
     }
+
+    @Test
+    public void execute_personWithUnknownTagGroup_throwsCommandException() {
+        Set<TagGroup> allowedGroups = Collections.singleton(new TagGroup("group1"));
+        Model model = new ModelStubWithAllowedGroupsAndPersons(allowedGroups);
+        Person invalidPerson = new PersonBuilder().withTags("unknowngroup.value").build();
+
+        assertThrows(CommandException.class, () -> new AddCommand(invalidPerson).execute(model));
+    }
+
+    @Test
+    public void execute_personWithKnownTagGroup_addSuccessful() throws Exception {
+        Set<TagGroup> allowedGroups = Collections.singleton(new TagGroup("friends"));
+        Model model = new ModelStubWithAllowedGroupsAndPersons(allowedGroups);
+        Person validPerson = new PersonBuilder().withTags("friends.value").build();
+
+        CommandResult result = new AddCommand(validPerson).execute(model);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)), result.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_personWithMixedTagGroups_throwsCommandException() {
+        Set<TagGroup> allowedGroups = Collections.singleton(new TagGroup("friends"));
+        Model model = new ModelStubWithAllowedGroupsAndPersons(allowedGroups);
+        // "friends.value" is allowed, "work.value" group is not
+        Person invalidPerson = new PersonBuilder().withTags("friends.value", "work.value").build();
+
+        assertThrows(CommandException.class, () -> new AddCommand(invalidPerson).execute(model));
+    }
+
 
     @Test
     public void equals() {
@@ -224,6 +256,44 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
     }
+
+    /**
+     * A Model stub that allows Tag Groups.
+     */
+    private class ModelStubWithAllowedGroupsAndPersons extends ModelStub {
+        private final Set<TagGroup> tagGroups;
+        private final List<Person> persons = new ArrayList<>();
+
+        ModelStubWithAllowedGroupsAndPersons(Set<TagGroup> allowedGroups) {
+            this.tagGroups = allowedGroups;
+        }
+
+        @Override
+        public Set<TagGroup> getTagGroups() {
+            return Collections.unmodifiableSet(tagGroups);
+        }
+
+        @Override
+        public boolean hasPerson(Person person) {
+            return persons.stream().anyMatch(person::isSamePerson);
+        }
+
+        @Override
+        public boolean hasSamePhoneNumber(Person person) {
+            return persons.stream().anyMatch(person::isSamePhone);
+        }
+
+        @Override
+        public boolean hasSameEmail(Person person) {
+            return persons.stream().anyMatch(person::isSameEmail);
+        }
+
+        @Override
+        public void addPerson(Person person) {
+            persons.add(person);
+        }
+    }
+
 
     /**
      * A Model stub that contains a single person.

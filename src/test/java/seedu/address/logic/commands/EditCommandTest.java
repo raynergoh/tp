@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,21 +14,31 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Status;
+import seedu.address.model.tag.TagGroup;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -37,6 +48,35 @@ import seedu.address.testutil.PersonBuilder;
 public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    private static class ModelStub extends ModelManager {
+        private final Set<TagGroup> tagGroups;
+        private final ObservableList<Person> filteredPersonList;
+
+        ModelStub(Set<TagGroup> allowed, List<Person> persons) {
+            this.tagGroups = allowed;
+            this.filteredPersonList = FXCollections.observableArrayList(persons);
+        }
+
+        @Override
+        public Set<TagGroup> getTagGroups() {
+            return Collections.unmodifiableSet(tagGroups);
+        }
+
+        @Override
+        public ObservableList<Person> getFilteredPersonList() {
+            return filteredPersonList;
+        }
+
+        // Implement setPerson, deletePerson if required by EditCommand's execution path.
+        @Override
+        public void setPerson(Person target, Person editedPerson) {
+            int idx = filteredPersonList.indexOf(target);
+            if (idx != -1) filteredPersonList.set(idx, editedPerson);
+        }
+    }
+
+
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -222,6 +262,41 @@ public class EditCommandTest {
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
+
+    @Test
+    public void execute_editWithUnknownTagGroup_throwsCommandException() {
+        Person firstPerson = new PersonBuilder().withTags("group1.value").build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withTags("invalidgroup.val").build();
+        EditCommand command = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        Model model = new ModelStub(Collections.singleton(new TagGroup("group1")), getTypicalPersons());
+
+        assertThrows(CommandException.class, () -> command.execute(model));
+    }
+
+    @Test
+    public void execute_editWithKnownTagGroup_success() throws Exception {
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withTags("group1.value")
+                .build();
+        EditCommand command = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        Model model = new ModelStub(Collections.singleton(new TagGroup("group1")), getTypicalPersons());
+
+        // If validation logic is only for failures, just assert that execute does NOT throw:
+        assertDoesNotThrow(() -> command.execute(model));
+    }
+
+    @Test
+    public void execute_editWithMixedGroups_failure() {
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withTags("group1.value", "invalidgroup.val")
+                .build();
+        EditCommand command = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        Model model = new ModelStub(Collections.singleton(new TagGroup("group1")), getTypicalPersons());
+
+        assertThrows(CommandException.class, () -> command.execute(model));
+    }
+
+
 
     /**
      * Edit filtered list where index is larger than size of filtered list,

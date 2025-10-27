@@ -17,6 +17,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Adds a person to the address book.
@@ -48,6 +49,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
     public static final String MESSAGE_DUPLICATE_PHONE = "This phone number already exists in the address book";
     public static final String MESSAGE_DUPLICATE_EMAIL = "This email already exists in the address book";
+    public static final String MESSAGE_NONEXISTENT_TAG_GROUP = "This Tag Group does not exist, please create the Tag Group first";
     private static final Logger logger = LogsCenter.getLogger(AddCommand.class);
 
     private final Person toAdd;
@@ -79,6 +81,13 @@ public class AddCommand extends Command {
         if (model.hasSameEmail(toAdd)) {
             logger.warning("AddCommand failed: Duplicate email detected.");
             throw new CommandException(MESSAGE_DUPLICATE_EMAIL);
+        }
+
+        for (Tag tag : toAdd.getTags()) {
+            if (tag.hasGroup() && !model.getTagGroups().contains(tag.getGroup())) {
+                logger.warning("AddCommand failed: Tag group does not exist.");
+                throw new CommandException(MESSAGE_NONEXISTENT_TAG_GROUP);
+            }
         }
 
         model.addPerson(toAdd);
