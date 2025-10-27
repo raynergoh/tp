@@ -24,7 +24,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagGroup;
 
 /**
@@ -40,11 +39,12 @@ public class DeleteTagGroupCommandTest {
     }
 
     @Test
-    public void execute_TagGroupNotInUse_deleteSuccessful() throws CommandException {
+    public void execute_tagGroupNotInUse_deleteSuccessful() throws CommandException {
         TagGroup group = new TagGroup("location");
         ModelStub modelStub = new ModelStub() {
             @Override
-            public boolean isTagGroupInUse(TagGroup tg) { return false; }
+            public boolean isTagGroupInUse(TagGroup tg) { return false;
+            }
         };
         modelStub.tagGroups.add(group);
 
