@@ -133,6 +133,11 @@ public class TagGroupCommandTest {
 
         // Unused Model methods
         @Override
+        public boolean isTagGroupInUse(TagGroup tg) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }

@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,6 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagGroup;
 
 /**
@@ -38,8 +40,12 @@ public class DeleteTagGroupCommandTest {
     }
 
     @Test
-    public void execute_validTagGroup_deleteSuccessful() throws CommandException {
+    public void execute_TagGroupNotInUse_deleteSuccessful() throws CommandException {
         TagGroup group = new TagGroup("location");
+        ModelStub modelStub = new ModelStub() {
+            @Override
+            public boolean isTagGroupInUse(TagGroup tg) { return false; }
+        };
         modelStub.tagGroups.add(group);
 
         DeleteTagGroupCommand command = new DeleteTagGroupCommand(group);
@@ -57,6 +63,15 @@ public class DeleteTagGroupCommandTest {
         assertThrows(CommandException.class,
                 String.format(MESSAGE_TAGGROUP_NOT_FOUND, group), () -> command.execute(modelStub));
     }
+
+    @Test
+    public void execute_tagGroupInUse_throwsCommandException() {
+        TagGroup group = new TagGroup("location");
+        ModelStub modelStub = new ModelStub();
+        DeleteTagGroupCommand command = new DeleteTagGroupCommand(group);
+        assertThrows(CommandException.class, () -> command.execute(modelStub));
+    }
+
 
     @Test
     public void equals_sameTagGroup_returnsTrue() {
@@ -116,6 +131,12 @@ public class DeleteTagGroupCommandTest {
         @Override
         public void removeTagGroup(TagGroup group) {
             tagGroups.remove(group);
+        }
+
+        @Override
+        public boolean isTagGroupInUse(TagGroup group) {
+            requireNonNull(group);
+            return true;
         }
 
         // Unused Model methods
