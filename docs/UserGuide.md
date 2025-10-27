@@ -166,7 +166,7 @@ Examples:
 
 Filters the contact list to show only persons matching the specified parameters.
 
-Format: `filter [r/ROLE] [MORE_ROLES] [s/STATUS] [MORE_STATUSES] [tg/TAG_GROUP] [MORE_TAG_GROUPS]`
+Format: `filter [r/ROLE]…​ [s/STATUS]…​ [tg/TAG_GROUP]…​`
 
 * The search is **case-sensitive**. e.g. `buyer` will not match `Buyer`
 * You can filter with any combination of: **Role(s)**, **Status(es)**, **TagGroup(s)**
@@ -250,7 +250,7 @@ Action     | Format, Examples
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [s/STATUS] [t/TAG] [t/GROUP.VALUE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com s/Completed`
-**Filter** | `filter [r/ROLE] [MORE_ROLES] [s/STATUS] [MORE_STATUSES] [tg/TAG_GROUP] [MORE_TAG_GROUPS]`<br> e.g., `filter r/buyer tg/price`
+**Filter** | `filter [r/ROLE]…​ [s/STATUS]…​ [tg/TAG_GROUP]…​`<br> e.g., `filter r/buyer tg/price`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **Create Tag Group**| `tg GROUP` <br> e.g., `tg PropertyType`
 **Delete Tag Group**| `dtg GROUP` <br> e.g., `dtg PropertyType`
