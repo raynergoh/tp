@@ -159,6 +159,23 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
+### Filtering persons by Role, Status, Tag Group: `filter`
+
+Filters the contact list to show only persons matching the specified parameters.
+
+Format: `filter [r/ROLE] [MORE_ROLES] [s/STATUS] [MORE_STATUSES] [tg/TAG_GROUP] [MORE_TAG_GROUPS]`
+
+* The search is **case-sensitive**. e.g. `buyer` will not match `Buyer`
+* You can filter with any combination of: **Role(s)**, **Status(es)**, **TagGroup(s)**
+* You may specify multiple Roles, Statuses, and Tag Groups
+* A person will be shown if they match **any** of the specified parameters
+* If no parameters are provided, no filtering will occur
+
+Examples:
+* `filter r/buyer` returns all persons with the role **buyer**
+* `filter s/pending s/completed` returns all persons whose status is **pending** or **completed**
+* `filter r/buyer s/completed tg/price` returns all persons who are **buyers**, or whose status is **completed**, or has a tag whose Tag Group is **price**
+
 ### Deleting a person : `delete`
 
 Deletes the specified person from the address book.
@@ -230,6 +247,7 @@ Action     | Format, Examples
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [s/STATUS] [t/TAG] [t/GROUP.VALUE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Filter** | `filter [r/ROLE] [MORE_ROLES] [s/STATUS] [MORE_STATUSES] [tg/TAG_GROUP] [MORE_TAG_GROUPS]`<br> e.g., `filter r/buyer tg/price`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **Create Tag Group**| `tg GROUP` <br> e.g., `tg PropertyType`
 **Delete Tag Group**| `dtg GROUP` <br> e.g., `dtg PropertyType`
