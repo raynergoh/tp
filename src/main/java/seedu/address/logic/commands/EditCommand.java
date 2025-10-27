@@ -60,7 +60,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
     public static final String MESSAGE_DUPLICATE_PHONE = "This phone number already exists in the address book";
-
+    public static final String MESSAGE_NONEXISTENT_TAG_GROUP = "This Tag Group does not exist, "
+            + "please create the Tag Group first";
     private static final Logger logger = LogsCenter.getLogger(EditCommand.class);
 
     private final Index index;
@@ -103,6 +104,13 @@ public class EditCommand extends Command {
                 && model.hasSamePhoneNumber(editedPerson)) {
             logger.warning("EditCommand failed: Duplicate phone number detected.");
             throw new CommandException(MESSAGE_DUPLICATE_PHONE);
+        }
+
+        for (Tag tag : editedPerson.getTags()) {
+            if (tag.hasGroup() && !model.getTagGroups().contains(tag.getGroup())) {
+                logger.warning("EditCommand failed: Tag group does not exist.");
+                throw new CommandException(MESSAGE_NONEXISTENT_TAG_GROUP);
+            }
         }
 
         model.setPerson(personToEdit, editedPerson);
