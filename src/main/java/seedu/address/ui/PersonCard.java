@@ -59,12 +59,8 @@ public class PersonCard extends UiPart<Region> {
         person.getRoles().stream()
                 .sorted(Comparator.comparing(role -> role.roleName))
                 .forEach(role -> roles.getChildren().add(new Label(role.roleName)));
-
-        person.getStatus().ifPresent(s -> {
-            status.setText(s.toString());
-            status.setVisible(true);
-            status.setManaged(true);
-        });
+        // Display the status value if present, otherwise display nothing.
+        status.setText(person.getStatus().map(Object::toString).orElse(""));
 
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagFormat))
