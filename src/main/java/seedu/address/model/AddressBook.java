@@ -55,12 +55,22 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the tag group list with {@code tagGroups}.
+     * {@code tagGroups} must not contain duplicate tag groups.
+     */
+    public void setTagGroups(Set<TagGroup> tagGroups) {
+        this.tagGroups.clear();
+        this.tagGroups.addAll(tagGroups);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setTagGroups(newData.getTagGroups());
     }
 
     //// person-level operations
