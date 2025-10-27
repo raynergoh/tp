@@ -19,18 +19,7 @@ TrackerGuru is a **keyboard-focused desktop app for property agents** to efficie
 
 ## Quick start
 ### Step 1: Check Java version
-TrackerGuru requires **Java 17** or above installed on your computer. 
-> **To verify your [Java](#java) version:**
-> 1. Open a terminal and enter ``` java -version ```
-> 2. You should see an output similar to:
-> ```
-> java version "17.0.x"  // or any higher version
-> Java(TM) SE Runtime Environment (build 17.0.x+xx)
-> Java HotSpot(TM) 64-Bit Server VM (build 17.0.x+xx, mixed mode, sharing)
-> ```
-> 3. **If the command is not recognized** or the version is less than 17:
-> <br> Follow this [guide](https://se-education.org/guides/tutorials/javaInstallation.html) for installation.
-> 4. After installation, type `java -version` to verify the correct version.
+TrackerGuru requires **Java 17** or above installed on your computer. (See [FAQ](#faq) for instructions on how to check your Java version)
 
 ### Step 2: Download the app
 Download the latest TrackerGuru `.jar` file [here](https://github.com/AY2526S1-CS2103T-F15b-3/tp/releases).
@@ -57,8 +46,9 @@ Move the `.jar` file into any folder. This will be your _home folder_.
 _Refer to the [Features](#features) section below for more details and commands_
 
 ### Step 6: Help Guide
-To access this User Guide anytime from the app, use the **`help`** command.
-A help window will open up, containing the User Guide.
+
+To access this User Guide anytime from the app, use the **`help`** command. A help window will open up, containing the User Guide.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
@@ -248,6 +238,18 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
+
+**Q**: How do I check my Java version?<br>
+**A**: To verify your Java version:
+1. Open a terminal and enter `java -version`
+2. You should see an output similar to:
+   ```
+   java version "17.0.x"  // or any higher version
+   Java(TM) SE Runtime Environment (build 17.0.x+xx)
+   Java HotSpot(TM) 64-Bit Server VM (build 17.0.x+xx, mixed mode, sharing)
+   ```
+3. **If the command is not recognised** or the version is less than 17: Follow this [guide](https://se-education.org/guides/tutorials/javaInstallation.html) for installation.
+4. After installation, type `java -version` to verify the correct version.
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app on the new computer. Then, locate the new TrackerGuru home folder and replace its data folder with the data folder from your old computer.
