@@ -41,7 +41,7 @@ Move the `.jar` file into any folder. This will be your _home folder_.
 ### Step 4: Run the app
 1. Open a command terminal. `cd /path/to/your/home/folder`
 2. Run the app. `java -jar addressbook.jar`
-3. A GUI like this should appear in a few seconds with sample data
+3. A [GUI](#gui) like this should appear in a few seconds with sample data
    ![Ui](images/Ui.png)
 
 ### Step 5: Try basic commands
@@ -280,3 +280,6 @@ Action     | Format, Examples
 ## Glossary
 ### Java
 Java is a programming platform used to run applications like TrackerGuru. TrackerGuru requires Java 17 or above.
+
+### GUI
+GUI Stands for Graphical User Interface. It is the visual part of TrackerGuru that you interact with using windows, buttons, and text fields and displays all your contacts.
