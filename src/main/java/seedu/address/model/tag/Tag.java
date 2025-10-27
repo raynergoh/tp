@@ -94,6 +94,13 @@ public class Tag {
         return value;
     }
 
+    /**
+     * Returns true if the Tag has a group.
+     */
+    public boolean hasGroup() {
+        return group != null;
+    }
+
     @Override
     public int hashCode() {
         return tagFormat.hashCode();

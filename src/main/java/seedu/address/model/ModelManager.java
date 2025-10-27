@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagGroup;
 
 /**
@@ -157,6 +158,21 @@ public class ModelManager implements Model {
     public void removeTagGroup(TagGroup group) {
         addressBook.removeTagGroup(group);
     }
+
+    @Override
+    public boolean isTagGroupInUse(TagGroup group) {
+        requireNonNull(group);
+
+        for (Person person : addressBook.getPersonList()) {
+            for (Tag tag : person.getTags()) {
+                if (tag.hasGroup() && group.equals(tag.getGroup())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
     @Override
     public boolean equals(Object other) {

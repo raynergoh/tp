@@ -39,6 +39,11 @@ public class DeleteTagGroupCommand extends Command {
             throw new CommandException(String.format(MESSAGE_TAGGROUP_NOT_FOUND, toDelete));
         }
 
+        if (model.isTagGroupInUse(toDelete)) {
+            throw new CommandException("Cannot delete tag group: It is still used by contacts." +
+                    " Please delete all tags with that Tag Group");
+        }
+
         model.removeTagGroup(toDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_SUCCESS, toDelete));
     }

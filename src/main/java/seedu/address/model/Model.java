@@ -125,4 +125,5 @@ public interface Model {
     void removeTagGroup(TagGroup group);
 
 
+    boolean isTagGroupInUse(TagGroup group);
 }
