@@ -107,7 +107,8 @@ public class AddCommandTest {
         Person validPerson = new PersonBuilder().withTags("friends.value").build();
 
         CommandResult result = new AddCommand(validPerson).execute(model);
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)), result.getFeedbackToUser());
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
+                result.getFeedbackToUser());
     }
 
     @Test

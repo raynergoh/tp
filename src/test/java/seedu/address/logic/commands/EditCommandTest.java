@@ -72,7 +72,9 @@ public class EditCommandTest {
         @Override
         public void setPerson(Person target, Person editedPerson) {
             int idx = filteredPersonList.indexOf(target);
-            if (idx != -1) filteredPersonList.set(idx, editedPerson);
+            if (idx != -1) {
+                filteredPersonList.set(idx, editedPerson);
+            }
         }
     }
 
