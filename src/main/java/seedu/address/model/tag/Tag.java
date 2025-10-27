@@ -95,7 +95,7 @@ public class Tag {
     }
 
     /**
-     * Returns true if the TagGroup has a group.
+     * Returns true if the Tag has a group.
      */
     public boolean hasGroup() {
         return group != null;
