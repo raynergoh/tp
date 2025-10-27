@@ -18,7 +18,7 @@ public class FilterCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Filters contacts by role and/or status. "
             + "Parameters: [r/ROLE [MORE_ROLES] ...] [s/STATUS [MORE_STATUS] ...]\n"
-            + "Example: " + COMMAND_WORD + " r/buyer seller s/completed pending";
+            + "Example: " + COMMAND_WORD + " r/buyer r/seller s/completed s/pending";
 
     private final RoleStatusPredicate predicate;
 
