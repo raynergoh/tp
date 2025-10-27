@@ -159,7 +159,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 
-### Duplicate check
+### Duplicate Handling
 
 #### Implementation
 
@@ -388,7 +388,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | new user                    | give a client a property location tag                                                       | I can identify contacts by property location                                  |
 | `* *`    | new user                    | remove a property location tag from a client                                                | I can remove a property location that the contact no longer owns/wants        |
 | `* *`    | new user                    | give a client a status                                                                      | I can know each client's transaction status                                   |
-| `* *`    | new user                    | remove the status from a client                                                             | I can remove a transaction status from a client that no longer applies        |
+| `* *`    | new user                    | edit the status of a client                                                                 | I can update a transaction status from a client as it progresses or changes   |
 | `* *`    | new user                    | give a client a property size tag                                                           | I can know the size of the property a client wants/owns                       |
 | `* *`    | new user                    | remove the property size tag from a client                                                  | I can remove outdated information about the property size of a client         |
 | `* *`    | new user                    | give a client a property type tag                                                           | I can know the type of the property a client wants/owns                       |
@@ -629,7 +629,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **contact information**: Exact contact details of a person; name, phone number, email, address
 * **contact tags**: Labels or categories used to group contacts
 * **role**: A field that defines the function or relationship of a contact (e.g. buyer, seller, landlord, tenant) in the property business 
-* **status**: A label indicating the current state of a client transaction (e.g. looking to sell, looking to buy, signing).
+* **status**: A label indicating the current state of a client transaction (e.g. Pending, Completed).
 * **property size**: A label describing the size of a property in sqft that the client is offering/looking for
 * **property type**: A label describing the type of property that the client is offering/looking for (e.g. studio, terrace, hdb)
 * **property location**: A label specifying the geographical area of a property that the client is offering/looking for (e.g. Bishan, Woodlands)
