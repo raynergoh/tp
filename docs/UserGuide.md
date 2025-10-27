@@ -159,23 +159,22 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Filtering persons by role and/or status: `filter`
+### Filtering persons by Role, Status, Tag Group: `filter`
 
-Filters the contact list to show only persons matching the specified roles and/or statuses.
+Filters the contact list to show only persons matching the specified parameters.
 
-Format: `filter [r/ROLE [MORE_ROLES] ...] [s/STATUS [MORE_STATUS] ...]`
+Format: `filter r/ROLE [MORE_ROLES] s/STATUS [MORE_STATUSES] tg/[TAG_GROUP] [MORE_TAG_GROUPS]`
 
 * The search is **case-sensitive**. e.g. `buyer` will not match `Buyer`
-* You can filter by **role(s)**, **status(es)**, or **both**
-* You may specify multiple roles and/or statuses
-* A person will be shown if they match **any** of the specified roles **and/or** statuses
+* You can filter with any combination of: **Role(s)**, **Status(es)**, **TagGroup(s)**
+* You may specify multiple Roles, Statuses, and Tag Groups
+* A person will be shown if they match **any** of the specified parameters
 * If no parameters are provided, no filtering will occur
 
 Examples:
 * `filter r/buyer` returns all persons with the role **buyer**
 * `filter s/pending s/completed` returns all persons whose status is **pending** or **completed**
-* `filter r/seller s/completed` returns all persons who are **sellers** or have a **completed** status
-* `filter r/buyer r/seller s/completed s/pending` returns all persons who are **buyers or sellers**, or whose status is **completed or pending**
+* `filter r/buyer s/completed tg/price` returns all persons who are **buyers**, or whose status is **completed**, or has a tag whose Tag Group is **price**
 
 ### Deleting a person : `delete`
 
