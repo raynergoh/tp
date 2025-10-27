@@ -42,9 +42,10 @@ public class DeleteTagGroupCommandTest {
     public void execute_tagGroupNotInUse_deleteSuccessful() throws CommandException {
         TagGroup group = new TagGroup("location");
         ModelStub modelStub = new ModelStub() {
-            @Override
-            public boolean isTagGroupInUse(TagGroup tg) { return false;
-            }
+                @Override
+                public boolean isTagGroupInUse(TagGroup tg) {
+                        return false;
+                }
         };
         modelStub.tagGroups.add(group);
 
