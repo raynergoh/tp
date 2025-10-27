@@ -87,6 +87,18 @@ public class TagTest {
     }
 
     @Test
+    public void hasGroup_tagWithGroup_returnsTrue() {
+        Tag tagWithGroup = new Tag("group.value");
+        assertTrue(tagWithGroup.hasGroup());
+    }
+
+    @Test
+    public void hasGroup_tagWithoutGroup_returnsFalse() {
+        Tag tagWithoutGroup = new Tag("sad");
+        assertFalse(tagWithoutGroup.hasGroup());
+    }
+
+    @Test
     public void equals_sameTagName_isEqual() {
         Tag tag1 = new Tag("propertyType.HDB");
         Tag tag2 = new Tag("propertyType.HDB");
