@@ -158,6 +158,87 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+
+### Duplicate Handling
+
+#### Implementation
+
+The duplicate handling mechanism ensures that no two contacts in the address book can have the same name, phone number or email. This is important for property agents who need to maintain unique contact information for each client, as these fields serve as critical identifiers for communication and identification.
+
+The feature is implemented through checks in the `Model` component, specifically:
+
+* `Model#hasPerson(Person person)` — Checks if any existing person in the address book has the same name as the given person.
+* `Model#hasSamePhoneNumber(Person person)` — Checks if any existing person in the address book has the same phone number as the given person.
+* `Model#hasSameEmail(Person person)` — Checks if any existing person in the address book has the same email as the given person.
+
+These operations are exposed in the `Model` interface and implemented in `ModelManager`, which delegates the checks to `AddressBook` and ultimately to `UniquePersonList`.
+
+Given below is an example usage scenario and how the duplicate handling mechanism behaves. For illustration purposes, we will use phone number as the example, though the same logic applies to name and email checks.
+
+Step 1. The user attempts to add a new contact John with phone number 12345678 by executing the command `add n/John p/12345678 e/john@example.com a/123 Street r/Buyer s/Pending`. The `AddCommand` is created and executed.
+
+Step 2. During execution, `AddCommand` first checks if the exact person (exact name) already exists using `Model#hasPerson(toAdd)`. This check passes (returns false) as John is a new contact.
+
+Step 3. `AddCommand` then performs duplicate checks for phone number and email:
+   * Checks for duplicate phone number by calling `Model#hasSamePhoneNumber(toAdd)` (illustrated in the sequence diagram below)
+   * Checks for duplicate email by calling `Model#hasSameEmail(toAdd)`
+
+   Each check cascades through the components:
+   * `ModelManager` calls the corresponding `AddressBook` method (e.g. `AddressBook#hasSamePhoneNumber(person)`)
+   * `AddressBook` calls the corresponding `UniquePersonList` method (e.g. `UniquePersonList#containsPhoneNumber(person)`)
+   * `UniquePersonList` iterates through all persons to check if any existing person has the same field value
+
+Step 4. If any of the checks return true (e.g. the phone number 12345678 already exists belonging to another contact Alice), `AddCommand` throws a `CommandException` with an appropriate error message such as "This phone number already exists in the address book".
+
+Step 5. If all checks pass (return false), the new contact is successfully added to the address book.
+
+The following sequence diagram shows how the duplicate phone number check works during the execution of an add command (the same pattern applies to name and email checks):
+
+<puml src="diagrams/DuplicatePhoneHandlingSequenceDiagram.puml"/>
+
+<box type="info" seamless>
+
+</box>
+
+#### Design considerations:
+
+**Aspect: When to perform the duplicate field checks:**
+
+* **Alternative 1 (current choice):** Check during command execution in `AddCommand` and `EditCommand`.
+  * Pros:
+    * Simple and straightforward implementation.
+    * Error detection happens at the business logic layer, providing clear feedback to users.
+    * Consistent with existing duplicate person checking mechanism.
+    * Allows for specific error messages for each field type (name, phone, email).
+  * Cons:
+    * The checks are performed separately in multiple command classes, leading to some code duplication.
+
+* **Alternative 2:** Enforce uniqueness constraints at the `UniquePersonList` level.
+  * Pros:
+    * Centralized validation logic in the model layer.
+    * Automatically applies to all operations that modify the person list.
+  * Cons:
+    * Less control over error messages for different commands.
+
+**Aspect: Scope of the uniqueness checks:**
+
+* **Alternative 1 (current choice):** Names, phone numbers and emails must be globally unique across all contacts.
+  * Pros:
+    * Prevents confusion and data integrity issues.
+    * Aligns with real-world expectation that these fields uniquely identify individuals.
+    * Simplifies contact management for property agents who rely on these identifiers.
+  * Cons:
+    * May be overly restrictive in some scenarios.
+
+* **Alternative 2:** Allow duplicate fields but warn the user.
+  * Pros:
+    * More flexible for edge cases.
+    * Still alerts users to potential data entry errors.
+  * Cons:
+    * May lead to confusion when the same contact information appears for multiple people.
+    * Could result in unintended duplicates if users ignore warnings.
+
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
@@ -307,7 +388,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | new user                    | give a client a property location tag                                                       | I can identify contacts by property location                                  |
 | `* *`    | new user                    | remove a property location tag from a client                                                | I can remove a property location that the contact no longer owns/wants        |
 | `* *`    | new user                    | give a client a status                                                                      | I can know each client's transaction status                                   |
-| `* *`    | new user                    | remove the status from a client                                                             | I can remove a transaction status from a client that no longer applies        |
+| `* *`    | new user                    | edit the status of a client                                                                 | I can update a transaction status from a client as it progresses or changes   |
 | `* *`    | new user                    | give a client a property size tag                                                           | I can know the size of the property a client wants/owns                       |
 | `* *`    | new user                    | remove the property size tag from a client                                                  | I can remove outdated information about the property size of a client         |
 | `* *`    | new user                    | give a client a property type tag                                                           | I can know the type of the property a client wants/owns                       |
@@ -548,7 +629,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **contact information**: Exact contact details of a person; name, phone number, email, address
 * **contact tags**: Labels or categories used to group contacts
 * **role**: A field that defines the function or relationship of a contact (e.g. buyer, seller, landlord, tenant) in the property business 
-* **status**: A label indicating the current state of a client transaction (e.g. looking to sell, looking to buy, signing).
+* **status**: A label indicating the current state of a client transaction (e.g. Pending, Completed).
 * **property size**: A label describing the size of a property in sqft that the client is offering/looking for
 * **property type**: A label describing the type of property that the client is offering/looking for (e.g. studio, terrace, hdb)
 * **property location**: A label specifying the geographical area of a property that the client is offering/looking for (e.g. Bishan, Woodlands)

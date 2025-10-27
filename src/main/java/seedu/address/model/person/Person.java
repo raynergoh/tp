@@ -110,7 +110,6 @@ public class Person {
 
     /**
      * Returns true if both persons have the same phone number.
-     * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePhone(Person otherPerson) {
         if (otherPerson == this) {
@@ -119,6 +118,18 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getPhone().equals(getPhone());
+    }
+
+    /**
+     * Returns true if both persons have the same email address.
+     */
+    public boolean isSameEmail(Person otherPerson) {
+        if (otherPerson == this) {
+            return true;
+        }
+
+        return otherPerson != null
+                && otherPerson.getEmail().equals(getEmail());
     }
 
     /**
@@ -154,15 +165,17 @@ public class Person {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
+        final ToStringBuilder builder = new ToStringBuilder(this)
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
-                .add("roles", roles)
-                .add("status", status.map(Object::toString).orElse("N/A"))
-                .add("tags", tags)
-                .toString();
+                .add("roles", roles);
+
+        status.ifPresent(s -> builder.add("status", s));
+
+        builder.add("tags", tags);
+        return builder.toString();
     }
 
 }

@@ -5,41 +5,60 @@
 ---
 
 # TrackerGuru User Guide
+TrackerGuru is a **keyboard-focused desktop app for property agents** to efficiently manage their contacts. It is designed for users who want to complete contact management tasks faster than conventional point-and-click tools.
 
-TrackerGuru is a **keyboard-focused desktop app built for property agents to manage their contacts** efficiently. By replacing point-and-click workflows with fast keyboard commands, it helps users complete contact management tasks significantly faster than conventional tools.
+**Target users and assumptions:**
+* Property agents who need to track a variety of contact roles such as *Buyer*, *Seller*, *Landlord* etc.
+* Users are assumed to be comfortable typing fast.
+* No prior knowledge of programming or Java is required, except following download instructions.
+
 <!-- * Table of Contents -->
 <page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
+### Step 1: Check Java version
+TrackerGuru requires **Java 17** or above installed on your computer. 
+> **To verify your [Java](#java) version:**
+> 1. Open a terminal and enter ``` java -version ```
+> 2. You should see an output similar to:
+> ```
+> java version "17.0.x"  // or any higher version
+> Java(TM) SE Runtime Environment (build 17.0.x+xx)
+> Java HotSpot(TM) 64-Bit Server VM (build 17.0.x+xx, mixed mode, sharing)
+> ```
+> 3. **If the command is not recognized** or the version is less than 17:
+> <br> Follow this [guide](https://se-education.org/guides/tutorials/javaInstallation.html) for installation.
+> 4. After installation, type `java -version` to verify the correct version.
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+### Step 2: Download the app
+Download the latest TrackerGuru `.jar` file [here](https://github.com/AY2526S1-CS2103T-F15b-3/tp/releases).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+### Step 3: Create your app's home folder
+Move the `.jar` file into any folder. This will be your _home folder_.
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
-
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+### Step 4: Run the app
+1. Open a command terminal. `cd /path/to/your/home/folder`
+2. Run the app. `java -jar addressbook.jar`
+3. A [GUI](#gui) like this should appear in a few seconds with sample data
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
-   Some example commands you can try:
+### Step 5: Try basic commands
+ In the command box, try any of the following commands. Press Enter to execute.
 
-   * `list` : Lists all contacts.
+ | Command | You Should Expect To                                                                   |
+ |---------|----------------------------------------------------------------------------------------|
+ | `list` | List all contacts                                                                      |
+ | `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` | Add a contact `John Doe` with his specified fields                                     |
+ | `delete 3` | Delete the 3rd contact displayed.                                                      |
+ | `clear` | Delete **all contacts** in the Address Book <br> **⚠️:** _This action is irreversible!_ |
+ | `exit` | Exit the TrackerGuru application                                                       |
+_Refer to the [Features](#features) section below for more details and commands_
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
-
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
-
-   * `clear` : Deletes all contacts.
-
-   * `exit` : Exits the app.
-
-1. Refer to the [Features](#features) below for details of each command.
-
+### Step 6: Help Guide
+To access this User Guide anytime from the app, use the **`help`** command.
+A help window will open up, containing the User Guide.
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
@@ -58,16 +77,16 @@ TrackerGuru is a **keyboard-focused desktop app built for property agents to man
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. `n/NAME p/PHONE_NUMBER` and `p/PHONE_NUMBER n/NAME` are both acceptable.
 
 * Tags should either be in the format:
   - `t/GROUP.VALUE` where both `GROUP` and `VALUE` are alphanumeric 
   - a simple Tag `t/TAG` with an alphanumeric string
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+* Commands that do not require parameters (such as help, list, exit, and clear) will ignore any additional input.
+  e.g. `help 123` will be interpreted as `help`.
 
-* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+* When using the PDF version of this document, note that copying multiple-line commands may remove spaces around line breaks. Please check that spaces are correct before pasting into the application.
 </box>
 
 ### Viewing help : `help`
@@ -83,16 +102,16 @@ Format: `help`
 
 Adds a person to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS r/ROLE s/STATUS [t/TAG]…`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE] [s/STATUS] [t/TAG]…`
 
 <box type="tip" seamless>
 
-**Note:** A person can have any number of tags (including 0)
+**Note:** No two persons can share the same `NAME`, `PHONE_NUMBER` or `EMAIL`.
 </box>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 r/Buyer s/Pending`
-* `add n/Betsy Crowe e/betsycrowe@example.com a/Bishan block 123 r/Seller s/Completed p/1234567 t/friend`
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/Betsy Crowe p/12345678 e/betsycrowe@example.com a/Betsy street, block 123 r/Seller s/Completed t/friend`
 
 ### Listing all persons : `list`
 
@@ -128,17 +147,20 @@ Examples:
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE] [s/STATUS] [t/TAG]…​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the person at the specified `INDEX`. 
+  - `INDEX` refers to the number shown beside each person in the displayed list.
+  - `INDEX` **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
+* Existing values for `name`, `phone`, `email`, `address`, `role`, and `status` will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 1 s/Completed` Edits the status of the 1st person to `Completed`. If the person did not have a status, it will be added.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 ### Locating persons by name: `find`
@@ -158,6 +180,23 @@ Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
+
+### Filtering persons by Role, Status, Tag Group: `filter`
+
+Filters the contact list to show only persons matching the specified parameters.
+
+Format: `filter [r/ROLE]…​ [s/STATUS]…​ [tg/TAG_GROUP]…​`
+
+* The search is **case-sensitive**. e.g. `buyer` will not match `Buyer`
+* You can filter with any combination of: **Role(s)**, **Status(es)**, **TagGroup(s)**
+* You may specify multiple Roles, Statuses, and Tag Groups
+* A person will be shown if they match **any** of the specified parameters
+* If no parameters are provided, no filtering will occur
+
+Examples:
+* `filter r/buyer` returns all persons with the role **buyer**
+* `filter s/pending s/completed` returns all persons whose status is **pending** or **completed**
+* `filter r/buyer s/completed tg/price` returns all persons who are **buyers**, or whose status is **completed**, or has a tag whose Tag Group is **price**
 
 ### Deleting a person : `delete`
 
@@ -211,13 +250,13 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app on the new computer. Then, locate the new TrackerGuru home folder and replace its data folder with the data folder from your old computer.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
 
-1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
+1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file (in the same directory as the JAR file) created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -226,13 +265,21 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE] [t/TAG] [t/GROUP.VALUE]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 r/Buyer t/priority t/propertyType.HDB`
+**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE] [s/STATUS] [t/TAG] [t/GROUP.VALUE]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 r/Buyer s/Pending t/priority t/propertyType.HDB`
 **Clear**  | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [s/STATUS] [t/TAG] [t/GROUP.VALUE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE] [s/STATUS] [t/TAG] [t/GROUP.VALUE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com s/Completed`
+**Filter** | `filter [r/ROLE]…​ [s/STATUS]…​ [tg/TAG_GROUP]…​`<br> e.g., `filter r/buyer tg/price`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **Create Tag Group**| `tg GROUP` <br> e.g., `tg PropertyType`
 **Delete Tag Group**| `dtg GROUP` <br> e.g., `dtg PropertyType`
 **List Tag Groups**| `tg`
 **List**   | `list`
 **Help**   | `help`
+
+## Glossary
+### Java
+Java is a programming platform used to run applications like TrackerGuru. TrackerGuru requires Java 17 or above.
+
+### GUI
+GUI Stands for Graphical User Interface. It is the visual part of TrackerGuru that you interact with using windows, buttons, and text fields and displays all your contacts.
