@@ -498,15 +498,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 1a. User enters an invalid command format (e.g. missing prefixes or incorrect syntax).
-    * 1a1. TrackerGuru displays an error message and the correct command format.  
+    * 1a1. TrackerGuru displays an error message and the correct command format.
       Use case resumes from step 1.
 
 * 1b. User specifies no filter criteria.
-    * 1b1. TrackerGuru displays an error message indicating invalid command format.  
+    * 1b1. TrackerGuru displays an error message indicating invalid command format.
       Use case resumes from step 1.
 
 * 1d. TrackerGuru encounters a system error while filtering.
-    * 1d1. TrackerGuru displays an error message.  
+    * 1d1. TrackerGuru displays an error message.
       Use case ends.
 
 ---
@@ -529,7 +529,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 1a. TrackerGuru detects an error in the entered data (missing required fields or improper format).
-    * 1a1. TrackerGuru displays an error message and proper command format to the user.  
+    * 1a1. TrackerGuru displays an error message and proper command format to the user.
       Use case resumes from step 1.
 
 * 1b. TrackerGuru fails to search contacts due to a system error.
@@ -549,7 +549,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. User requests to edit contact with together with their relevant details.
 2. System edits and saves the updated contact information.
-3. System displays success message to the user. 
+3. System displays success message to the user.
 4. System's contact list reflects the updated contact information.
 
     Use case ends.
@@ -559,14 +559,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 1a. System detects an error in the entered data (invalid index).
 
   * 1a1. System displays error message that the specified index is invalid.
-  
     Use case resumes from step 1.
 
 * 2a. System fails to edit the contact information due to a system error.
 
-  * 2a1. System displays an error message indicating the failure.
-  
-    Use case ends.
+  * 2a1. System displays an error message indicating the failure. <br> Use case ends.
 
 
 ### Non-Functional Requirements
@@ -605,7 +602,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **client**: A specific kind of contact that represents customers of the property agent (i.e. property buyers, sellers, landlords, tenants) 
 * **contact information**: Exact contact details of a person; name, phone number, email, address
 * **contact tags**: Labels or categories used to group contacts
-* **role**: A field that defines the function or relationship of a contact (e.g. buyer, seller, landlord, tenant) in the property business 
+* **role**: A field that defines the function or relationship of a contact (e.g. buyer, seller, landlord, tenant) in the property business
 * **status**: A label indicating the current state of a client transaction (e.g. Pending, Completed).
 * **property size**: A label describing the size of a property in sqft that the client is offering/looking for
 * **property type**: A label describing the type of property that the client is offering/looking for (e.g. studio, terrace, hdb)
