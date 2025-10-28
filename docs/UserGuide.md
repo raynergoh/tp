@@ -79,6 +79,39 @@ To access this User Guide anytime from the app, use the **`help`** command. A he
 * When using the PDF version of this document, note that copying multiple-line commands may remove spaces around line breaks. Please check that spaces are correct before pasting into the application.
 </box>
 
+### Understanding Tags and Tag Groups
+
+TrackerGuru supports two ways to tag your contacts:
+
+1. **Simple Tags**: Basic labels without categories
+    - Example: `t/friend`, `t/priority`, `t/urgent`
+
+2. **Tags with Groups** (recommended for organization): Tags organized into categories
+    - Format: `t/GROUP.VALUE`
+    - Example: `t/propertyType.HDB`, `t/location.Bishan`, `t/priceRange.500k-1M`
+
+**Why use Tag Groups?**
+- **Better organization**: Group related tags together (all property types, all locations, etc.)
+- **Easier filtering**: Use `filter tg/propertyType` to find all contacts with any property type tag
+- **Clearer contact management**: Instantly see which category each tag belongs to
+
+**Example Contact with Tag Groups:**
+
+`add n/John Tan p/91234567 e/john@example.com a/Blk 456 Bishan
+r/Buyer
+t/propertyType.HDB
+t/location.Bishan
+t/priceRange.500k-1M
+t/priority`
+
+In this example:
+- `propertyType.HDB` - Tag with group (property type is HDB)
+- `location.Bishan` - Tag with group (location is Bishan)
+- `priceRange.500k-1M` - Tag with group (price range is 500k-1M)
+- `priority` - Simple tag without group
+
+---
+
 ### Viewing help : `help`
 
 Shows a message explaining how to access the help page.
@@ -101,6 +134,9 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE]…​ [s/STATUS] [
 * You can add multiple roles by repeating `r/ROLE` (e.g., `r/Buyer r/Investor`).
 * Status must be either **Pending** or **Completed** (case-insensitive). Each person can have only one status.
 * Status is optional. If not specified, the person will have no status.
+* Tags can either be in the format:
+    - `t/GROUP.VALUE` where both `GROUP` and `VALUE` are alphanumeric
+    - a simple Tag `t/TAG` with alphanumeric text
 </box>
 
 Examples:
@@ -116,27 +152,80 @@ Format: `list`
 
 ### Listing all Tag Groups : `tg`
 
-Lists all TagGroups already created
+Lists all tag groups you have created.
 
 Format: `tg`
 
-### Create a Tag Group : `tg`
+<box type="info" seamless>
 
-Creates a new TagGroup
+**Notes:**
+* If no tag groups have been created yet, a message will inform you that no tag groups exist.
+* This command helps you check which tag groups are available before assigning tags to contacts.
+* Tag groups persist across sessions and are automatically saved.
 
-Format: `tg TagGroup`
-
-Examples:
-* `tg PropertyType`
-
-### Delete a Tag Group : `dtg`
-
-Deletes an existing TagGroup
-
-Format: `dtg TagGroup`
+</box>
 
 Examples:
-* `dtg PropertyType`
+* `tg` displays all existing tag groups such as `propertyType`, `location`, `price`, etc.
+
+
+### Creating a Tag Group : `tg`
+
+Creates a new tag group to organize your tags into categories.
+
+Format: `tg GROUP_NAME`
+
+<box type="info" seamless>
+
+**Notes:**
+* `GROUP_NAME` must be **alphanumeric** (letters and numbers only, no spaces or special characters).
+* Tag group names are **case-sensitive** (e.g., `PropertyType` and `propertytype` are different).
+* Duplicate tag group names are not allowed. If the tag group already exists, an error message will be shown.
+* Once created, you can use the tag group when adding or editing contacts using the format `t/GROUP.VALUE`.
+
+</box>
+
+Examples:
+* `tg propertyType` creates a tag group called `propertyType`.
+* `tg location` creates a tag group called `location`.
+* `tg priceRange` creates a tag group called `priceRange`.
+
+**After creating a tag group**, you can assign tags within that group to contacts:
+* `add n/John Doe p/98765432 e/john@example.com a/123 Street t/propertyType.HDB t/location.Bishan`
+* `edit 1 t/propertyType.Condo t/priceRange.500k-1M`
+
+
+### Deleting a Tag Group : `dtg`
+
+Deletes an existing tag group.
+
+Format: `dtg GROUP_NAME`
+
+<box type="warning" seamless>
+
+**Important:**
+* You **cannot delete a tag group** if it is currently in use by any contact's tags.
+* To delete a tag group that's in use, you must first:
+    1. Remove all tags using that group from your contacts (using the `edit` command), **OR**
+    2. Delete the contacts that have tags in that group.
+* Tag group names are **case-sensitive**.
+
+</box>
+
+Examples:
+* `dtg propertyType` deletes the `propertyType` tag group (only if not in use).
+* `dtg location` deletes the `location` tag group (only if not in use).
+
+**Error scenarios:**
+* **Tag group does not exist**: `The tag group propertyType does not exist.`
+* **Tag group in use**: `This tag group is currently in use and cannot be deleted. Please remove all tags associated with this group first.`
+
+<box type="tip" seamless>
+
+**Tip:** Use the `tg` command to list all your tag groups before attempting to delete one!
+
+</box>
+
 
 ### Editing a person : `edit`
 
@@ -364,6 +453,7 @@ Status values are **case-insensitive** (e.g., "pending", "Pending", and "PENDING
 ### Tag
 A Tag is an optional label used to provide additional information about a contact.
 A tag can also optionally contain a **tag group** (see [definition](#tag-group)), allowing it to be categorized under a specific group.
+
 <box type="tip" seamless>
 
 **Note:**
@@ -382,12 +472,17 @@ Tags are **case-sensitive** (e.g., "VIP" and "vip" are treated as different tags
 A Tag Group organizes tags into broader categories for more structured classification.
 It is a way to group related tags under a shared category.
 
+**How it works:**
+- Tag groups are created using the `tg GROUP_NAME` command.
+- Once created, you can assign tags within that group using the format `t/GROUP.VALUE`.
+- Tag groups allow you to categorize tags into logical categories.
+
 Common tag groups include:
 - **PropertyType**:
     - Example tags using this group: `t/PropertyType.Condo`, `t/PropertyType.Landed`, `t/PropertyType.HDB`
-- **Region**:
-    - Example tags using this group: `t/Region.East`, `t/Region.North`, `t/Region.South`
+- **Location**:
+    - Example tags using this group: `t/Location.Bishan`, `t/Location.Woodlands`, `t/Location.Sengkang`
 - **Project**:
     - Example tags using this group: `t/Project.X`, `t/Project.Y`, `t/Project.Z`
 
-Tag groups are also **case-sensitive** (e.g., "Client" and "client" are treated differently).
+Tag groups are also **case-sensitive** (e.g., "Client" and "client" are treated differently), and are automatically saved and persist across sessions.

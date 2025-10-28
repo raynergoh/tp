@@ -11,7 +11,7 @@ public class Tag {
 
     public static final String MESSAGE_CONSTRAINTS = "To utilise Tag Groups, Tags should "
             + "be in the format GROUP.VALUE where both GROUP and VALUE are alphanumeric "
-            + "OR it could be a simple Tag with any alphanumeric string";
+            + "OR it could be a simple Tag with any alphanumeric text";
 
     /**
      * Regex to validate tags of the form GROUP.VALUE,
