@@ -481,7 +481,7 @@ Common tag groups include:
 - **PropertyType**:
     - Example tags using this group: `t/PropertyType.Condo`, `t/PropertyType.Landed`, `t/PropertyType.HDB`
 - **Location**:
-    - Example tags using this group: `t/Location.Bishan`, `t/Location.Woodlands`, `t/Location.Sengakng`
+    - Example tags using this group: `t/Location.Bishan`, `t/Location.Woodlands`, `t/Location.Sengkang`
 - **Project**:
     - Example tags using this group: `t/Project.X`, `t/Project.Y`, `t/Project.Z`
 
