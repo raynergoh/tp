@@ -256,6 +256,11 @@ public class AddCommandTest {
         public void removeTagGroup(TagGroup group) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean isTagGroupInUse(TagGroup tg) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

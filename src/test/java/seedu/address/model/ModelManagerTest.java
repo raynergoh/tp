@@ -17,8 +17,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Person;
 import seedu.address.model.tag.TagGroup;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.PersonBuilder;
 
 public class ModelManagerTest {
 
@@ -118,6 +120,36 @@ public class ModelManagerTest {
         assertTrue(modelManager.hasTagGroup(group));
         modelManager.removeTagGroup(group);
         assertFalse(modelManager.hasTagGroup(group));
+    }
+
+    @Test
+    public void isTagGroupInUse_noPersons_returnsFalse() {
+        // Empty address book, no persons
+        TagGroup groupProperty = new TagGroup("property");
+        assertFalse(modelManager.isTagGroupInUse(groupProperty));
+    }
+
+    @Test
+    public void isTagGroupInUse_personWithoutTagGroup_returnsFalse() {
+        TagGroup groupProperty = new TagGroup("property");
+        Person personWithoutGroup = new PersonBuilder().withTags("singleTag").build();
+        modelManager.setAddressBook(new AddressBook());
+        modelManager.addPerson(personWithoutGroup);
+
+        assertFalse(modelManager.isTagGroupInUse(groupProperty));
+    }
+
+    @Test
+    public void isTagGroupInUse_personWithTagGroup_returnsTrue() {
+        // Person with tag that has the given tagGroup
+        TagGroup groupProperty = new TagGroup("property");
+        TagGroup groupLocation = new TagGroup("location");
+        Person personWithGroup = new PersonBuilder().withTags("property.HDB").build();
+        modelManager.setAddressBook(new AddressBook());
+        modelManager.addPerson(personWithGroup);
+
+        assertTrue(modelManager.isTagGroupInUse(groupProperty));
+        assertFalse(modelManager.isTagGroupInUse(groupLocation));
     }
 
     @Test

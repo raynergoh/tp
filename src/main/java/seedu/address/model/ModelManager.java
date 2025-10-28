@@ -165,6 +165,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean isTagGroupInUse(TagGroup group) {
+        requireNonNull(group);
+
+        return addressBook.getPersonList().stream()
+                .flatMap(person -> person.getTags().stream())
+                .anyMatch(tag -> tag.hasGroup() && group.equals(tag.getGroup()));
+    }
+
+
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;

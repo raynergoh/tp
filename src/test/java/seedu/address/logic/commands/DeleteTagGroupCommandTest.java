@@ -1,12 +1,11 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.TagGroupCommand.MESSAGE_CREATE_SUCCESS;
-import static seedu.address.logic.commands.TagGroupCommand.MESSAGE_DUPLICATE;
-import static seedu.address.logic.commands.TagGroupCommand.MESSAGE_EMPTY_LIST;
-import static seedu.address.logic.commands.TagGroupCommand.MESSAGE_LIST_SUCCESS;
+import static seedu.address.logic.commands.DeleteTagGroupCommand.MESSAGE_DELETE_SUCCESS;
+import static seedu.address.logic.commands.DeleteTagGroupCommand.MESSAGE_TAGGROUP_NOT_FOUND;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -28,9 +27,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.tag.TagGroup;
 
 /**
- * Unit tests for TagGroupCommand.
+ * Unit tests for DeleteTagGroupCommand.
  */
-public class TagGroupCommandTest {
+public class DeleteTagGroupCommandTest {
 
     private ModelStub modelStub;
 
@@ -40,69 +39,73 @@ public class TagGroupCommandTest {
     }
 
     @Test
-    public void execute_createTagGroup_success() throws CommandException {
+    public void execute_tagGroupNotInUse_deleteSuccessful() throws CommandException {
         TagGroup group = new TagGroup("location");
-        TagGroupCommand command = new TagGroupCommand(group);
-        CommandResult result = command.execute(modelStub);
-
-        assertEquals(String.format(MESSAGE_CREATE_SUCCESS, group), result.getFeedbackToUser());
-        assertTrue(modelStub.tagGroups.contains(group));
-    }
-
-    @Test
-    public void execute_createDuplicateTagGroup_throwsCommandException() throws CommandException {
-        TagGroup group = new TagGroup("propertyType");
-        modelStub.tagGroups.add(group);
-        TagGroupCommand command = new TagGroupCommand(group);
-
-        assertThrows(CommandException.class, MESSAGE_DUPLICATE, () -> command.execute(modelStub));
-    }
-
-    @Test
-    public void execute_listNoTagGroups_returnsEmptyMessage() throws CommandException {
-        TagGroupCommand listCommand = new TagGroupCommand(null);
-        CommandResult result = listCommand.execute(modelStub);
-
-        assertEquals(MESSAGE_EMPTY_LIST, result.getFeedbackToUser());
-    }
-
-    @Test
-    public void execute_listExistingTagGroups_success() throws CommandException {
-        TagGroup group = new TagGroup("propertyType");
+        ModelStub modelStub = new ModelStub() {
+            @Override
+            public boolean isTagGroupInUse(TagGroup tg) {
+                return false;
+            }
+        };
         modelStub.tagGroups.add(group);
 
-        TagGroupCommand command = new TagGroupCommand(null);
+        DeleteTagGroupCommand command = new DeleteTagGroupCommand(group);
         CommandResult result = command.execute(modelStub);
 
-        String expectedOutput = String.format(MESSAGE_LIST_SUCCESS, "propertyType");
-        assertEquals(expectedOutput, result.getFeedbackToUser());
+        assertEquals(String.format(MESSAGE_DELETE_SUCCESS, group), result.getFeedbackToUser());
+        assertFalse(modelStub.tagGroups.contains(group));
     }
 
     @Test
-    public void equals_sameValues_returnsTrue() {
-        TagGroup group = new TagGroup("finance");
-        TagGroupCommand commandA = new TagGroupCommand(group);
-        TagGroupCommand commandB = new TagGroupCommand(new TagGroup("finance"));
+    public void execute_nonExistentTagGroup_throwsCommandException() {
+        TagGroup group = new TagGroup("nonExistent");
+        DeleteTagGroupCommand command = new DeleteTagGroupCommand(group);
+
+        assertThrows(CommandException.class,
+                String.format(MESSAGE_TAGGROUP_NOT_FOUND, group), () -> command.execute(modelStub));
+    }
+
+    @Test
+    public void execute_tagGroupInUse_throwsCommandException() {
+        TagGroup group = new TagGroup("location");
+        ModelStub modelStub = new ModelStub();
+        DeleteTagGroupCommand command = new DeleteTagGroupCommand(group);
+        assertThrows(CommandException.class, () -> command.execute(modelStub));
+    }
+
+
+    @Test
+    public void equals_sameTagGroup_returnsTrue() {
+        DeleteTagGroupCommand commandA = new DeleteTagGroupCommand(new TagGroup("finance"));
+        DeleteTagGroupCommand commandB = new DeleteTagGroupCommand(new TagGroup("finance"));
         assertTrue(commandA.equals(commandB));
     }
 
     @Test
-    public void equals_differentValues_returnsFalse() {
-        TagGroupCommand commandA = new TagGroupCommand(new TagGroup("finance"));
-        TagGroupCommand commandB = new TagGroupCommand(new TagGroup("location"));
+    public void equals_differentTagGroup_returnsFalse() {
+        DeleteTagGroupCommand commandA = new DeleteTagGroupCommand(new TagGroup("finance"));
+        DeleteTagGroupCommand commandB = new DeleteTagGroupCommand(new TagGroup("location"));
         assertFalse(commandA.equals(commandB));
     }
 
     @Test
     public void equals_sameObject_returnsTrue() {
-        TagGroupCommand command = new TagGroupCommand(new TagGroup("test"));
+        DeleteTagGroupCommand command = new DeleteTagGroupCommand(new TagGroup("test"));
         assertTrue(command.equals(command));
     }
 
     @Test
     public void equals_null_returnsFalse() {
-        TagGroupCommand command = new TagGroupCommand(new TagGroup("test"));
+        DeleteTagGroupCommand command = new DeleteTagGroupCommand(new TagGroup("test"));
         assertFalse(command.equals(null));
+    }
+
+    @Test
+    public void hashCode_sameTagGroup_returnsSameHashCode() {
+        DeleteTagGroupCommand commandA = new DeleteTagGroupCommand(new TagGroup("finance"));
+        DeleteTagGroupCommand commandB = new DeleteTagGroupCommand(new TagGroup("finance"));
+
+        assertEquals(commandA.hashCode(), commandB.hashCode());
     }
 
     /**
@@ -131,12 +134,13 @@ public class TagGroupCommandTest {
             tagGroups.remove(group);
         }
 
-        // Unused Model methods
         @Override
-        public boolean isTagGroupInUse(TagGroup tg) {
-            throw new AssertionError("This method should not be called.");
+        public boolean isTagGroupInUse(TagGroup group) {
+            requireNonNull(group);
+            return true;
         }
 
+        // Unused Model methods
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");

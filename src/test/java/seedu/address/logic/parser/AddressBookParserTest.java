@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteTagGroupCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
@@ -115,6 +116,14 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_tagGroupCreate() throws Exception {
         assertTrue(parser.parseCommand(TagGroupCommand.COMMAND_WORD + " MyGroup") instanceof TagGroupCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteTagGroup() throws Exception {
+        assertTrue(parser.parseCommand(DeleteTagGroupCommand.COMMAND_WORD
+                + " property") instanceof DeleteTagGroupCommand);
+        assertThrows(ParseException.class, () ->
+                parser.parseCommand(DeleteTagGroupCommand.COMMAND_WORD + " "));
     }
 
     @Test
