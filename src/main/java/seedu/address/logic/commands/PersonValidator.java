@@ -12,11 +12,11 @@ import seedu.address.model.person.Person;
  * Performs duplicate checks for name, phone numbers and email addresses.
  */
 public class PersonValidator {
-    private static final Logger logger = LogsCenter.getLogger(PersonValidator.class);
-
     public static final String MESSAGE_DUPLICATE_EMAIL = "This email address already exists in the address book";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
     public static final String MESSAGE_DUPLICATE_PHONE = "This phone number already exists in the address book";
+
+    private static final Logger logger = LogsCenter.getLogger(PersonValidator.class);
 
     /**
      * Validates that a person can be added to the address book.
