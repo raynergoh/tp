@@ -130,10 +130,19 @@ The `Model` component,
 
 <box type="info" seamless>
 
-**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list and `Role` in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag and one `Role` object per unique role, instead of each `Person` needing their own `Tag` objects or `Role` objects.<br>
+**Note:** An alternative (arguably, a more OOP) model is given below. It has:
+- A **Tag list** in the `AddressBook`, which `Person` references
+- A **Role list** in the `AddressBook`, which `Person` references
+- A **TagGroup set** in the `AddressBook`, which `Tag` optionally references
+
+This allows `AddressBook` to:
+- Only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects
+- Only require one `Role` object per unique role, instead of each `Person` needing their own `Role` objects
+- Maintain a centralized collection of `TagGroup` objects for organizing tags into categories (e.g., "PropertyType", "Location")
+
+Tags can optionally belong to a TagGroup, enabling structured organization and group-based filtering of contacts.
 
 <puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
-
 
 </box>
 
@@ -149,6 +158,15 @@ The `Storage` component,
 * inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
+Address book data is persisted as a JSON file through `JsonSerializableAddressBook`, which contains:
+
+* A list of `JsonAdaptedPerson` objects (each containing `JsonAdaptedTag` and `JsonAdaptedRole` objects)
+
+* A list of `JsonAdaptedTagGroup` objects representing tag categories
+
+
+
+This structure enables centralized storage of tag groups alongside person data, maintaining consistency with the Model component's tag group management.
 ### Common classes
 
 Classes used by multiple components are in the `seedu.address.commons` package.
