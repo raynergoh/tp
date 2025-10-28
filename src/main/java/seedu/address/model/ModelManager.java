@@ -169,15 +169,11 @@ public class ModelManager implements Model {
     public boolean isTagGroupInUse(TagGroup group) {
         requireNonNull(group);
 
-        for (Person person : addressBook.getPersonList()) {
-            for (Tag tag : person.getTags()) {
-                if (tag.hasGroup() && group.equals(tag.getGroup())) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return addressBook.getPersonList().stream()
+                .flatMap(person -> person.getTags().stream())
+                .anyMatch(tag -> tag.hasGroup() && group.equals(tag.getGroup()));
     }
+
 
 
     @Override
