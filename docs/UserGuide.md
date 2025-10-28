@@ -224,6 +224,32 @@ Exits the program.
 
 Format: `exit`
 
+### Viewing status statistics : `stats`
+
+Displays statistics about the status distribution of all contacts in your address book.
+
+Format: `stats`
+
+* Shows the count of contacts for each status category:
+  - **Pending**: Contacts with pending status
+  - **Completed**: Contacts with completed status  
+  - **No Status**: Contacts without any status
+* Also displays the total number of contacts
+
+Example output:
+```
+Status Statistics:
+- Pending: 45 contact(s)
+- Completed: 23 contact(s)
+- No Status: 12 contact(s)
+Total: 80 contact(s)
+```
+
+<box type="tip" seamless>
+
+**Tip:** Use this command to quickly see an overview of your contact pipeline and track your progress!
+</box>
+
 ### Saving the data
 
 AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -287,6 +313,7 @@ Action     | Format, Examples
 **Delete Tag Group**| `dtg GROUP` <br> e.g., `dtg PropertyType`
 **List Tag Groups**| `tg`
 **List**   | `list`
+**Stats**  | `stats`
 **Help**   | `help`
 
 ## Glossary
