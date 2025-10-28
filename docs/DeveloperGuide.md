@@ -113,6 +113,7 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+* Note: Some commands like `ListCommand`, `StatsCommand`, `ClearCommand`, `ExitCommand`, and `HelpCommand` do not require parsers as they take no parameters.
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2526S1-CS2103T-F15b-3/tp/blob/master/src/main/java/seedu/address/model/Model.java)
@@ -405,6 +406,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | expert user                 | export my contact book                                                                      | I can migrate my data to other devices                                        |
 | `*`      | expert user                 | import existing client data from a csv file                                                 | I can start from an existing database                                         |
 | `* *`    | user with many contacts     | search a contact by name                                                                    | I can locate details of a person without having to go through the entire list |
+| `* *`    | user with many contacts     | view statistics of clients grouped by their transaction status                              | I can quickly see how many clients are pending, completed, or have no status  |
 | `*`      | user with many contacts     | quickly filter contacts based on their role                                                 | I can easily view a list of clients of the same role together                 |
 | `*`      | user with many contacts     | quickly filter contacts based on their property location tag                                | I can easily view a list of clients of the same property location together    |
 | `*`      | user with many contacts     | sort contacts by name alphabetically                                                        | I can locate them easily                                                      |
@@ -433,7 +435,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 1a. TrackerGuru detects an error in the entered data (missing required fields or improper format).
-    * 1a1. TrackerGuru displays an error message and the proper command format to the user.  
+    * 1a1. TrackerGuru displays an error message and the proper command format to the user.
       Use case resumes from step 1.
 
 * 1b. TrackerGuru detects a duplicate contact (same phone number).
@@ -442,7 +444,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1b3. User chooses to abort → Use case ends.
 
 * 1c. TrackerGuru fails to save the contact due to a system error.
-    * 1c1. TrackerGuru displays an error message.  
+    * 1c1. TrackerGuru displays an error message.
       Use case ends.
 
 ---
@@ -460,20 +462,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 1a. TrackerGuru detects that the contact’s unique identifier is missing in the entered data.
-    * 1a1. TrackerGuru requests for the contact’s unique identifier.  
+    * 1a1. TrackerGuru requests for the contact’s unique identifier.
       Use case resumes from step 1.
 
 * 1b. TrackerGuru cannot find the specified contact’s unique identifier.
     * 1b1. TrackerGuru requests for a valid unique identifier.
-    * 1b2. User enters a new unique identifier.  
-      Steps 1b1–1b2 are repeated until the unique identifier is one that exists.  
+    * 1b2. User enters a new unique identifier.
+      Steps 1b1–1b2 are repeated until the unique identifier is one that exists.
       Use case resumes from step 2.
 
 * 1c. TrackerGuru fails to delete the contact due to a system error.
-    * 1c1. TrackerGuru informs the user.  
+    * 1c1. TrackerGuru informs the user.
       Use case ends.
 
-* *a. At any time, User chooses to cancel the deletion request.  
+* *a. At any time, User chooses to cancel the deletion request.
   Use case ends.
 
 ---
@@ -496,15 +498,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 1a. User enters an invalid command format (e.g. missing prefixes or incorrect syntax).
-    * 1a1. TrackerGuru displays an error message and the correct command format.  
+    * 1a1. TrackerGuru displays an error message and the correct command format.
       Use case resumes from step 1.
 
 * 1b. User specifies no filter criteria.
-    * 1b1. TrackerGuru displays an error message indicating invalid command format.  
+    * 1b1. TrackerGuru displays an error message indicating invalid command format.
       Use case resumes from step 1.
 
 * 1d. TrackerGuru encounters a system error while filtering.
-    * 1d1. TrackerGuru displays an error message.  
+    * 1d1. TrackerGuru displays an error message.
       Use case ends.
 
 ---
@@ -527,11 +529,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 1a. TrackerGuru detects an error in the entered data (missing required fields or improper format).
-    * 1a1. TrackerGuru displays an error message and proper command format to the user.  
+    * 1a1. TrackerGuru displays an error message and proper command format to the user.
       Use case resumes from step 1.
 
 * 1b. TrackerGuru fails to search contacts due to a system error.
-    * 1b1. TrackerGuru displays an error message.  
+    * 1b1. TrackerGuru displays an error message.
       Use case ends.
 
 ---
@@ -547,7 +549,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. User requests to edit contact with together with their relevant details.
 2. System edits and saves the updated contact information.
-3. System displays success message to the user. 
+3. System displays success message to the user.
 4. System's contact list reflects the updated contact information.
 
     Use case ends.
@@ -557,14 +559,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 1a. System detects an error in the entered data (invalid index).
 
   * 1a1. System displays error message that the specified index is invalid.
-  
     Use case resumes from step 1.
 
 * 2a. System fails to edit the contact information due to a system error.
 
-  * 2a1. System displays an error message indicating the failure. 
-  
-    Use case ends.
+  * 2a1. System displays an error message indicating the failure. <br> Use case ends.
 
 
 ### Non-Functional Requirements
@@ -579,7 +578,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 - The system should not have a remote server
 - The system should be functional without internet connection
 - The system should only use local storage to store contacts
-- The system should support using a local .json file to store and retrieve contact data 
+- The system should support using a local .json file to store and retrieve contact data
 
 #### Reliability requirements
 - The system should not lose saved data in the event of unexpected termination
@@ -600,10 +599,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
-* **client**: A specific kind of contact that represents customers of the property agent (i.e. property buyers, sellers, landlords, tenants) 
+* **client**: A specific kind of contact that represents customers of the property agent (i.e. property buyers, sellers, landlords, tenants)
 * **contact information**: Exact contact details of a person; name, phone number, email, address
 * **contact tags**: Labels or categories used to group contacts
-* **role**: A field that defines the function or relationship of a contact (e.g. buyer, seller, landlord, tenant) in the property business 
+* **role**: A field that defines the function or relationship of a contact (e.g. buyer, seller, landlord, tenant) in the property business
 * **status**: A label indicating the current state of a client transaction (e.g. Pending, Completed).
 * **property size**: A label describing the size of a property in sqft that the client is offering/looking for
 * **property type**: A label describing the type of property that the client is offering/looking for (e.g. studio, terrace, hdb)

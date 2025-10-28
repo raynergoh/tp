@@ -1,0 +1,8 @@
+{
+  "persons" : [ ],
+  "tagGroups" : [ {
+    "name" : "property"
+  }, {
+    "name" : "location"
+  } ]
+}
