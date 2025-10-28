@@ -41,7 +41,7 @@ public class DeleteTagGroupCommand extends Command {
 
         if (model.isTagGroupInUse(toDelete)) {
             throw new CommandException("Cannot delete tag group: It is still used by contacts."
-                    + " Please delete all tags with that Tag Group");
+                    + " Please delete all tags associated with this Tag Group first.");
         }
 
         model.removeTagGroup(toDelete);

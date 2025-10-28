@@ -257,6 +257,204 @@ The following sequence diagram shows how the duplicate phone number check works 
     * May lead to confusion when the same contact information appears for multiple people.
     * Could result in unintended duplicates if users ignore warnings.
 
+### Tag Group Management feature
+
+#### Overview
+
+The Tag Group Management feature allows users to organize tags into logical categories (tag groups). This helps property agents categorize and manage their contacts more effectively by grouping related tags together (e.g., `propertyType`, `location`, `priceRange`).
+
+Tag groups provide the following benefits:
+* **Better organization**: Group related tags together for easier management
+* **Improved filtering**: Filter contacts by tag group categories
+* **Clearer structure**: Instantly see which category each tag belongs to
+
+#### Implementation
+
+The Tag Group Management feature is implemented through multiple layers of the application:
+
+##### Model Layer
+
+**Core Classes:**
+* `TagGroup`: Represents a tag group with an alphanumeric name. Ensures immutability and validates names using regex patterns.
+* `Tag`: Modified to optionally reference a `TagGroup`. Tags can exist independently or be associated with a group.
+* `AddressBook`: Maintains a `Set<TagGroup>` to store all created tag groups. Provides methods to add, remove, and check tag groups.
+* `Model` interface: Exposes operations for tag group management (`addTagGroup`, `deleteTagGroup`, `hasTagGroup`, `isTagGroupInUse`).
+
+**Key Methods:**
+* `Model#addTagGroup(TagGroup)`: Adds a new tag group to the address book if it doesn't already exist.
+* `Model#deleteTagGroup(TagGroup)`: Removes a tag group from the address book after validation.
+* `Model#hasTagGroup(TagGroup)`: Checks if a tag group exists in the address book.
+* `Model#isTagGroupInUse(TagGroup)`: Checks if any person's tags reference the specified tag group. Uses Java Streams with `flatMap()` and `anyMatch()` for efficient checking.
+
+##### Logic Layer
+
+**Command Classes:**
+* `TagGroupCommand`: Creates a new tag group or lists all existing tag groups. Handles both parameterized (create) and parameterless (list) executions.
+* `DeleteTagGroupCommand`: Deletes a tag group after checking that it's not in use by any person's tags.
+
+**Parser Classes:**
+* `TagGroupCommandParser`: Parses user input for the `tg` command. Distinguishes between listing (no arguments) and creating (with GROUP_NAME argument).
+* `DeleteTagGroupCommandParser`: Parses user input for the `dtg` command and validates the tag group name.
+
+**Command Execution Flow:**
+1. User enters a tag group command (e.g., `tg propertyType`)
+2. `AddressBookParser` routes to the appropriate parser
+3. Parser validates input and creates the command object
+4. Command executes by interacting with the `Model`
+5. Result is returned to the UI layer
+
+##### Storage Layer
+
+**Storage Classes:**
+* `JsonAdaptedTagGroup`: Jackson-friendly adapter class for `TagGroup` serialization/deserialization.
+* `JsonSerializableAddressBook`: Extended to include a `List<JsonAdaptedTagGroup>` field for persisting tag groups.
+
+**Persistence Flow:**
+* Tag groups are serialized to JSON alongside persons in `addressbook.json`
+* On application startup, tag groups are deserialized and loaded into the `AddressBook`
+* Tag groups persist across sessions automatically
+
+#### Usage Scenarios
+
+##### Scenario 1: Creating a Tag Group
+
+**User Goal:** Create a tag group called `propertyType`
+
+**Steps:**
+1. User executes `tg propertyType`
+2. `AddressBookParser` creates a `TagGroupCommandParser`
+3. `TagGroupCommandParser` parses the input and creates a `TagGroupCommand` with the group name
+4. `TagGroupCommand#execute()` checks if the tag group already exists using `Model#hasTagGroup()`
+5. If it doesn't exist, `Model#addTagGroup()` is called to add the tag group
+6. Success message "Tag group created: propertyType" is displayed to the user
+
+**Sequence Diagram:**
+
+<puml src="diagrams/TagGroupCommandSequenceDiagram.puml" alt="TagGroupCommandSequenceDiagram" />
+
+The sequence diagram above illustrates the interaction between Logic and Model components when creating a tag group.
+
+##### Scenario 2: Listing Tag Groups
+
+**User Goal:** View all created tag groups
+
+**Steps:**
+1. User executes `tg` (without arguments)
+2. `AddressBookParser` creates a `TagGroupCommandParser`
+3. `TagGroupCommandParser` detects no arguments and creates a `TagGroupCommand` for listing
+4. `TagGroupCommand#execute()` retrieves all tag groups using `Model#getTagGroupList()`
+5. List of tag groups is formatted and displayed to the user
+
+##### Scenario 3: Deleting a Tag Group
+
+**User Goal:** Delete an unused tag group called `propertyType`
+
+**Steps:**
+1. User executes `dtg propertyType`
+2. `AddressBookParser` creates a `DeleteTagGroupCommandParser`
+3. `DeleteTagGroupCommandParser` parses the input and creates a `DeleteTagGroupCommand`
+4. `DeleteTagGroupCommand#execute()` performs validation:
+    - Checks if the tag group exists using `Model#hasTagGroup()`
+    - Checks if it's in use using `Model#isTagGroupInUse()`
+5. If validation passes, `Model#deleteTagGroup()` is called
+6. Success message "Tag group deleted: propertyType" is displayed
+
+**Activity Diagram:**
+
+<puml src="diagrams/DeleteTagGroupActivityDiagram.puml" alt="DeleteTagGroupActivityDiagram" />
+
+The activity diagram above shows the decision flow when deleting a tag group, including validation steps.
+
+#### Design Considerations:
+
+**Aspect: Tag Group Deletion Policy**
+
+**Alternative 1 (current choice)**: Prevent deletion if tag group is in use
+- **Pros**: Data integrity maintained, prevents orphaned tags
+- **Cons**: Requires manual tag cleanup before group deletion
+- **Rationale**: Chosen to avoid accidental data loss and maintain referential integrity
+
+**Alternative 2**: Cascade delete all associated tags
+- **Pros**: Simpler workflow for bulk cleanup
+- **Cons**: High risk of unintended data loss, no undo mechanism
+
+**Alternative 3**: Convert to untagged status
+- **Pros**: Preserves tag associations while removing group
+- **Cons**: Creates inconsistent state, defeats purpose of grouping
+
+**Aspect: Tag group storage structure**
+
+* **Alternative 1 (current choice):** Store as a `Set<TagGroup>` in `AddressBook`
+    * Pros: Simple and efficient; automatic duplicate prevention
+    * Pros: Fast lookup for existence checks (O(1) on average with HashSet)
+    * Cons: Not ordered; tag groups displayed in arbitrary order
+
+* **Alternative 2:** Store as a `Map<String, TagGroup>` keyed by tag group name
+    * Pros: Slightly faster lookup by name (explicit key-based access)
+    * Cons: Redundant since `TagGroup` already contains its name
+    * Cons: Requires additional boilerplate code for synchronization
+
+* **Alternative 3:** Store as a sorted list for ordered display
+    * Pros: Tag groups displayed in alphabetical order
+    * Cons: Slower insertion and duplicate checking (O(n))
+    * Cons: Additional complexity in maintaining sort order
+
+**Justification:** Alternative 1 was chosen for its simplicity and efficiency. The unordered nature of the Set is not a significant drawback since tag groups can be sorted when displayed if needed.
+
+**Aspect: Tag and TagGroup relationship design**
+
+* **Alternative 1 (current choice):** Tags optionally reference TagGroup; TagGroups don't maintain lists of Tags
+    * Pros: Simple unidirectional relationship; easier to maintain consistency
+    * Pros: Tags can exist independently without a group
+    * Cons: Finding all tags in a group requires scanning all persons' tags
+
+* **Alternative 2:** Bidirectional relationship where TagGroups maintain lists of associated Tags
+    * Pros: Easy to find all tags in a group
+    * Cons: Complex bidirectional synchronization required
+    * Cons: Harder to maintain consistency when tags are added/removed from persons
+
+**Justification:** Alternative 1 was chosen to minimize complexity and avoid synchronization issues. The use case of "finding all tags in a group" is rare compared to checking if a tag belongs to a group.
+
+#### Validation Rules
+
+The following validation rules are enforced for tag group operations:
+
+1. **Tag group names:**
+    * Must be alphanumeric (letters and numbers only)
+    * Cannot contain spaces or special characters
+    * Validated using regex pattern: `^[a-zA-Z0-9]+$`
+    * Validation occurs in the `TagGroup` constructor
+
+2. **Creating tag groups:**
+    * Duplicate tag group names are not allowed
+    * Checked using `Model#hasTagGroup()` before adding
+    * Case-sensitive comparison (e.g., `PropertyType` ≠ `propertytype`)
+
+3. **Deleting tag groups:**
+    * Tag group must exist in the address book
+    * Tag group cannot be in use by any person's tags
+    * Checked using `Model#isTagGroupInUse()` which:
+        - Iterates through all persons
+        - Flattens all tags using `flatMap()`
+        - Uses `anyMatch()` to check if any tag references the group
+
+4. **Tags with groups:**
+    * Format: `t/GROUP.VALUE` (e.g., `t/propertyType.HDB`)
+    * The group name before the dot must match an existing tag group
+    * Validated during tag parsing in `ParserUtil#parseTags()`
+
+#### Error Handling
+
+The feature implements comprehensive error handling for various edge cases:
+
+| Error Scenario | Command | Error Message |
+|----------------|---------|---------------|
+| Invalid tag group name (contains spaces) | `tg property type` | Tag group names should be alphanumeric |
+| Invalid tag group name (special chars) | `tg property-type!` | Tag group names should be alphanumeric |
+| Duplicate tag group | `tg propertyType` (when it exists) | This tag group already exists in the address book. |
+| Delete non-existent tag group | `dtg location` (doesn't exist) | The tag group location does not exist. |
+| Delete tag group in use | `dtg propertyType` (when in use) | This tag group is currently in use and cannot be deleted. Please remove all tags associated with this group first. |
+
 
 ### \[Proposed\] Undo/redo feature
 
