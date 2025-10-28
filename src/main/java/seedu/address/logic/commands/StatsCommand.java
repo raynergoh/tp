@@ -51,7 +51,7 @@ public class StatsCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof StatsCommand); // instanceof handles nulls
+        return other == this
+                || (other instanceof StatsCommand); 
     }
 }

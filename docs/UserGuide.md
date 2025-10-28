@@ -247,7 +247,7 @@ Total: 80 contact(s)
 
 <box type="tip" seamless>
 
-**Tip:** Use this command to quickly see an overview of your contact pipeline and track your progress!
+**Tip:** Use this command to quickly see how many contacts are pending, completed, or have no status assigned!
 </box>
 
 ### Saving the data
