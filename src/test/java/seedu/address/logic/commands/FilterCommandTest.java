@@ -64,7 +64,7 @@ public class FilterCommandTest {
     }
 
     @Test
-    public void execute_noRoleAndStatus_noPersonFound() {
+    public void execute_noCriteria_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         RoleStatusTagGroupPredicate predicate = new RoleStatusTagGroupPredicate(
                 Collections.emptySet(), Collections.emptySet(), Collections.emptySet());

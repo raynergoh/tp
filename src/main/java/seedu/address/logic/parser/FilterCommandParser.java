@@ -20,6 +20,11 @@ import seedu.address.model.tag.TagGroup;
  */
 public class FilterCommandParser implements Parser<FilterCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the FilterCommand
+     * and returns a FilterCommand object for execution.
+     * @throws ParseException if the user input does not conform to the expected format
+     */
     @Override
     public FilterCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ROLE, PREFIX_STATUS, PREFIX_TAG_GROUP);
