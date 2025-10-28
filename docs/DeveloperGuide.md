@@ -549,11 +549,6 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -815,14 +810,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
+* **address book**: The collection of all contacts and their associated data stored in TrackerGuru, persisted locally as a JSON file
 * **client**: A specific kind of contact that represents customers of the property agent (i.e. property buyers, sellers, landlords, tenants)
 * **contact information**: Exact contact details of a person; name, phone number, email, address
 * **contact tags**: Labels or categories used to group contacts
 * **role**: A field that defines the function or relationship of a contact (e.g. buyer, seller, landlord, tenant) in the property business
 * **status**: A label indicating the current state of a client transaction (e.g. Pending, Completed).
-* **property size**: A label describing the size of a property in sqft that the client is offering/looking for
-* **property type**: A label describing the type of property that the client is offering/looking for (e.g. studio, terrace, hdb)
-* **property location**: A label specifying the geographical area of a property that the client is offering/looking for (e.g. Bishan, Woodlands)
+* **tag**: A label used to categorize or describe a contact; can be a simple standalone tag or a grouped tag referencing a tag group
+* **grouped tag**: A tag that belongs to a category, formatted as `GROUP.VALUE` (e.g., `PropertyType.HDB`, `Location.Bishan`)
+* **tag group**: A category for organizing related tags together (e.g., "PropertyType", "Location"), enabling structured tag management and group-based filtering of contacts
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
@@ -870,10 +867,75 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+### Creating and managing tag groups
+
+1. Creating a new tag group
+
+    1. Test case: `tg PropertyType`<br>
+       Expected: A new tag group "PropertyType" is created. Success message shown in the status message.
+
+    1. Test case: `tg PropertyType`<br>
+       Expected: Error message indicating the tag group already exists.
+
+    1. Test case: `tg Property Type` (with space)<br>
+       Expected: Error message indicating tag group names must be alphanumeric with no spaces.
+
+    1. Other incorrect commands to try: `tag-Group`, `tagGroup 123!`<br>
+       Expected: Error message about invalid format.
+
+2. Deleting a tag group
+
+    1. Prerequisites: Create a tag group using `tg Location` that is not referenced by any contact's tags.
+
+    1. Test case: `dtg Location`<br>
+       Expected: Tag group "Location" is deleted. Success message shown.
+
+    1. Test case: `dtg PropertyType` (where PropertyType is in use by a contact with tag "PropertyType.HDB")<br>
+       Expected: Error message indicating the tag group is in use and cannot be deleted.
+
+    1. Test case: `dtg NonExistent`<br>
+       Expected: Error message indicating tag group does not exist.
+
+    1. Other incorrect commands to try: `dtg`, `dtg 123!`<br>
+       Expected: Error message about invalid format.
+
+3. Using tags with tag groups
+
+    1. Prerequisites: Create a tag group "PropertyType" using `tg PropertyType`.
+
+    1. Test case: Add contact with grouped tag: `add n/John Doe p/98765432 e/johnd@example.com a/123 Street r/Buyer t/PropertyType.HDB`<br>
+       Expected: Contact added with tag "PropertyType.HDB". Success message shown.
+
+    1. Test case: Add contact with tag referencing non-existent group: `add n/Jane Doe p/98765433 e/janed@example.com a/456 Street r/Seller t/Nonexistent.Condo`<br>
+       Expected: Error message indicating tag group "Nonexistent" does not exist.
+
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    1. **Simulating a corrupted data file:**
+        - Locate the data file at `[JAR file location]/data/addressbook.json`
+        - Open it with a text editor
+        - Delete a random closing brace `}` or bracket `]`
+        - Save and close the file
+        - Relaunch TrackerGuru
+
+       **Expected:** TrackerGuru starts with an empty address book and shows a warning message about corrupted data. The corrupted file is not overwritten.
+
+    1. **Simulating a missing data file:**
+        - Delete the `addressbook.json` file from the `data` folder
+        - Relaunch TrackerGuru
+
+       **Expected:** TrackerGuru starts with sample contacts (default data).
+
+    1. **Simulating invalid tag group references:**
+        - Open `addressbook.json`
+        - Find a person with a tag like `"PropertyType.HDB"`
+        - In the `tagGroups` array, delete the `{"tagGroupName": "PropertyType"}` entry
+        - Save and relaunch
+
+       **Expected:** TrackerGuru detects invalid tag-group reference and starts with empty address book, showing an error message.
+
 
 1. _{ more test cases …​ }_
