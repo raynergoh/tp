@@ -58,5 +58,4 @@ ResultDisplay -[hidden]left- StatusBarFooter
 UiManager -[hidden]right- Logic
 UiManager -[hidden]right- Logic
 UiManager -[hidden]right- Logic
-
 @enduml

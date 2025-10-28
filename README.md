@@ -6,7 +6,7 @@
 ![Ui](docs/images/Ui.png)
 
 ### Problem
-* Property agents juggle scattered client and property data across multiple projects. 
+* Property agents juggle scattered client and property data across multiple projects.
 ### About - TrackerGuru
 * TrackerGuru is a CLI app that gives fast typists a lightweight, keyboard-first workspace to instantly add, search, and update contacts with no clutter, no clicks. It provides speed, structure, and focus that lets agents close deals faster.
 * The project simulates an ongoing software project for a desktop application (called _TrackerGuru_) used by Property Agents for managing contact details.

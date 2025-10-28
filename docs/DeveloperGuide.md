@@ -578,7 +578,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 - The system should not have a remote server
 - The system should be functional without internet connection
 - The system should only use local storage to store contacts
-- The system should support using a local .json file to store and retrieve contact data 
+- The system should support using a local .json file to store and retrieve contact data
 
 #### Reliability requirements
 - The system should not lose saved data in the event of unexpected termination
@@ -599,7 +599,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
-* **client**: A specific kind of contact that represents customers of the property agent (i.e. property buyers, sellers, landlords, tenants) 
+* **client**: A specific kind of contact that represents customers of the property agent (i.e. property buyers, sellers, landlords, tenants)
 * **contact information**: Exact contact details of a person; name, phone number, email, address
 * **contact tags**: Labels or categories used to group contacts
 * **role**: A field that defines the function or relationship of a contact (e.g. buyer, seller, landlord, tenant) in the property business
