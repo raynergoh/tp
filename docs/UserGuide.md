@@ -97,7 +97,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE]…​ [s/STATUS] [
 <box type="tip" seamless>
 
 **Note:** 
-* No two persons can share the same `NAME`, `PHONE_NUMBER` or `EMAIL`.
+* No two persons can share the same `PHONE_NUMBER` or `EMAIL`.
 * You can add multiple roles by repeating `r/ROLE` (e.g., `r/Buyer r/Investor`).
 * Status must be either **Pending** or **Completed** (case-insensitive). Each person can have only one status.
 * Status is optional. If not specified, the person will have no status.
@@ -296,6 +296,23 @@ Java is a programming platform used to run applications like TrackerGuru. Tracke
 ### GUI
 GUI Stands for Graphical User Interface. It is the visual part of TrackerGuru that you interact with using windows, buttons, and text fields and displays all your contacts.
 
+### Person
+A Person represents an individual contact entry in TrackerGuru. Each person stores key information used by property agents to manage and categorize clients.
+
+**Fields:**
+- **Name (`n/`)** – The full name of the contact.
+- **Phone (`p/`)** – The contact’s phone number.
+- **Email (`e/`)** – The contact’s email address.
+- **Address (`a/`)** – The contact’s physical address.
+
+**Optional Fields:**
+- **Role (`r/`)** – See definition of [Role](#role).
+- **Status (`s/`)** – See definition of [Status](#status)
+- **Tag (`t/`)** – See definition of [Tag](#tag)
+
+Each Person is uniquely identified by their **Phone** or **Email**.  
+Multiple optional fields (Role, Status, Tag) allow you to flexibly organize your contacts according to your workflow.
+
 ### Role
 A Role categorises the type of contact in your address book. Each contact can have **multiple roles**.
 
@@ -316,3 +333,34 @@ A Status tracks the progress or state of your interaction with a contact. Each c
 - **Completed**: Transaction successfully finished
 
 Status values are **case-insensitive** (e.g., "pending", "Pending", and "PENDING" are all valid). Only these two values are allowed.
+
+### Tag
+A Tag is an optional label used to provide additional information about a contact.  
+A tag can also optionally contain a **tag group** (see [definition](#tag-group)), allowing it to be categorized under a specific group.
+<box type="tip" seamless>
+
+**Note:**
+* The AddressBook must already contain the tag group for a tag to be assigned under said group.
+  * Refer to [creating a tag group](#create-a-tag-group--tg).
+</box>
+
+Common tags include:
+- **VIP**: High-priority or important contact
+- **Follow-up**: Contact that requires a follow-up
+- **HotLead**: Contact with immediate potential
+
+Tags are **case-sensitive** (e.g., "VIP" and "vip" are treated as different tags).
+
+### Tag Group
+A Tag Group organizes tags into broader categories for more structured classification.  
+It is a way to group related tags under a shared category.
+
+Common tag groups include:
+- **PropertyType**:
+    - Example tags using this group: `t/PropertyType.Condo`, `t/PropertyType.Landed`, `t/PropertyType.HDB`
+- **Region**:
+    - Example tags using this group: `t/Region.East`, `t/Region.North`, `t/Region.South`
+- **Project**:
+    - Example tags using this group: `t/Project.X`, `t/Project.Y`, `t/Project.Z`
+
+Tag groups are also **case-sensitive** (e.g., "Client" and "client" are treated differently).
