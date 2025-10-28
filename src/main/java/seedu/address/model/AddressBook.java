@@ -59,6 +59,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code tagGroups} must not contain duplicate tag groups.
      */
     public void setTagGroups(Set<TagGroup> tagGroups) {
+        requireNonNull(tagGroups);
+
         this.tagGroups.clear();
         this.tagGroups.addAll(tagGroups);
     }

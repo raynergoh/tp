@@ -36,9 +36,18 @@ public class JsonAdaptedTagGroup {
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag group.
      */
     public TagGroup toModelType() throws IllegalValueException {
-        if (name == null || name.isEmpty()) {
+        if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "name"));
         }
-        return new TagGroup(name);
+
+        if (name.isEmpty()) {
+            throw new IllegalValueException("TagGroup name cannot be empty");
+        }
+
+        try {
+            return new TagGroup(name);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalValueException("Invalid TagGroup name: " + e.getMessage());
+        }
     }
 }

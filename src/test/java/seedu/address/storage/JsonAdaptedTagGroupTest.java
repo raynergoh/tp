@@ -19,9 +19,9 @@ public class JsonAdaptedTagGroupTest {
     }
 
     @Test
-    public void toModelType_invalidGroupName_throwsIllegalArgumentException() {
+    public void toModelType_invalidGroupName_throwsIllegalValueException() {
         JsonAdaptedTagGroup tagGroup = new JsonAdaptedTagGroup(INVALID_GROUP_NAME);
-        assertThrows(IllegalArgumentException.class, tagGroup::toModelType);
+        assertThrows(IllegalValueException.class, tagGroup::toModelType);
     }
 
     @Test
