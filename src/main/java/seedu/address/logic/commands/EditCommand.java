@@ -138,7 +138,12 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Optional<Status> updatedStatus = editPersonDescriptor.getStatus().or(personToEdit::getStatus);
+        Optional<Status> updatedStatus;
+        if (editPersonDescriptor.isRemoveStatus()) {
+            updatedStatus = Optional.empty();
+        } else {
+            updatedStatus = editPersonDescriptor.getStatus().or(personToEdit::getStatus);
+        }
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Set<Role> updatedRoles = editPersonDescriptor.getRoles().orElse(personToEdit.getRoles());
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRoles, updatedStatus,
@@ -180,6 +185,7 @@ public class EditCommand extends Command {
         private Address address;
         private Set<Role> roles;
         private Status status;
+        private boolean removeStatus = false;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {
@@ -196,6 +202,7 @@ public class EditCommand extends Command {
             setAddress(toCopy.address);
             setRoles(toCopy.roles);
             setStatus(toCopy.status);
+            this.removeStatus = toCopy.removeStatus;
             setTags(toCopy.tags);
         }
 
@@ -203,7 +210,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, roles, status, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, roles, status, tags) || removeStatus;
         }
 
         public void setName(Name name) {
@@ -256,11 +263,26 @@ public class EditCommand extends Command {
         }
 
         public void setStatus(Status status) {
+
             this.status = status;
+            this.removeStatus = false;
+        }
+
+        /**
+         * Sets the flag to indicate status should be removed.
+         * This is used when the user provides an empty status value (s/).
+         */
+        public void setStatusForRemoval() {
+            this.status = null;
+            this.removeStatus = true;
         }
 
         public Optional<Status> getStatus() {
             return Optional.ofNullable(status);
+        }
+
+        public boolean isRemoveStatus() {
+            return removeStatus;
         }
 
         /**
