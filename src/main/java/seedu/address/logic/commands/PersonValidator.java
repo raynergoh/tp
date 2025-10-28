@@ -14,9 +14,9 @@ import seedu.address.model.person.Person;
 public class PersonValidator {
     private static final Logger logger = LogsCenter.getLogger(PersonValidator.class);
 
+    public static final String MESSAGE_DUPLICATE_EMAIL = "This email address already exists in the address book";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
     public static final String MESSAGE_DUPLICATE_PHONE = "This phone number already exists in the address book";
-    public static final String MESSAGE_DUPLICATE_EMAIL = "This email address already exists in the address book";
 
     /**
      * Validates that a person can be added to the address book.
@@ -43,7 +43,8 @@ public class PersonValidator {
      * @throws CommandException If the edited person conflicts with an existing person,
      *                          or if the phone number or email (when changed) is already used by another person.
      */
-    public static void validatePersonForEdit(Model model, Person personToEdit, Person editedPerson) throws CommandException {
+    public static void validatePersonForEdit(Model model, Person personToEdit, Person editedPerson)
+            throws CommandException {
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             logger.warning("EditCommand failed: Duplicate person detected.");
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
