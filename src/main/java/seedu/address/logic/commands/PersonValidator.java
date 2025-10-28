@@ -9,7 +9,7 @@ import seedu.address.model.person.Person;
 
 /**
  * Utility class for validating person data before add/edit operations.
- * Performs duplicate checks for name, phone numbers, and email addresses.
+ * Performs duplicate checks for name, phone numbers and email addresses.
  */
 public class PersonValidator {
     private static final Logger logger = LogsCenter.getLogger(PersonValidator.class);
@@ -20,7 +20,7 @@ public class PersonValidator {
 
     /**
      * Validates that a person can be added to the address book.
-     * Checks for duplicate name, phone number, email address, and tag group existence.
+     * Checks for duplicate name, phone number and email address.
      *
      * @param model The model containing the address book data.
      * @param person The person to validate.

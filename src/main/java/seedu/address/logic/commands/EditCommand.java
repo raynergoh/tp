@@ -93,6 +93,7 @@ public class EditCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
+        // Checks for duplicate name, phone number and email
         PersonValidator.validatePersonForEdit(model, personToEdit, editedPerson);
 
         for (Tag tag : editedPerson.getTags()) {
