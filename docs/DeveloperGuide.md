@@ -113,6 +113,7 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+* Note: Some commands like `ListCommand`, `StatsCommand`, `ClearCommand`, `ExitCommand`, and `HelpCommand` do not require parsers as they take no parameters.
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2526S1-CS2103T-F15b-3/tp/blob/master/src/main/java/seedu/address/model/Model.java)
@@ -405,6 +406,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | expert user                 | export my contact book                                                                      | I can migrate my data to other devices                                        |
 | `*`      | expert user                 | import existing client data from a csv file                                                 | I can start from an existing database                                         |
 | `* *`    | user with many contacts     | search a contact by name                                                                    | I can locate details of a person without having to go through the entire list |
+| `* *`    | user with many contacts     | view statistics of clients grouped by their transaction status                              | I can quickly see how many clients are pending, completed, or have no status  |
 | `*`      | user with many contacts     | quickly filter contacts based on their role                                                 | I can easily view a list of clients of the same role together                 |
 | `*`      | user with many contacts     | quickly filter contacts based on their property location tag                                | I can easily view a list of clients of the same property location together    |
 | `*`      | user with many contacts     | sort contacts by name alphabetically                                                        | I can locate them easily                                                      |
