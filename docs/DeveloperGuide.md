@@ -413,7 +413,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the 'TrackerGuru' and the **Actor** is the 'Property Agent', unless specified otherwise. The term 'User' will be synonymous to 'Property Agent')
+(For all use cases below, the **System** is the 'TrackerGuru' and the **Actor** is the 'Property Agent', unless specified otherwise. The term 'User' will be synonymous with 'Property Agent')
 
 **Use case: UC1 - Add a contact**
 
@@ -478,28 +478,33 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-**Use case: UC3 - Tag contact with role**
+**Use case: UC3 - Filter contacts by roles, statuses, and tag groups**
 
 **Guarantees**
 
-* Role tags associated with updated contacts will be of a valid role type (buyer, seller, ...).
+* The filtered list will only contain contacts that match any of the specified filter criteria.
+* The original contact data remains unchanged after filtering.
 
 **MSS**
 
-1. User requests to tag a contact with a role.
-2. TrackerGuru saves the contact with its updated tags (existing tags are not overridden).
-3. TrackerGuru displays a success message to the user.
+1. User requests to filter contacts by specifying one or more criteria such as role, status, and/or tag group.
+2. TrackerGuru processes the filter criteria and retrieves matching contacts.
+3. TrackerGuru displays the filtered list of contacts to the user.
 
    Use case ends.
 
 **Extensions**
 
-* 1a. TrackerGuru detects an error in the entered data (role type entered by user is invalid).
-    * 1a1. TrackerGuru displays an error message and available role types to the user.  
+* 1a. User enters an invalid command format (e.g. missing prefixes or incorrect syntax).
+    * 1a1. TrackerGuru displays an error message and the correct command format.  
       Use case resumes from step 1.
 
-* 1b. TrackerGuru fails to save the updated contact due to a system error.
-    * 1b1. TrackerGuru displays an error message.  
+* 1b. User specifies no filter criteria.
+    * 1b1. TrackerGuru displays an error message indicating invalid command format.  
+      Use case resumes from step 1.
+
+* 1d. TrackerGuru encounters a system error while filtering.
+    * 1d1. TrackerGuru displays an error message.  
       Use case ends.
 
 ---
@@ -556,37 +561,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case resumes from step 1.
 
 * 2a. System fails to edit the contact information due to a system error.
-
-  * 2a1. System displays an error message indicating the failure. 
-  
-    Use case ends.
-
----
-
-**Use case: UC-6 Sort contacts**
-
-**Guarantees**
-
-* The contact list remains intact with no data lost or modified.
-* The contact list will be displayed in the specified sorted order.
-
-**MSS**
-
-1. User requests to sort the contact list.
-2. System sorts the contact list based on the specified criterion.
-3. System displays the sorted contact list.
-
-   Use case ends.
-
-**Extensions**
-
-* 1a. System detects an error in the entered data (invalid or missing sorting criterion).
-
-  * 1a1. System displays an error message indicating that the criterion is invalid or missing.
-    
-    Use case resumes from step 1.
-
-* 2a. System fails to sort the contacts due to a system error. 
 
   * 2a1. System displays an error message indicating the failure. 
   
