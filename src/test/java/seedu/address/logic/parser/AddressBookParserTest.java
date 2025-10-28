@@ -88,11 +88,11 @@ public class AddressBookParserTest {
     public void parseCommand_filter() throws Exception {
         Set<Role> roles = Set.of(new Role("seller"), new Role("buyer"));
         Set<Status> statuses = Set.of(Status.COMPLETED);
-        Set<TagGroup> tagGroups = Collections.emptySet();
+        Set<TagGroup> tagGroups = Set.of(new TagGroup("location"));;
         RoleStatusTagGroupPredicate predicate = new RoleStatusTagGroupPredicate(roles, statuses, tagGroups);
 
         FilterCommand command = (FilterCommand) parser.parseCommand(
-                FilterCommand.COMMAND_WORD + " r/seller s/COMPLETED r/buyer");
+                FilterCommand.COMMAND_WORD + " r/seller s/COMPLETED r/buyer tg/location");
         assertEquals(new FilterCommand(predicate), command);
     }
 
