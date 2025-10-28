@@ -46,9 +46,6 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
-    public static final String MESSAGE_DUPLICATE_PHONE = "This phone number already exists in the address book";
-    public static final String MESSAGE_DUPLICATE_EMAIL = "This email address already exists in the address book";
     public static final String MESSAGE_NONEXISTENT_TAG_GROUP = "This Tag Group does not exist, "
             + "please create the Tag Group first";
     private static final Logger logger = LogsCenter.getLogger(AddCommand.class);
@@ -69,20 +66,8 @@ public class AddCommand extends Command {
 
         logger.info("Executing AddCommand for person: " + toAdd.getName().fullName);
 
-        if (model.hasPerson(toAdd)) {
-            logger.warning("AddCommand failed: Duplicate person detected.");
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }
-
-        if (model.hasSamePhoneNumber(toAdd)) {
-            logger.warning("AddCommand failed: Duplicate phone number detected.");
-            throw new CommandException(MESSAGE_DUPLICATE_PHONE);
-        }
-
-        if (model.hasSameEmail(toAdd)) {
-            logger.warning("AddCommand failed: Duplicate email detected.");
-            throw new CommandException(MESSAGE_DUPLICATE_EMAIL);
-        }
+        // Checks for duplicate name, phone number and email
+        PersonValidator.validatePersonForAdd(model, toAdd);
 
         for (Tag tag : toAdd.getTags()) {
             if (tag.hasGroup() && !model.getTagGroups().contains(tag.getGroup())) {
