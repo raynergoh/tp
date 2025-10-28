@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_GROUP_LOCATION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_GROUP_PROPERTY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -56,6 +58,29 @@ public class AddressBookTest {
         AddressBookStub newData = new AddressBookStub(newPersons);
 
         assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
+    }
+
+    @Test
+    public void resetData_withTagGroups_replacesTagGroups() {
+        // Setup: Create an address book with tag groups
+        TagGroup property = new TagGroup(VALID_TAG_GROUP_PROPERTY);
+        TagGroup location = new TagGroup(VALID_TAG_GROUP_LOCATION);
+        addressBook.addTagGroup(property);
+        addressBook.addTagGroup(location);
+
+        // Create new data with different tag groups
+        AddressBook newData = new AddressBook();
+        TagGroup group = new TagGroup("Group");
+        newData.addTagGroup(group);
+
+        // Execute
+        addressBook.resetData(newData);
+
+        // Verify old tag groups are removed and new one is added
+        assertFalse(addressBook.hasTagGroup(property));
+        assertFalse(addressBook.hasTagGroup(location));
+        assertTrue(addressBook.hasTagGroup(group));
+        assertEquals(1, addressBook.getTagGroups().size());
     }
 
     @Test

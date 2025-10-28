@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.TagGroup;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -20,15 +21,22 @@ import seedu.address.model.person.Person;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_TAG_GROUP = "Tag Group list contains duplicate tag group(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedTagGroup> tagGroups = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableAddressBook(
+            @JsonProperty("persons") List<JsonAdaptedPerson> persons,
+            @JsonProperty("tagGroups") List<JsonAdaptedTagGroup> tagGroups) {
         this.persons.addAll(persons);
+        if (tagGroups != null) {
+            this.tagGroups.addAll(tagGroups);
+        }
     }
 
     /**
@@ -38,6 +46,7 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        tagGroups.addAll(source.getTagGroups().stream().map(JsonAdaptedTagGroup::new).collect(Collectors.toList()));
     }
 
     /**
@@ -53,6 +62,14 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             addressBook.addPerson(person);
+        }
+
+        for (JsonAdaptedTagGroup jsonAdaptedTagGroup : tagGroups) {
+            TagGroup group = jsonAdaptedTagGroup.toModelType();
+            if (addressBook.hasTagGroup(group)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_TAG_GROUP);
+            }
+            addressBook.addTagGroup(group);
         }
         return addressBook;
     }

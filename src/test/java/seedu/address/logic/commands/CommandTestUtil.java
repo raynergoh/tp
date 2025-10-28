@@ -38,6 +38,10 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TAG_PROPERTY_HDB = "property.HDB";
+    public static final String VALID_TAG_LOCATION_SENGKANG = "location.sengkang";
+    public static final String VALID_TAG_GROUP_PROPERTY = "property";
+    public static final String VALID_TAG_GROUP_LOCATION = "location";
     public static final String VALID_ROLE_BUYER = "buyer";
     public static final String VALID_ROLE_SELLER = "seller";
     public static final String VALID_ROLE_CUSTOMER = "customer";
@@ -57,6 +61,8 @@ public class CommandTestUtil {
     public static final String ROLE_DESC_CUSTOMER = " " + PREFIX_ROLE + VALID_ROLE_CUSTOMER;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_DESC_PROPERTY_HDB = " " + PREFIX_TAG + VALID_TAG_PROPERTY_HDB;
+    public static final String TAG_DESC_LOCATION_SENGKANG = " " + PREFIX_TAG + VALID_TAG_LOCATION_SENGKANG;
     public static final String STATUS_DESC_PENDING = " " + PREFIX_STATUS + VALID_STATUS_PENDING;
     public static final String STATUS_DESC_COMPLETED = " " + PREFIX_STATUS + VALID_STATUS_COMPLETED;
     public static final String STATUS_DESC_EMPTY = " " + PREFIX_STATUS; // empty status for removal
