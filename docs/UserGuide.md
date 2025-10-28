@@ -70,7 +70,7 @@ To access this User Guide anytime from the app, use the **`help`** command. A he
   e.g. `n/NAME p/PHONE_NUMBER` and `p/PHONE_NUMBER n/NAME` are both acceptable.
 
 * Tags should either be in the format:
-  - `t/GROUP.VALUE` where both `GROUP` and `VALUE` are alphanumeric 
+  - `t/GROUP.VALUE` where both `GROUP` and `VALUE` are alphanumeric
   - a simple Tag `t/TAG` with an alphanumeric string
 
 * Commands that do not require parameters (such as help, list, exit, and clear) will ignore any additional input.
@@ -96,7 +96,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE]…​ [s/STATUS] [
 
 <box type="tip" seamless>
 
-**Note:** 
+**Note:**
 * No two persons can share the same `PHONE_NUMBER` or `EMAIL`.
 * You can add multiple roles by repeating `r/ROLE` (e.g., `r/Buyer r/Investor`).
 * Status must be either **Pending** or **Completed** (case-insensitive). Each person can have only one status.
@@ -133,9 +133,9 @@ Examples:
 
 Deletes an existing TagGroup
 
-Format: `dtg TagGroup` 
+Format: `dtg TagGroup`
 
-Examples: 
+Examples:
 * `dtg PropertyType`
 
 ### Editing a person : `edit`
@@ -144,7 +144,7 @@ Edits an existing person in the address book.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE]…​ [s/STATUS] [t/TAG]…​`
 
-* Edits the person at the specified `INDEX`. 
+* Edits the person at the specified `INDEX`.
   - `INDEX` refers to the number shown beside each person in the displayed list.
   - `INDEX` **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -190,7 +190,7 @@ Format: `filter [r/ROLE]…​ [s/STATUS]…​ [tg/TAG_GROUP]…​`
 * The search is **case-sensitive**. e.g. `buyer` will not match `Buyer`
 * You can filter with any combination of: **Role(s)**, **Status(es)**, **TagGroup(s)**
 * You may specify multiple Roles, Statuses, and Tag Groups
-* A person will be shown if they match **any** of the specified parameters 
+* A person will be shown if they match **any** of the specified parameters
 * If no parameters are provided, no filtering will occur
 
 Examples:
@@ -310,7 +310,7 @@ A Person represents an individual contact entry in TrackerGuru. Each person stor
 - **Status (`s/`)** – See definition of [Status](#status)
 - **Tag (`t/`)** – See definition of [Tag](#tag)
 
-Each Person is uniquely identified by their **Phone** or **Email**.  
+Each Person is uniquely identified by their **Phone** or **Email**.
 Multiple optional fields (Role, Status, Tag) allow you to flexibly organize your contacts according to your workflow.
 
 ### Role
@@ -335,7 +335,7 @@ A Status tracks the progress or state of your interaction with a contact. Each c
 Status values are **case-insensitive** (e.g., "pending", "Pending", and "PENDING" are all valid). Only these two values are allowed.
 
 ### Tag
-A Tag is an optional label used to provide additional information about a contact.  
+A Tag is an optional label used to provide additional information about a contact.
 A tag can also optionally contain a **tag group** (see [definition](#tag-group)), allowing it to be categorized under a specific group.
 <box type="tip" seamless>
 
@@ -352,7 +352,7 @@ Common tags include:
 Tags are **case-sensitive** (e.g., "VIP" and "vip" are treated as different tags).
 
 ### Tag Group
-A Tag Group organizes tags into broader categories for more structured classification.  
+A Tag Group organizes tags into broader categories for more structured classification.
 It is a way to group related tags under a shared category.
 
 Common tag groups include:

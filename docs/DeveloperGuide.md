@@ -433,7 +433,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 1a. TrackerGuru detects an error in the entered data (missing required fields or improper format).
-    * 1a1. TrackerGuru displays an error message and the proper command format to the user.  
+    * 1a1. TrackerGuru displays an error message and the proper command format to the user.
       Use case resumes from step 1.
 
 * 1b. TrackerGuru detects a duplicate contact (same phone number).
@@ -442,7 +442,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1b3. User chooses to abort → Use case ends.
 
 * 1c. TrackerGuru fails to save the contact due to a system error.
-    * 1c1. TrackerGuru displays an error message.  
+    * 1c1. TrackerGuru displays an error message.
       Use case ends.
 
 ---
@@ -460,20 +460,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 1a. TrackerGuru detects that the contact’s unique identifier is missing in the entered data.
-    * 1a1. TrackerGuru requests for the contact’s unique identifier.  
+    * 1a1. TrackerGuru requests for the contact’s unique identifier.
       Use case resumes from step 1.
 
 * 1b. TrackerGuru cannot find the specified contact’s unique identifier.
     * 1b1. TrackerGuru requests for a valid unique identifier.
-    * 1b2. User enters a new unique identifier.  
-      Steps 1b1–1b2 are repeated until the unique identifier is one that exists.  
+    * 1b2. User enters a new unique identifier.
+      Steps 1b1–1b2 are repeated until the unique identifier is one that exists.
       Use case resumes from step 2.
 
 * 1c. TrackerGuru fails to delete the contact due to a system error.
-    * 1c1. TrackerGuru informs the user.  
+    * 1c1. TrackerGuru informs the user.
       Use case ends.
 
-* *a. At any time, User chooses to cancel the deletion request.  
+* *a. At any time, User chooses to cancel the deletion request.
   Use case ends.
 
 ---
@@ -495,11 +495,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 1a. TrackerGuru detects an error in the entered data (role type entered by user is invalid).
-    * 1a1. TrackerGuru displays an error message and available role types to the user.  
+    * 1a1. TrackerGuru displays an error message and available role types to the user.
       Use case resumes from step 1.
 
 * 1b. TrackerGuru fails to save the updated contact due to a system error.
-    * 1b1. TrackerGuru displays an error message.  
+    * 1b1. TrackerGuru displays an error message.
       Use case ends.
 
 ---
@@ -526,7 +526,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case resumes from step 1.
 
 * 1b. TrackerGuru fails to search contacts due to a system error.
-    * 1b1. TrackerGuru displays an error message.  
+    * 1b1. TrackerGuru displays an error message.
       Use case ends.
 
 ---
@@ -557,7 +557,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. System fails to edit the contact information due to a system error.
 
-  * 2a1. System displays an error message indicating the failure. 
+  * 2a1. System displays an error message indicating the failure.
   
     Use case ends.
 
