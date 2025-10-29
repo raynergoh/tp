@@ -9,21 +9,22 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Role {
     public static final String MESSAGE_CONSTRAINTS =
-            "Roles should only contain alphanumeric characters, with spaces and hyphens in between words and no blanks";
+            "Roles should only contain alphanumeric characters. "
+            + "Space, hyphens and underscores are allowed except as the first character. No blank inputs allowed";
     /*
-     * The first character of the role must not be a whitespace,
+     * The first and last character of the role must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      * The first character can only be alphanumeric,
      * to guard against pasted inputs from external sources (e.g. bullet points)
      */
-    public static final String VALIDATION_REGEX = "^[\\p{Alnum}][\\p{Alnum} \\\\-]*$";
+    public static final String VALIDATION_REGEX = "^[\\p{Alnum}](?:[\\p{Alnum} -_]*[\\p{Alnum}_-])?$";
 
     public final String roleName;
 
     /**
      * Constructs a {@code Role}.
      *
-     * @param role A valid role.
+     * @param role A valid role, already trimmed at the ends for whitespace.
      */
     public Role(String role) {
         requireNonNull(role);
@@ -37,7 +38,6 @@ public class Role {
     public static boolean isValidRoleName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
-
     @Override
     public String toString() {
         return '[' + roleName + ']';

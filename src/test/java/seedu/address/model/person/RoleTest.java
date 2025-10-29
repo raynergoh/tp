@@ -27,16 +27,28 @@ public class RoleTest {
         // invalid role
         assertFalse(Role.isValidRoleName("")); // empty string
         assertFalse(Role.isValidRoleName(" ")); // spaces only
-        assertFalse(Role.isValidRoleName(" ")); // numbers only
-        assertFalse(Role.isValidRoleName("-buyer")); // start with hyphen
-        assertFalse(Role.isValidRoleName(" buyer")); // space before string
+        assertFalse(Role.isValidRoleName("-")); // hyphen only
+        assertFalse(Role.isValidRoleName("_")); // underscore only
+        assertFalse(Role.isValidRoleName("buyer ")); // no space after string
+        assertFalse(Role.isValidRoleName(" buyer")); // no space before string
         assertFalse(Role.isValidRoleName("buyer&")); // contain invalid character
 
         // valid role
+        assertTrue(Role.isValidRoleName("b"));
+        assertTrue(Role.isValidRoleName("1"));
         assertTrue(Role.isValidRoleName("buyer"));
         assertTrue(Role.isValidRoleName("Buyer2"));
+        assertTrue(Role.isValidRoleName("interior designers")); // single whitespace
         assertTrue(Role.isValidRoleName("co-brokers"));
-        assertTrue(Role.isValidRoleName("interior designers"));
+        assertTrue(Role.isValidRoleName("buyer-")); // end with hyphen
+        assertTrue(Role.isValidRoleName("buyer_")); // end with underscore
+        assertTrue(Role.isValidRoleName("interior  designers")); // tolerate multiple whitespace
+        assertTrue(Role.isValidRoleName("interior _- designers")); // tolerate a mix of separators
+    }
+
+    @Test
+    public void normalizeWhitespace() {
+
     }
 
     @Test
