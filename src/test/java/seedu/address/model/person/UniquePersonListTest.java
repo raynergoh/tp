@@ -48,6 +48,24 @@ public class UniquePersonListTest {
     }
 
     @Test
+    public void contains_personWithSamePhoneOnlyInList_returnsTrue() {
+        uniquePersonList.add(ALICE);
+        Person personWithSamePhone = new PersonBuilder(ALICE)
+                .withEmail("different@example.com")
+                .build();
+        assertTrue(uniquePersonList.contains(personWithSamePhone));
+    }
+
+    @Test
+    public void contains_personWithSameEmailOnlyInList_returnsTrue() {
+        uniquePersonList.add(ALICE);
+        Person personWithSameEmail = new PersonBuilder(ALICE)
+                .withPhone("99999999")
+                .build();
+        assertTrue(uniquePersonList.contains(personWithSameEmail));
+    }
+
+    @Test
     public void add_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniquePersonList.add(null));
     }
@@ -110,6 +128,28 @@ public class UniquePersonListTest {
     }
 
     @Test
+    public void setPerson_editedPersonHasDuplicatePhoneOnly_throwsDuplicatePersonException() {
+        uniquePersonList.add(ALICE);
+        uniquePersonList.add(BOB);
+        Person editedAlice = new PersonBuilder(ALICE)
+                .withPhone(BOB.getPhone().value)
+                .withEmail("unique@example.com")
+                .build();
+        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPerson(ALICE, editedAlice));
+    }
+
+    @Test
+    public void setPerson_editedPersonHasDuplicateEmailOnly_throwsDuplicatePersonException() {
+        uniquePersonList.add(ALICE);
+        uniquePersonList.add(BOB);
+        Person editedAlice = new PersonBuilder(ALICE)
+                .withPhone("99999999")
+                .withEmail(BOB.getEmail().value)
+                .build();
+        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPerson(ALICE, editedAlice));
+    }
+
+    @Test
     public void remove_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniquePersonList.remove(null));
     }
@@ -160,6 +200,24 @@ public class UniquePersonListTest {
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<Person> listWithDuplicatePersons = Arrays.asList(ALICE, ALICE);
         assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPersons(listWithDuplicatePersons));
+    }
+
+    @Test
+    public void setPersons_listWithDuplicatePhoneOnly_throwsDuplicatePersonException() {
+        Person personWithDuplicatePhone = new PersonBuilder(ALICE)
+                .withEmail("different@example.com")
+                .build();
+        List<Person> listWithDuplicatePhone = Arrays.asList(ALICE, personWithDuplicatePhone);
+        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPersons(listWithDuplicatePhone));
+    }
+
+    @Test
+    public void setPersons_listWithDuplicateEmailOnly_throwsDuplicatePersonException() {
+        Person personWithDuplicateEmail = new PersonBuilder(ALICE)
+                .withPhone("99999999")
+                .build();
+        List<Person> listWithDuplicateEmail = Arrays.asList(ALICE, personWithDuplicateEmail);
+        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPersons(listWithDuplicateEmail));
     }
 
     @Test
