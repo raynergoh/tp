@@ -125,7 +125,7 @@ Opens the following help window, which will direct you to this exact User Guide.
 ### Adding a person: `add`
 ###### Command: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE]…​ [s/STATUS] [t/TAG]…`
 
-Adds a person to the address book.
+Adds a person (see [definition](#Person)) to the address book.
 
 <box type="tip" seamless>
 
@@ -269,7 +269,10 @@ Examples:
 
 Filters the contact list to show only persons matching the specified parameters.
 
-* The search is **case-sensitive**. e.g. `buyer` will not match `Buyer`
+Format: `filter [r/ROLE]…​ [s/STATUS]…​ [tg/TAG_GROUP]…​`
+
+* The filtering of Roles and Tag Groups is **case-sensitive**. 
+  * e.g. `buyer` will not match `Buyer`
 * You can filter with any combination of: **Role(s)**, **Status(es)**, **TagGroup(s)**
 * You may specify multiple Roles, Statuses, and Tag Groups
 * A person will be shown if they match **any** of the specified parameters
@@ -447,7 +450,7 @@ A tag can also optionally contain a **tag group** (see [definition](#tag-group))
 
 **Note:**
 * The AddressBook must already contain the tag group for a tag to be assigned under said group.
-  * Refer to [creating a tag group](#create-a-tag-group--tg).
+  * Refer to [creating a tag group](#Creating-a-tag-group--tg).
 </box>
 
 Common tags include:

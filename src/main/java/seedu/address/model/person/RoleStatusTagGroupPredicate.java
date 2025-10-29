@@ -41,7 +41,8 @@ public class RoleStatusTagGroupPredicate implements Predicate<Person> {
 
         // A person matches if they match any of the specified roles OR statuses OR tag groups.
         boolean roleMatch = !roles.isEmpty() && person.getRoles().stream()
-                .anyMatch(roles::contains);
+                .anyMatch(personRole ->
+                        roles.stream().anyMatch(personRole::isSameRoleIgnoreCase));
         boolean statusMatch = !statuses.isEmpty() && person.getStatus()
                 .map(statuses::contains).orElse(false);
         boolean tagGroupMatch = !tagGroups.isEmpty() && person.getTags().stream()

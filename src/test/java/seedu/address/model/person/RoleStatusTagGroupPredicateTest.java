@@ -25,6 +25,54 @@ class RoleStatusTagGroupPredicateTest {
     }
 
     @Test
+    void test_matchesRoleIgnoreCase_returnsTrue() {
+        // Person has role "Buyer" but filter uses lowercase
+        Person person = new PersonBuilder().withRoles("Buyer").build();
+        Set<Role> roles = Set.of(new Role("buyer")); // lowercased
+        Set<Status> statuses = Collections.emptySet();
+        Set<TagGroup> tagGroups = Collections.emptySet();
+        RoleStatusTagGroupPredicate predicate = new RoleStatusTagGroupPredicate(roles, statuses, tagGroups);
+
+        assertTrue(predicate.test(person), "Should match regardless of role name casing");
+    }
+
+    @Test
+    void test_matchesRoleDifferentCase_returnsTrue() {
+        // Person has role "manager" but filter uses uppercase
+        Person person = new PersonBuilder().withRoles("manager").build();
+        Set<Role> roles = Set.of(new Role("MANAGER"));
+        Set<Status> statuses = Collections.emptySet();
+        Set<TagGroup> tagGroups = Collections.emptySet();
+        RoleStatusTagGroupPredicate predicate = new RoleStatusTagGroupPredicate(roles, statuses, tagGroups);
+
+        assertTrue(predicate.test(person), "Should match even if role case differs");
+    }
+
+    @Test
+    void test_matchesRoleAcrossMultipleRolesIgnoreCase_returnsTrue() {
+        // Multiple roles with mixed casing
+        Person person = new PersonBuilder().withRoles("Admin", "Supervisor").build();
+        Set<Role> roles = Set.of(new Role("admin"));
+        Set<Status> statuses = Collections.emptySet();
+        Set<TagGroup> tagGroups = Collections.emptySet();
+        RoleStatusTagGroupPredicate predicate = new RoleStatusTagGroupPredicate(roles, statuses, tagGroups);
+
+        assertTrue(predicate.test(person), "Case-insensitive role match should still return true");
+    }
+
+    @Test
+    void test_noRoleMatchEvenIgnoringCase_returnsFalse() {
+        // Person has unrelated roles
+        Person person = new PersonBuilder().withRoles("Buyer").build();
+        Set<Role> roles = Set.of(new Role("Seller"));
+        Set<Status> statuses = Collections.emptySet();
+        Set<TagGroup> tagGroups = Collections.emptySet();
+        RoleStatusTagGroupPredicate predicate = new RoleStatusTagGroupPredicate(roles, statuses, tagGroups);
+
+        assertFalse(predicate.test(person), "Should return false if roles differ even ignoring case");
+    }
+
+    @Test
     void test_matchesStatusOnly_returnsTrue() {
         Person person = new PersonBuilder().withStatus(Status.COMPLETED).build();
         Set<Role> roles = Collections.emptySet();
