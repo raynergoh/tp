@@ -9,16 +9,26 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "To utilise Tag Groups, Tags should "
-            + "be in the format GROUP.VALUE where both GROUP and VALUE are alphanumeric "
-            + "OR it could be a simple Tag with any alphanumeric text";
+
+
+    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric (no spaces). "
+            + "For grouped tags (GROUP.VALUE format), the GROUP must be alphanumeric, "
+            + "but VALUE can contain alphanumeric characters, dots, hyphens, and underscores (no spaces).";
+
+    private static final String TAG_GROUP_IDENTIFIER = ".";
 
     /**
-     * Regex to validate tags of the form GROUP.VALUE,
-     * where both GROUP and VALUE contain one or more alphanumeric characters.
+     *     Validation for standalone tags (alphanumeric only, no spaces)
      */
-    public static final String VALIDATION_REGEX = "^[A-Za-z0-9]+$|^[A-Za-z0-9]+\\.[A-Za-z0-9]+$";
-    private static final String TAG_GROUP_IDENTIFIER = ".";
+    public static final String STANDALONE_VALIDATION_REGEX = "^[a-zA-Z0-9]+$";
+
+    /**
+     * Validation for GROUP.VALUE format:
+     *     - GROUP: alphanumeric only (no spaces, no symbols)
+     *     - VALUE: alphanumeric + dots, hyphens, underscores (but no spaces)
+     *     - VALUE must start with alphanumeric, and can contain any combination after
+     */
+    public static final String GROUPED_VALIDATION_REGEX = "^([a-zA-Z0-9]+)\\.([a-zA-Z0-9][a-zA-Z0-9.\\-_]*)$";
 
     public final String tagFormat; // original string
     private final TagGroup group; // null if simple tag
@@ -37,7 +47,6 @@ public class Tag {
 
         if (tagFormat.contains(TAG_GROUP_IDENTIFIER)) {
             // Parse group and value from "GROUP.VALUE"
-            // No check yet for the existence of TagGroup instances; will be added when registry logic is implemented
             String[] parts = tagFormat.split("\\.", 2);
             this.group = new TagGroup(parts[0]);
             this.value = parts[1];
@@ -55,7 +64,8 @@ public class Tag {
      * @return true if valid format, false otherwise.
      */
     public static boolean isValidTagFormat(String test) {
-        return test.matches(VALIDATION_REGEX);
+        // Check if it's a valid standalone tag or a valid grouped tag
+        return test.matches(STANDALONE_VALIDATION_REGEX) || test.matches(GROUPED_VALIDATION_REGEX);
     }
 
     @Override

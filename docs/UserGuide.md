@@ -69,9 +69,9 @@ To access this User Guide anytime from the app, use the **`help`** command. A he
 * Parameters can be in any order.<br>
   e.g. `n/NAME p/PHONE_NUMBER` and `p/PHONE_NUMBER n/NAME` are both acceptable.
 
-* Tags should either be in the format:
-  - `t/GROUP.VALUE` where both `GROUP` and `VALUE` are alphanumeric
-  - a simple Tag `t/TAG` with an alphanumeric string
+* Tags can either be in the format:
+    - `t/GROUP.VALUE` where GROUP is alphanumeric, and VALUE can contain alphanumeric characters, dots, hyphens, and underscores (no spaces)
+    - a simple Tag `t/TAG` with alphanumeric text (no spaces)
 
 * Commands that do not require parameters (such as help, list, exit, and clear) will ignore any additional input.
   e.g. `help 123` will be interpreted as `help`.
@@ -109,7 +109,14 @@ In this example:
 - `location.Bishan` - Tag with group (location is Bishan)
 - `priceRange.500k-1M` - Tag with group (price range is 500k-1M)
 - `priority` - Simple tag without group
+  
+<box type="tip" seamless>
 
+**Note:** Tag VALUES (the part after the dot) can contain symbols like hyphens (`-`), underscores (`_`), and dots (`.`) for more flexible categorization. 
+
+However, it has to start with alphanumeric, and can contain any combination after. For example, `t/price.1.5M-2M` is valid, but `t/price.-2M` is not.
+
+-</box>
 ---
 
 ### Viewing help : `help`
@@ -135,8 +142,8 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE]…​ [s/STATUS] [
 * Status must be either **Pending** or **Completed** (case-insensitive). Each person can have only one status.
 * Status is optional. If not specified, the person will have no status.
 * Tags can either be in the format:
-    - `t/GROUP.VALUE` where both `GROUP` and `VALUE` are alphanumeric
-    - a simple Tag `t/TAG` with alphanumeric text
+    - `t/GROUP.VALUE` where GROUP is alphanumeric, and VALUE can contain alphanumeric characters, dots, hyphens, and underscores (no spaces)
+    - a simple Tag `t/TAG` with alphanumeric text (no spaces)
 </box>
 
 Examples:
