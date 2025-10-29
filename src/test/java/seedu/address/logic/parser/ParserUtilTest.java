@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -246,6 +247,37 @@ public class ParserUtilTest {
         Set<Role> expectedRoleSet = new HashSet<Role>(Arrays.asList(new Role(VALID_ROLE_1), new Role(VALID_ROLE_2)));
 
         assertEquals(expectedRoleSet, actualRoleSet);
+    }
+    @Test
+    public void validateNoDuplicateRole_nullCollection_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+                ParserUtil.validateNoDuplicateRole(null, new Role(VALID_ROLE_1)));
+    }
+
+    @Test
+    public void validateNoDuplicateRole_emptyCollection_noExceptionThrown() throws ParseException {
+        ParserUtil.validateNoDuplicateRole(Collections.emptyList(), new Role(VALID_ROLE_1));
+    }
+
+    @Test
+    public void validateNoDuplicateRole_uniqueRoles_noExceptionThrown() throws ParseException {
+        ParserUtil.validateNoDuplicateRole(List.of(new Role(VALID_ROLE_1)), new Role(VALID_ROLE_2));
+    }
+
+    @Test
+    public void validateNoDuplicateRole_sameCase_throws() {
+        List<Role> roles = Arrays.asList(new Role(VALID_ROLE_1), new Role(VALID_ROLE_2));
+        Role duplicateRole = new Role(VALID_ROLE_1);
+        assertThrows(ParseException.class, () ->
+                ParserUtil.validateNoDuplicateRole(roles, duplicateRole));
+    }
+
+    @Test
+    public void validateNoDuplicateRole_diffCase_throws() {
+        List<Role> roles = Arrays.asList(new Role(VALID_ROLE_1), new Role(VALID_ROLE_2));
+        Role duplicateRole = new Role(VALID_ROLE_1.toUpperCase());
+        assertThrows(ParseException.class, () ->
+                ParserUtil.validateNoDuplicateRole(roles, duplicateRole));
     }
 
     @Test

@@ -39,6 +39,14 @@ public class Role {
     public static boolean isValidRoleName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
+
+    /**
+     * Returns true if another role has the same roleName as this role, ignoring casing.
+     */
+    public boolean isSameRoleIgnoreCase(Role other) {
+        requireNonNull(other);
+        return this.roleName.equalsIgnoreCase(other.roleName);
+    }
     @Override
     public String toString() {
         return '[' + roleName + ']';

@@ -49,8 +49,26 @@ public class RoleTest {
     }
 
     @Test
-    public void normalizeWhitespace() {
+    public void isSameRoleIgnoreCase() {
+        Role role = new Role("Buyer");
 
+        // Null role should throw
+        assertThrows(NullPointerException.class, () -> role.isSameRoleIgnoreCase(null));
+
+        // Same object
+        assertTrue(role.isSameRoleIgnoreCase(role));
+
+        // Same case
+        Role roleSameCase = new Role("Buyer");
+        assertTrue(role.isSameRoleIgnoreCase(roleSameCase));
+
+        // Different case
+        Role roleDiffCase = new Role("BUYER");
+        assertTrue(role.isSameRoleIgnoreCase(roleDiffCase));
+
+        // Different role
+        Role roleOther = new Role("Seller");
+        assertFalse(role.isSameRoleIgnoreCase(roleOther));
     }
 
     @Test
@@ -71,6 +89,7 @@ public class RoleTest {
 
         // different values -> returns false
         assertFalse(role.equals(new Role("Other Valid Role")));
+
     }
 
 }
