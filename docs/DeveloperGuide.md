@@ -921,7 +921,7 @@ testers are expected to do more *exploratory* testing.
         - Save and close the file
         - Relaunch TrackerGuru
 
-       **Expected:** TrackerGuru starts with an empty address book and shows a warning message about corrupted data. The corrupted file is not overwritten.
+       **Expected:** TrackerGuru starts with an empty address book and shows a warning message about corrupted data. The corrupted file is not overwritten, unless the user makes changes to the empty address book.
 
     1. **Simulating a missing data file:**
         - Delete the `addressbook.json` file from the `data` folder
