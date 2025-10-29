@@ -15,9 +15,10 @@ public class FilterCommand extends Command {
 
     public static final String COMMAND_WORD = "filter";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Filters contacts by role, status, and/or tag group. "
-            + "Parameters: [r/ROLE]... [s/STATUS]... [tg/TAGGROUP]...\n"
+    public static final String MESSAGE_USAGE = "To " + COMMAND_WORD
+            + " contacts by role, status, and/or tag group, please follow the given format: "
+            + COMMAND_WORD
+            + " [r/ROLE]... [s/STATUS]... [tg/TAGGROUP]...\n"
             + "Example: " + COMMAND_WORD + " r/buyer s/completed tg/location";
 
     private final RoleStatusTagGroupPredicate predicate;
