@@ -18,22 +18,22 @@ TrackerGuru is a **keyboard-focused desktop app for property agents** to efficie
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
-### Step 1: Check Java version
-TrackerGuru requires **Java 17** or above installed on your computer. (See [FAQ](#faq) for instructions on how to check your Java version)
+##### Step 1: Check Java version
+TrackerGuru requires **Java 17** or above installed on your computer. (See our [FAQ: Section](#faq) for instructions on how to check your Java version)
 
-### Step 2: Download the app
-Download the latest TrackerGuru `.jar` file [here](https://github.com/AY2526S1-CS2103T-F15b-3/tp/releases).
+##### Step 2: Download the app
+Download the latest TrackerGuru `.jar` file from the releases page on [Github](https://github.com/AY2526S1-CS2103T-F15b-3/tp/releases).
 
-### Step 3: Create your app's home folder
-Move the `.jar` file into any folder. This will be your _home folder_.
+##### Step 3: Create your app's home folder
+Move the `.jar` file into any folder on your device. This will be your _home folder_.
 
-### Step 4: Run the app
+##### Step 4: Run the app
 1. Open a command terminal. `cd /path/to/your/home/folder`
 2. Run the app. `java -jar addressbook.jar`
-3. A [GUI](#gui) like this should appear in a few seconds with sample data
+3. A GUI like this should appear in a few seconds with sample data
    ![Ui](images/Ui.png)
 
-### Step 5: Try basic commands
+##### Step 5: Try basic commands
  In the command box, try any of the following commands. Press Enter to execute.
 
  | Command | You Should Expect To                                                                   |
@@ -43,11 +43,12 @@ Move the `.jar` file into any folder. This will be your _home folder_.
  | `delete 3` | Delete the 3rd contact displayed.                                                      |
  | `clear` | Delete **all contacts** in the Address Book <br> **⚠️:** _This action is irreversible!_ |
  | `exit` | Exit the TrackerGuru application                                                       |
-_Refer to the [Features](#features) section below for more details and commands_
 
-### Step 6: Help Guide
+_Refer to the [Features: Section](#features) below for more details and commands_
 
-To access this User Guide anytime from the app, use the **`help`** command. A help window will open up, containing the User Guide.
+##### Step 6: Help Guide
+
+To access this User Guide anytime from the app, use the **`help`** command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -112,20 +113,19 @@ In this example:
 
 ---
 
-### Viewing help : `help`
+### Getting help : `help`
+###### Command: `help`
 
-Shows a message explaining how to access the help page.
+Opens the following help window, which will direct you to this exact User Guide.
 
 ![help message](images/helpMessage.png)
 
-Format: `help`
 
 
 ### Adding a person: `add`
+###### Command: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE]…​ [s/STATUS] [t/TAG]…`
 
 Adds a person (see [definition](#Person)) to the address book.
-
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE]…​ [s/STATUS] [t/TAG]…`
 
 <box type="tip" seamless>
 
@@ -145,16 +145,14 @@ Examples:
 * `add n/Alex Tan p/87654321 e/alex@example.com a/Blk 456 r/Buyer r/Investor s/Pending`
 
 ### Listing all persons : `list`
+###### Command: `list`
 
 Shows a list of all persons in the address book.
 
-Format: `list`
-
 ### Listing all Tag Groups : `tg`
+###### Command: `tg`
 
 Lists all tag groups you have created.
-
-Format: `tg`
 
 <box type="info" seamless>
 
@@ -170,10 +168,9 @@ Examples:
 
 
 ### Creating a Tag Group : `tg`
+###### Command: `tg GROUP_NAME`
 
 Creates a new tag group to organize your tags into categories.
-
-Format: `tg GROUP_NAME`
 
 <box type="info" seamless>
 
@@ -196,10 +193,9 @@ Examples:
 
 
 ### Deleting a Tag Group : `dtg`
+###### Command: `dtg GROUP_NAME`
 
 Deletes an existing tag group.
-
-Format: `dtg GROUP_NAME`
 
 <box type="warning" seamless>
 
@@ -228,10 +224,9 @@ Examples:
 
 
 ### Editing a person : `edit`
+###### Command: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE]…​ [s/STATUS] [t/TAG]…​`
 
 Edits an existing person in the address book.
-
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE]…​ [s/STATUS] [t/TAG]…​`
 
 * Edits the person at the specified `INDEX`.
   - `INDEX` refers to the number shown beside each person in the displayed list.
@@ -253,10 +248,9 @@ Examples:
 *  `edit 4 s/` Removes the status from the 4th person.
 
 ### Locating persons by name: `find`
+###### Command: `find KEYWORD [MORE_KEYWORDS]`
 
 Finds persons whose names contain any of the given keywords.
-
-Format: `find KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -271,6 +265,7 @@ Examples:
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Filtering persons by Role, Status, Tag Group: `filter`
+###### Command: `filter [r/ROLE]…​ [s/STATUS]…​ [tg/TAG_GROUP]…​`
 
 Filters the contact list to show only persons matching the specified parameters.
 
@@ -289,10 +284,9 @@ Examples:
 * `filter r/buyer s/completed tg/price` returns all persons who are **buyers**, or whose status is **completed**, or has a tag whose Tag Group is **price**
 
 ### Deleting a person : `delete`
+###### Command: `delete INDEX`
 
 Deletes the specified person from the address book.
-
-Format: `delete INDEX`
 
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
@@ -303,22 +297,19 @@ Examples:
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
 ### Clearing all entries : `clear`
+###### Command: `clear`
 
 Clears all entries from the address book.
 
-Format: `clear`
-
 ### Exiting the program : `exit`
+###### Command: `exit`
 
 Exits the program.
 
-Format: `exit`
-
 ### Viewing status statistics : `stats`
+###### Command: `stats`
 
 Displays statistics about the status distribution of all contacts in your address book.
-
-Format: `stats`
 
 * Shows the count of contacts for each status category:
   - **Pending**: Contacts with pending status
