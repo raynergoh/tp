@@ -58,9 +58,6 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-    public static final String MESSAGE_DUPLICATE_PHONE = "This phone number already exists in the address book";
-    public static final String MESSAGE_DUPLICATE_EMAIL = "This email address already exists in the address book";
     public static final String MESSAGE_NONEXISTENT_TAG_GROUP = "This Tag Group does not exist, "
             + "please create the Tag Group first";
     private static final Logger logger = LogsCenter.getLogger(EditCommand.class);
@@ -96,21 +93,8 @@ public class EditCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            logger.warning("EditCommand failed: Duplicate person detected.");
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }
-
-        if (!personToEdit.getPhone().equals(editedPerson.getPhone())
-                && model.hasSamePhoneNumber(editedPerson)) {
-            logger.warning("EditCommand failed: Duplicate phone number detected.");
-            throw new CommandException(MESSAGE_DUPLICATE_PHONE);
-        }
-
-        if (!personToEdit.getEmail().equals(editedPerson.getEmail())
-                && model.hasSameEmail(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_EMAIL);
-        }
+        // Checks for duplicate name, phone number and email
+        PersonValidator.validatePersonForEdit(model, personToEdit, editedPerson);
 
         for (Tag tag : editedPerson.getTags()) {
             if (tag.hasGroup() && !model.getTagGroups().contains(tag.getGroup())) {
