@@ -459,7 +459,7 @@ Status values are **case-insensitive** (e.g., "pending", "Pending", and "PENDING
 
 ### Tag
 A Tag is an optional label used to provide additional information about a contact.
-A tag can also optionally contain a **tag group** (see [definition](#tag-group)), allowing it to be categorized under a specific group.
+A Tag can also optionally contain a **tag group** (see [definition](#tag-group)), allowing it to be categorized under a specific group.
 
 <box type="tip" seamless>
 
