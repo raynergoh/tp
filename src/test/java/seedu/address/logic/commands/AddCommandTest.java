@@ -26,6 +26,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Status;
 import seedu.address.model.tag.TagGroup;
 import seedu.address.testutil.PersonBuilder;
 
@@ -120,6 +121,93 @@ public class AddCommandTest {
         Person invalidPerson = new PersonBuilder().withTags("friends.value", "work.value").build();
 
         assertThrows(CommandException.class, () -> new AddCommand(invalidPerson).execute(model));
+    }
+
+    @Test
+    public void execute_personWithoutRolesAndTags_successMessageDoesNotShowRolesAndTags() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person personWithoutRolesAndTags = new PersonBuilder()
+                .withRoles()
+                .withTags()
+                .build();
+
+        CommandResult commandResult = new AddCommand(personWithoutRolesAndTags).execute(modelStub);
+        String message = commandResult.getFeedbackToUser();
+
+        assertFalse(message.contains("Roles:"), "Message should not contain 'Roles:' when no roles are present");
+        assertFalse(message.contains("Tags:"), "Message should not contain 'Tags:' when no tags are present");
+    }
+
+    @Test
+    public void execute_personWithRolesOnly_successMessageShowsRolesButNotTags() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person personWithRolesOnly = new PersonBuilder()
+                .withRoles("Buyer")
+                .withTags()
+                .build();
+
+        CommandResult commandResult = new AddCommand(personWithRolesOnly).execute(modelStub);
+        String message = commandResult.getFeedbackToUser();
+
+        assertTrue(message.contains("Roles:"), "Message should contain 'Roles:' when roles are present");
+        assertFalse(message.contains("Tags:"), "Message should not contain 'Tags:' when no tags are present");
+    }
+
+    @Test
+    public void execute_personWithTagsOnly_successMessageShowsTagsButNotRoles() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person personWithTagsOnly = new PersonBuilder()
+                .withRoles()
+                .withTags("urgent")
+                .build();
+
+        CommandResult commandResult = new AddCommand(personWithTagsOnly).execute(modelStub);
+        String message = commandResult.getFeedbackToUser();
+
+        assertFalse(message.contains("Roles:"), "Message should not contain 'Roles:' when no roles are present");
+        assertTrue(message.contains("Tags:"), "Message should contain 'Tags:' when tags are present");
+    }
+
+    @Test
+    public void execute_personWithRolesAndTags_successMessageShowsBoth() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person personWithBoth = new PersonBuilder()
+                .withRoles("Seller")
+                .withTags("premium")
+                .build();
+
+        CommandResult commandResult = new AddCommand(personWithBoth).execute(modelStub);
+        String message = commandResult.getFeedbackToUser();
+
+        assertTrue(message.contains("Roles:"), "Message should contain 'Roles:' when roles are present");
+        assertTrue(message.contains("Tags:"), "Message should contain 'Tags:' when tags are present");
+    }
+
+    @Test
+    public void execute_personWithoutStatus_successMessageDoesNotShowStatus() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person personWithoutStatus = new PersonBuilder()
+                .withoutStatus()
+                .build();
+
+        CommandResult commandResult = new AddCommand(personWithoutStatus).execute(modelStub);
+        String message = commandResult.getFeedbackToUser();
+
+        assertFalse(message.contains("Status:"), "Message should not contain 'Status:' when no status is present");
+    }
+
+    @Test
+    public void execute_personWithStatus_successMessageShowsStatus() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person personWithStatus = new PersonBuilder()
+                .withStatus(Status.PENDING)
+                .build();
+
+        CommandResult commandResult = new AddCommand(personWithStatus).execute(modelStub);
+        String message = commandResult.getFeedbackToUser();
+
+        assertTrue(message.contains("Status:"), "Message should contain 'Status:' when status is present");
+        assertTrue(message.contains("PENDING"), "Message should contain the status value");
     }
 
 
