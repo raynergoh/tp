@@ -9,15 +9,16 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Role {
     public static final String MESSAGE_CONSTRAINTS =
-            "Roles should only contain alphanumeric characters. "
-            + "Space, hyphens and underscores are allowed except as the first character. No blank inputs allowed";
+            "Roles should only contain alphanumeric characters.\n"
+            + "Space, hyphens and underscores are allowed except as the first character.\n"
+            + "No blank inputs allowed";
     /*
      * The first and last character of the role must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      * The first character can only be alphanumeric,
      * to guard against pasted inputs from external sources (e.g. bullet points)
      */
-    public static final String VALIDATION_REGEX = "^[\\p{Alnum}](?:[\\p{Alnum} -_]*[\\p{Alnum}_-])?$";
+    public static final String VALIDATION_REGEX = "^[A-Za-z0-9][A-Za-z0-9 _-]*[A-Za-z0-9_-]$|^[A-Za-z0-9]$";
 
     public final String roleName;
 

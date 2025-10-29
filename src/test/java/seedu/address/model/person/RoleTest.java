@@ -31,7 +31,9 @@ public class RoleTest {
         assertFalse(Role.isValidRoleName("_")); // underscore only
         assertFalse(Role.isValidRoleName("buyer ")); // no space after string
         assertFalse(Role.isValidRoleName(" buyer")); // no space before string
+        assertFalse(Role.isValidRoleName("$")); // single invalid character
         assertFalse(Role.isValidRoleName("buyer&")); // contain invalid character
+        assertFalse(Role.isValidRoleName("buyer $seller")); // contain invalid character across multiple words
 
         // valid role
         assertTrue(Role.isValidRoleName("b"));
