@@ -39,10 +39,21 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_sameNameDifferentContact_success() {
         Person personInList = model.getAddressBook().getPersonList().get(0);
-        assertCommandFailure(new AddCommand(personInList), model,
-                PersonValidator.MESSAGE_DUPLICATE_PERSON);
+        // Person with same name but different phone and email should be allowed
+        Person personWithSameName = new PersonBuilder()
+                .withName(personInList.getName().fullName)
+                .withPhone("99999999")
+                .withEmail("unique@example.com")
+                .build();
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.addPerson(personWithSameName);
+
+        assertCommandSuccess(new AddCommand(personWithSameName), model,
+                String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(personWithSameName)),
+                expectedModel);
     }
 
     @Test

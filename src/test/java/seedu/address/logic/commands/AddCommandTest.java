@@ -49,17 +49,30 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_sameNameDifferentPhoneAndEmail_success() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person existingPerson = new PersonBuilder()
+                .withName("John Doe")
+                .withPhone("12345678")
+                .withEmail("john@example.com")
+                .build();
+        modelStub.addPerson(existingPerson);
 
-        assertThrows(CommandException.class, PersonValidator.MESSAGE_DUPLICATE_PERSON, ()
-                -> addCommand.execute(modelStub));
+        // Person with same name but different phone and email should be allowed
+        Person personWithSameName = new PersonBuilder()
+                .withName("John Doe")
+                .withPhone("87654321")
+                .withEmail("johndoe@example.com")
+                .build();
+        AddCommand addCommand = new AddCommand(personWithSameName);
+
+        CommandResult commandResult = addCommand.execute(modelStub);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(personWithSameName)),
+                commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_duplicatePhone_throwsCommandException() {
+    public void execute_differentNameDuplicatePhone_throwsCommandException() {
         Person validPerson = new PersonBuilder().withPhone("12345678").build();
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
@@ -74,7 +87,7 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_duplicateEmail_throwsCommandException() {
+    public void execute_differentNameDuplicateEmail_throwsCommandException() {
         Person validPerson = new PersonBuilder()
                 .withEmail("test@example.com")
                 .withPhone("12345678")
@@ -87,6 +100,48 @@ public class AddCommandTest {
                 .withEmail("test@example.com")
                 .build();
         AddCommand addCommand = new AddCommand(personWithSameEmail);
+
+        assertThrows(CommandException.class,
+                PersonValidator.MESSAGE_DUPLICATE_EMAIL, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_sameNameAndDuplicatePhone_throwsCommandException() {
+        Person validPerson = new PersonBuilder()
+                .withName("John Doe")
+                .withPhone("12345678")
+                .withEmail("john@example.com")
+                .build();
+        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+
+        // Person with same name AND same phone should fail with duplicate phone error
+        Person personWithSameNameAndPhone = new PersonBuilder()
+                .withName("John Doe")
+                .withPhone("12345678")
+                .withEmail("different@example.com")
+                .build();
+        AddCommand addCommand = new AddCommand(personWithSameNameAndPhone);
+
+        assertThrows(CommandException.class,
+                PersonValidator.MESSAGE_DUPLICATE_PHONE, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_sameNameAndDuplicateEmail_throwsCommandException() {
+        Person validPerson = new PersonBuilder()
+                .withName("John Doe")
+                .withPhone("12345678")
+                .withEmail("john@example.com")
+                .build();
+        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+
+        // Person with same name AND same email should fail with duplicate email error
+        Person personWithSameNameAndEmail = new PersonBuilder()
+                .withName("John Doe")
+                .withPhone("87654321")
+                .withEmail("john@example.com")
+                .build();
+        AddCommand addCommand = new AddCommand(personWithSameNameAndEmail);
 
         assertThrows(CommandException.class,
                 PersonValidator.MESSAGE_DUPLICATE_EMAIL, () -> addCommand.execute(modelStub));
@@ -282,7 +337,7 @@ public class AddCommandTest {
 
         @Override
         public boolean hasPerson(Person person) {
-            return persons.stream().anyMatch(person::isSamePerson);
+            return hasSamePhoneNumber(person) || hasSameEmail(person);
         }
 
         @Override
@@ -316,7 +371,7 @@ public class AddCommandTest {
         @Override
         public boolean hasPerson(Person person) {
             requireNonNull(person);
-            return this.person.isSamePerson(person);
+            return hasSamePhoneNumber(person) || hasSameEmail(person);
         }
 
         @Override
@@ -341,7 +396,7 @@ public class AddCommandTest {
         @Override
         public boolean hasPerson(Person person) {
             requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+            return hasSamePhoneNumber(person) || hasSameEmail(person);
         }
 
         @Override
