@@ -85,8 +85,8 @@ public class UniquePersonList implements Iterable<Person> {
         if (phoneChanged || emailChanged) {
             boolean hasDuplicate = internalList.stream()
                     .filter(person -> !person.equals(target))
-                    .anyMatch(person -> editedPerson.isSamePhone(person) ||
-                            editedPerson.isSameEmail(person));
+                    .anyMatch(person -> editedPerson.isSamePhone(person)
+                            || editedPerson.isSameEmail(person));
 
             if (hasDuplicate) {
                 throw new DuplicatePersonException();
