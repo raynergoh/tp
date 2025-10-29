@@ -582,39 +582,41 @@ _{more aspects and alternatives to be added}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                 | I can …​                                                         | So that …​                                                                                   |
-|----------|-------------------------|------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
-| `* *`    | potential user          | see sample contacts                                              | I can expect how the contacts will look like before using the App                            |
-| `* * *`  | new user                | access help instructions easily                                  | I can refer to instructions when I forget how to use the App                                 |
-| `* *`    | new user                | delete all sample contacts at once                               | I can start using the app proper quickly                                                     |
-| `* * *`  | new user                | view all existing contacts in a list                             | I can see all my current contacts easily                                                     |
-| `* * *`  | new user                | add a new contact with contact information                       | I can keep track of my growing contacts                                                      |
-| `* * *`  | new user                | delete a contact and all its contact information                 | I can remove contacts I no longer need                                                       |
-| `* * *`  | new user                | view a contact's full contact information                        | I can easily reference all information about a contact                                       |
-| `* *`    | new user                | edit a contact's generic contact information                     | I can make amends to changes easily                                                          |
-| `* * *`  | new user                | assign one or more roles to a contact during creation            | I can easily recall my professional relationship with each contact                           |
-| `* *`    | new user                | delete a role from an existing contact                           | I can remove roles that no longer apply to the contact                                       |
-| `* *`    | new user                | add a role to an existing contact                                | I can easily add roles to contacts without having to recreate the whole contact              |
-| `* * *`  | new user                | assign a status to a contact during creation                     | I can track each client's transaction status                                                 |
-| `* *`    | new user                | delete a status from an existing contact                         | I can remove its status if it no longer applies to the contact                               |
-| `* *`    | new user                | add a status to an existing contact                              | I can freely decide to track status of contacts at a later time                              |
-| `* * *`  | new user                | create tag groups such as property price or location             | I can easily group contacts under business-related categories                                |
-| `* * *`  | new user                | delete an existing tag group                                     | I can clean up tag groupings that I no longer want to track about my contacts                |
-| `* *`    | new user                | view all existing tag groups in a list                           | I can easily view my current tag groups so I do not create duplicates                        |
-| `* * *`  | new user                | create a contact with grouped tags                               | I can easily assign a specific tag values within a tag group when creating a contact         |
+| Priority | As a …​                 | I can …​                                                         | So that …​                                                                               |
+|----------|-------------------------|------------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| `* *`    | potential user          | see sample contacts                                              | I can expect how the contacts will look like before using the App                        |
+| `* * *`  | new user                | access help instructions easily                                  | I can refer to instructions when I forget how to use the App                             |
+| `* *`    | new user                | delete all sample contacts at once                               | I can start using the app proper quickly                                                 |
+| `* * *`  | new user                | view all existing contacts in a list                             | I can see all my current contacts easily                                                 |
+| `* * *`  | new user                | add a new contact with contact information                       | I can keep track of my growing contacts                                                  |
+| `* * *`  | new user                | delete a contact and all its contact information                 | I can remove contacts I no longer need                                                   |
+| `* * *`  | new user                | view a contact's full contact information                        | I can easily reference all information about a contact                                   |
+| `* *`    | new user                | edit a contact's generic contact information                     | I can make amends to changes easily                                                      |
+| `* * *`  | new user                | assign one or more roles to a contact during creation            | I can easily recall my professional relationship with each contact                       |
+| `* *`    | new user                | delete a role from an existing contact                           | I can remove roles that no longer apply to the contact                                   |
+| `* *`    | new user                | add a role to an existing contact                                | I can easily add roles to contacts without having to recreate the whole contact          |
+| `* * *`  | new user                | assign a status to a contact during creation                     | I can track each client's transaction status                                             |
+| `* *`    | new user                | delete a status from an existing contact                         | I can remove its status if it no longer applies to the contact                           |
+| `* *`    | new user                | add a status to an existing contact                              | I can freely decide to track status of contacts at a later time                          |
+| `* * *`  | new user                | create tag groups such as property price or location             | I can easily group contacts under business-related categories                            |
+| `* * *`  | new user                | delete an existing tag group                                     | I can clean up tag groupings that I no longer want to track about my contacts            |
+| `* *`    | new user                | view all existing tag groups in a list                           | I can easily view my current tag groups so I do not create duplicates                    |
+| `* * *`  | new user                | create a contact with grouped tags                               | I can easily assign a specific tag values within a tag group when creating a contact     |
 | `* *`    | new user                | create a contact with standalone tags unrelated to any tag group | I can still track unique metrics about a contact that do not belong to any tag group yet |
-| `* *`    | expert user             | list all client roles                                            | I can understand what types of roles I have already created so far                           |
-| `* *`    | expert user             | be warned when creating a role that already exists               | I can reduce the number of duplicated roles created                                          |
-| `* *`    | expert user             | filter contacts quickly across some roles, status or tag groups  | I can easily look for specific contacts that match some unique properties                    |
-| `* *`    | expert user             | easily record the date and history of each status change         | I can easily track when each deal is closed or monitor past transactions                     |
-| `*`      | expert user             | undo commands quickly                                            | I can quickly rectify mistakes                                                               |
-| `*`      | expert user             | apply advanced filters on contacts using boolean-style filtering | I can have finer control over filtering                                                      |
-| `*`      | expert user             | export my contact book                                           | I can migrate my data to other devices                                                       |
-| `*`      | expert user             | import existing client data from a csv file                      | I can start from an existing database                                                        |
-| `* *`    | user with many contacts | find a contact by name                                           | I can find if a contact exist without having to go through the entire list                   |
-| `* *`    | user with many contacts | view statistics of clients grouped by their transaction status   | I can quickly see how many clients are pending, completed, or have no status                 |
-| `*`      | user with many contacts | view other summary statistics like total clients or total buyers | I can have an overview of my own portfolio                                                   |
-| `*`      | user with many contacts | sort contacts by name alphabetically                             | I can locate contacts easily                                                                 |
+| `* *`    | expert user             | list all client roles                                            | I can understand what types of roles I have already created so far                       |
+| `* *`    | expert user             | be warned when creating a role that already exists               | I can reduce the number of duplicated roles created                                      |
+| `* *`    | expert user             | filter contacts quickly across some roles, status or tag groups  | I can easily look for specific contacts that match some unique contact information       |
+| `* *`    | expert user             | easily record the date and history of each status change         | I can easily track when each deal is closed or monitor past transactions                 |
+| `*`      | expert user             | undo commands quickly                                            | I can quickly rectify mistakes                                                           |
+| `*`      | expert user             | apply advanced filters on contacts using boolean-style filtering | I can have finer control over filtering                                                  |
+| `*`      | expert user             | filter contacts with substring matching                          | I can filter more generically if I am unsure of the exact details                        |
+| `*`      | expert user             | export my contact book                                           | I can migrate my data to other devices                                                   |
+| `*`      | expert user             | import existing client data from a csv file                      | I can start from an existing database                                                    |
+| `* *`    | user with many contacts | find a contact by exact name                                     | I can find if a contact exist without having to go through the entire list               |
+| `* *`    | user with many contacts | find a contact with a substring match of the name                | I can find a contact if I forgot how to spell his exact name                             |
+| `* *`    | user with many contacts | view statistics of clients grouped by their transaction status   | I can quickly see how many clients are pending, completed, or have no status             |
+| `*`      | user with many contacts | view other summary statistics like total clients or total buyers | I can have an overview of my own portfolio                                               |
+| `*`      | user with many contacts | sort contacts by name alphabetically                             | I can locate contacts easily                                                             |
 
 ### Use cases
 
@@ -816,6 +818,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **new user**: A first-time user of TrackerGuru who has not yet created any personal contacts
 * **expert user**: A user who is already familiar with TrackerGuru’s features and performs advanced operations such as complex filtering or data management
 * **boolean-style filtering**: A method to filter contacts by combining multiple criteria precisely using AND ("match all") and OR ("match any") logic (e.g. filter contacts that have a specific role AND a certain status, or contacts that have a specific tag)
+* **substring match**: A method to match a contact as long as the search term is anywhere within the target field (e.g. 'b' can match 'buyer')
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Instructions for manual testing**
