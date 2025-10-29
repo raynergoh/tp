@@ -132,9 +132,8 @@ public class ParserUtil {
 
         if (duplicate.isPresent()) {
             throw new ParseException(
-                    "Roles are case-insensitive and treated as duplicates.\n"
-                    + "There cannot be duplicate roles within a contact.\n"
-                    + "Found at least 2 duplicate terms: " + duplicate.get() + " " + newRole
+                    "Duplicate roles detected (case-insensitive):" + duplicate.get() + " " + newRole
+                    + "\n Each role can only appear once per contact."
             );
         }
     }
