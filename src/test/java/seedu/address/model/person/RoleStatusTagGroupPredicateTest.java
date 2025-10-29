@@ -49,7 +49,7 @@ class RoleStatusTagGroupPredicateTest {
     }
 
     @Test
-    void test_roleCaseDifferenceDoesNotAffectMatch_returnsTrue() {
+    void test_matchesRoleAcrossMultipleRolesIgnoreCase_returnsTrue() {
         // Multiple roles with mixed casing
         Person person = new PersonBuilder().withRoles("Admin", "Supervisor").build();
         Set<Role> roles = Set.of(new Role("admin"));
