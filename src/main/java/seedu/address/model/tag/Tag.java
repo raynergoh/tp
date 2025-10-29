@@ -9,13 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-
-
     public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric (no spaces). "
             + "For grouped tags (GROUP.VALUE format), the GROUP must be alphanumeric, "
             + "but VALUE can contain alphanumeric characters, dots, hyphens, and underscores (no spaces).";
-
-    private static final String TAG_GROUP_IDENTIFIER = ".";
 
     /**
      *     Validation for standalone tags (alphanumeric only, no spaces)
@@ -29,6 +25,8 @@ public class Tag {
      *     - VALUE must start with alphanumeric, and can contain any combination after
      */
     public static final String GROUPED_VALIDATION_REGEX = "^([a-zA-Z0-9]+)\\.([a-zA-Z0-9][a-zA-Z0-9.\\-_]*)$";
+
+    private static final String TAG_GROUP_IDENTIFIER = ".";
 
     public final String tagFormat; // original string
     private final TagGroup group; // null if simple tag
