@@ -38,13 +38,13 @@ Move the `.jar` file into any folder on your device. This will be your _home fol
 ##### Step 5: Try basic commands
  In the command box, try any of the following commands. Press Enter to execute.
 
- | Command | You Should Expect To                                                                   |
- |---------|----------------------------------------------------------------------------------------|
- | `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` | Add a contact `John Doe` with his specified fields                                     |
- | `list` | List all contacts                                                                      |
- | `delete 3` | Delete the 3rd contact displayed.                                                      |
- | `clear` | Delete **all contacts** in the Address Book <br> **⚠️:** _This action is irreversible!_ |
- | `exit` | Exit the TrackerGuru application                                                        |
+ | Command | You Should Expect To                                                               |
+ |---------|------------------------------------------------------------------------------------|
+ | `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` | Add a contact `John Doe` with his specified fields                                 |
+ | `list` | List all contacts                                                                  |
+ | `delete 3` | Delete the 3rd contact displayed.                                                  |
+ | `clear` | Delete **all contacts** in TrackerGuru <br> **⚠️:** _This action is irreversible!_ |
+ | `exit` | Exit the TrackerGuru application                                                   |
 
 _Refer to the [Features: Section](#features) below for more details and commands_
 
@@ -57,7 +57,7 @@ To access this User Guide anytime from the app, use the **`help`** command.
 ## Features
 In this section, you’ll explore how to add, update and organise your contacts using TrackerGuru’s contact management commands.
 
-Before you start using the commands in this section, please take a moment to go through the notes below to understand how command parameters and symbols are used throughout this guide.
+Before proceeding with the commands in this section, please take a moment to review the notes below to understand the usage of command parameters and symbols, as well as understand how roles, tags and tag groups can be effectively utilised for contact organisation.
 
 <box type="info" seamless>
 
@@ -100,7 +100,6 @@ r/Buyer
 r/Lawyer `
 
 ### Understanding Tags and Tag Groups
-Before diving into specific commands, it’s helpful to understand **tags**, which are an optional but powerful way to organise your contacts.
 
 TrackerGuru supports two ways to tag your contacts:
 
@@ -157,28 +156,102 @@ Examples:
 * `add n/Betsy Crowe p/12345678 e/betsycrowe@example.com a/Betsy street, block 123 r/Seller s/Completed t/friend`
 * `add n/Alex Tan p/87654321 e/alex@example.com a/Blk 456 r/Buyer r/Investor s/Pending`
 
-### Listing all persons : `list`
-###### Command: `list`
+### Editing a person : `edit`
+###### Command: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE]…​ [s/STATUS] [t/TAG]…​`
 
-Shows a list of all persons in the address book.
-
-### Listing all Tag Groups : `tg`
-###### Command: `tg`
-
-Lists all tag groups you have created.
+Edits an existing person in the address book.
 
 <box type="info" seamless>
 
-**Notes:**
-* If no tag groups have been created yet, a message will inform you that no tag groups exist.
-* This command helps you check which tag groups are available before assigning tags to contacts.
-* Tag groups persist across sessions and are automatically saved.
+**General**:
+
+* Edit the person at the specified `INDEX`.
+    - `INDEX` refers to the number shown beside each person in the displayed list.
+    - `INDEX` **must be a positive integer** 1, 2, 3, …​
+* At least one optional field must be provided for the edit to take effect.
+
+**Field Updates**:
+* The person's `name`, `phone`, `email`, and `address` will be replaced with the new values you enter.
+* Editing **roles** replace all existing roles: roles are not **cumulative**.
+    * You can specify multiple new roles using multiple `r/` prefixes (e.g. `r/Buyer r/Investor`).
+* Editing **status** replaces the existing one.
+    * Status must be either **Pending** or **Completed** (case-insensitive).
+* Editing **tags** replaces all existing tags: tags are **not cumulative**.
+
+**Removing all values from a field**:
+* To remove all roles: type `r/` without any value.
+* To remove all tags: type `t/` without any value.
+* To remove the status: type `s/` without any value.
+* `name`, `phone`, `email`, and `address` must always contain a value.
 
 </box>
 
 Examples:
-* `tg` displays all existing tag groups such as `propertyType`, `location`, `price`, etc.
+*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 1 s/Completed` Edits the status of the 1st person to `Completed`. If the person did not have a status, it will be added.
+*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 3 r/Buyer r/Landlord` Replaces all existing roles of the 3rd person with `Buyer` and `Landlord`.
+*  `edit 4 s/` Removes the status from the 4th person.
 
+### Finding persons by name: `find`
+###### Command: `find KEYWORD [MORE_KEYWORDS]…​`
+
+Finds persons whose names contain any of the provided keywords.
+
+<box type="info" seamless>
+
+* The search is **case-insensitive** (e.g `hans` will match `Hans`).
+* The **order of the keywords does not matter** (e.g. `Hans Bo` will match `Bo Hans`).
+* Only the **name field** is searched.
+* Only **full words** will be matched (e.g. `Han` does not match `Hans`).
+* Persons matching **at least one keyword** will be returned (i.e. `OR` search).
+    * e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+
+</box>
+
+Examples:
+* `find John` returns `john` and `John Doe`
+* `find alex david` returns `Alex Yeoh`, `David Li`<br>
+  ![result for 'find alex david'](images/findAlexDavidResult.png)
+
+### Filtering persons by Role, Status, Tag Group: `filter`
+###### Command: `filter [r/ROLE]…​ [s/STATUS]…​ [tg/TAG_GROUP]…​`
+
+Filters the current list for persons matching the specified parameters.
+
+<box type="info" seamless>
+
+* The filtering of Roles is **case-insensitive**.
+    * e.g. `r/buyer` will match `r/Buyer`
+* You can filter with any combination of: **Role(s)**, **Status(es)**, **TagGroup(s)**
+* You may specify multiple Roles, Statuses, and Tag Groups
+* A person will be shown if they match **any** of the specified parameters
+* If no parameters are provided, no filtering will occur
+
+</box>
+
+Examples:
+* `filter r/buyer` returns all persons with the role **buyer**
+* `filter s/pending s/completed` returns all persons whose status is **pending** or **completed**
+* `filter r/buyer s/completed tg/price` returns all persons who are **buyers**, or whose status is **completed**, or has a tag whose Tag Group is **price**
+
+### Deleting a person : `delete`
+###### Command: `delete INDEX`
+
+Deletes the specified person from the address book.
+
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `list` followed by `delete 2` deletes the 2nd person in the address book.
+* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+
+### Listing all persons : `list`
+###### Command: `list`
+
+Shows a list of all persons in the address book.
 
 ### Creating a Tag Group : `tg`
 ###### Command: `tg GROUP_NAME`
@@ -235,98 +308,47 @@ Examples:
 
 </box>
 
+### Listing all Tag Groups : `tg`
+###### Command: `tg`
 
-### Editing a person : `edit`
-###### Command: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [r/ROLE]…​ [s/STATUS] [t/TAG]…​`
-
-Edits an existing person in the address book.
+Lists all tag groups you have created.
 
 <box type="info" seamless>
 
-**General**:
-
-* Edit the person at the specified `INDEX`.
-  - `INDEX` refers to the number shown beside each person in the displayed list.
-  - `INDEX` **must be a positive integer** 1, 2, 3, …​
-* At least one optional field must be provided for the edit to take effect.
-
-**Field Updates**:
-* The person's `name`, `phone`, `email`, and `address` will be replaced with the new values you enter.
-* Editing **roles** replace all existing roles: roles are not **cumulative**.
-  * You can specify multiple new roles using multiple `r/` prefixes (e.g. `r/Buyer r/Investor`).
-* Editing **status** replaces the existing one.
-  * Status must be either **Pending** or **Completed** (case-insensitive).
-* Editing **tags** replaces all existing tags: tags are **not cumulative**.
-
-**Removing all values from a field**:
-* To remove all roles: type `r/` without any value.
-* To remove all tags: type `r/` without any value.
-* To remove the status: type `s/` without any value.
-* `name`, `phone`, `email`, and `address` must always contain a value.
+**Notes:**
+* If no tag groups have been created yet, a message will inform you that no tag groups exist.
+* This command helps you check which tag groups are available before assigning tags to contacts.
+* Tag groups persist across sessions and are automatically saved.
 
 </box>
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 1 s/Completed` Edits the status of the 1st person to `Completed`. If the person did not have a status, it will be added.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-*  `edit 3 r/Buyer r/Landlord` Replaces all existing roles of the 3rd person with `Buyer` and `Landlord`.
-*  `edit 4 s/` Removes the status from the 4th person.
+* `tg` displays all existing tag groups such as `propertyType`, `location`, `price`, etc.
 
-### Finding persons by name: `find`
-###### Command: `find KEYWORD [MORE_KEYWORDS]…​`
+### Viewing status statistics : `stats`
+###### Command: `stats`
 
-Finds persons whose names contain any of the provided keywords.
+Displays statistics about the status distribution of all contacts in your address book.
 
-<box type="info" seamless>
+* Shows the count of contacts for each status category:
+    - **Pending**: Contacts with pending status
+    - **Completed**: Contacts with completed status
+    - **No Status**: Contacts without any status
+* Also displays the total number of contacts
 
-* The search is **case-insensitive** (e.g `hans` will match `Hans`).
-* The **order of the keywords does not matter** (e.g. `Hans Bo` will match `Bo Hans`).
-* Only the **name field** is searched.
-* Only **full words** will be matched (e.g. `Han` does not match `Hans`).
-* Persons matching **at least one keyword** will be returned (i.e. `OR` search).
-  * e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+Example output:
+```
+Status Statistics:
+- Pending: 45 contact(s)
+- Completed: 23 contact(s)
+- No Status: 12 contact(s)
+Total: 80 contact(s)
+```
 
+<box type="tip" seamless>
+
+**Tip:** Use this command to quickly see how many contacts are pending, completed, or have no status assigned!
 </box>
-
-Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
-
-### Filtering persons by Role, Status, Tag Group: `filter`
-###### Command: `filter [r/ROLE]…​ [s/STATUS]…​ [tg/TAG_GROUP]…​`
-
-Filters the current list for persons matching the specified parameters.
-
-<box type="info" seamless>
-
-* The filtering of Roles is **case-insensitive**. 
-  * e.g. `r/buyer` will match `r/Buyer`
-* You can filter with any combination of: **Role(s)**, **Status(es)**, **TagGroup(s)**
-* You may specify multiple Roles, Statuses, and Tag Groups
-* A person will be shown if they match **any** of the specified parameters
-* If no parameters are provided, no filtering will occur
-
-</box>
-
-Examples:
-* `filter r/buyer` returns all persons with the role **buyer**
-* `filter s/pending s/completed` returns all persons whose status is **pending** or **completed**
-* `filter r/buyer s/completed tg/price` returns all persons who are **buyers**, or whose status is **completed**, or has a tag whose Tag Group is **price**
-
-### Deleting a person : `delete`
-###### Command: `delete INDEX`
-
-Deletes the specified person from the address book.
-
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 ###### Command: `clear`
@@ -345,31 +367,6 @@ Opens the following help window, which will direct you to this exact User Guide.
 
 ![help message](images/helpMessage.png)
 
-### Viewing status statistics : `stats`
-###### Command: `stats`
-
-Displays statistics about the status distribution of all contacts in your address book.
-
-* Shows the count of contacts for each status category:
-  - **Pending**: Contacts with pending status
-  - **Completed**: Contacts with completed status  
-  - **No Status**: Contacts without any status
-* Also displays the total number of contacts
-
-Example output:
-```
-Status Statistics:
-- Pending: 45 contact(s)
-- Completed: 23 contact(s)
-- No Status: 12 contact(s)
-Total: 80 contact(s)
-```
-
-<box type="tip" seamless>
-
-**Tip:** Use this command to quickly see how many contacts are pending, completed, or have no status assigned!
-</box>
-
 ### Saving the data
 
 TrackerGuru data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -381,8 +378,8 @@ TrackerGuru data are saved automatically as a JSON file `[JAR file location]/dat
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file invalidate its format, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to save a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g. if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file invalidate its format, TrackerGuru will discard all data and start with an empty data file at the next run.  Hence, it is recommended to save a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the TrackerGuru to behave in unexpected ways (e.g. if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
 --------------------------------------------------------------------------------------------------------------------
@@ -458,7 +455,7 @@ Multiple optional fields (Role, Status, Tag) allow you to flexibly organize your
 A Role represents the professional relationship of a contact in your address book. 
 <br> Each contact can have **multiple** roles but cannot have **duplicate** roles.
 
-Commons roles include:
+Common roles include:
 - **Buyer**: Someone looking to purchase property
 - **Seller**: Someone looking to sell property
 - **Landlord**: Property owner who rents out properties
@@ -491,8 +488,9 @@ A tag can also optionally contain a **tag group** (see [definition](#tag-group))
 <box type="tip" seamless>
 
 **Note:**
-* The AddressBook must already contain the tag group for a tag to be assigned under said group.
+* TrackerGuru must already contain the tag group for a tag to be assigned under said group.
   * Refer to [creating a tag group](#Creating-a-tag-group--tg).
+
 </box>
 
 Common tags include:
