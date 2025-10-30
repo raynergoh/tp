@@ -283,6 +283,24 @@ Tag groups provide the following benefits:
 * **Improved filtering**: Filter contacts by tag group categories
 * **Clearer structure**: Instantly see which category each tag belongs to
 
+#### Tag Validation
+
+**Regex Patterns:**
+
+1. **Standalone tags:** `^[a-zA-Z0-9]+$`
+    - Alphanumeric only, no spaces
+    - Example: `VIP`, `priority`
+
+2. **Grouped tags:** `^([a-zA-Z0-9]+)\.([a-zA-Z0-9][a-zA-Z0-9.\-_]*)$`
+    - GROUP: `[a-zA-Z0-9]+` (alphanumeric only)
+    - Separator: Exactly one dot (`.`)
+    - VALUE:
+        - Must start with alphanumeric: `[a-zA-Z0-9]`
+        - Can contain: `[a-zA-Z0-9.\-_]*` (alphanumeric, dots, hyphens, underscores)
+    - Example: `priceRange.1.5M-2M`
+
+This relaxed validation for VALUES allows property agents to use more descriptive tag values like `500k-1M`, `1.5M-2M`, or `Bishan-North`.
+
 #### Implementation
 
 The Tag Group Management feature is implemented through multiple layers of the application:
@@ -455,8 +473,15 @@ The following validation rules are enforced for tag group operations:
 
 4. **Tags with groups:**
     * Format: `t/GROUP.VALUE` (e.g., `t/propertyType.HDB`)
-    * The group name before the dot must match an existing tag group
-    * Validated during tag parsing in `ParserUtil#parseTags()`
+    * **GROUP** (before the dot) must:
+      - Be alphanumeric only
+      - Match an existing tag group name
+    * **VALUE** (after the dot) can contain:
+        - Alphanumeric characters
+        - Dots (`.`), hyphens (`-`), and underscores (`_`)
+        - Must start with an alphanumeric character
+        - Cannot contain spaces
+    * Validated during tag parsing using regex patterns in `Tag.isValidTagFormat()`
 
 #### Error Handling
 
@@ -1030,7 +1055,7 @@ Testers should verify that error and success messages match the described behavi
         - Save and close the file
         - Relaunch TrackerGuru
 
-       **Expected:** TrackerGuru starts with an empty address book. The corrupted file is not overwritten by closing the window unless the user enters `exit`.
+       **Expected:** TrackerGuru starts with an empty address book and shows a warning message about corrupted data. The corrupted file is not overwritten, unless the user makes changes to the empty address book.
 
     1. **Simulating a missing data file:**
         - Delete the `addressbook.json` file from the `data` folder

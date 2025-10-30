@@ -8,9 +8,9 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.TagGroup;
 
 /**
- * Tests that a {@code Person}'s role, status, and/or tag groups match any of the given keywords.
+ * Tests that a {@code Person}'s role, status, and/or tag groups match any of the parameters.
  */
-public class RoleStatusTagGroupPredicate implements Predicate<Person> {
+public class MatchesRoleStatusTagGroupPredicate implements Predicate<Person> {
 
     private final Set<Role> roles;
     private final Set<Status> statuses;
@@ -23,7 +23,7 @@ public class RoleStatusTagGroupPredicate implements Predicate<Person> {
      * @param statuses   the set of statuses to match
      * @param tagGroups  the set of tag groups to match
      */
-    public RoleStatusTagGroupPredicate(Set<Role> roles, Set<Status> statuses, Set<TagGroup> tagGroups) {
+    public MatchesRoleStatusTagGroupPredicate(Set<Role> roles, Set<Status> statuses, Set<TagGroup> tagGroups) {
         this.roles = roles;
         this.statuses = statuses;
         this.tagGroups = tagGroups;
@@ -56,10 +56,10 @@ public class RoleStatusTagGroupPredicate implements Predicate<Person> {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof RoleStatusTagGroupPredicate)) {
+        if (!(other instanceof MatchesRoleStatusTagGroupPredicate)) {
             return false;
         }
-        RoleStatusTagGroupPredicate otherPredicate = (RoleStatusTagGroupPredicate) other;
+        MatchesRoleStatusTagGroupPredicate otherPredicate = (MatchesRoleStatusTagGroupPredicate) other;
         return Objects.equals(roles, otherPredicate.roles)
                 && Objects.equals(statuses, otherPredicate.statuses)
                 && Objects.equals(tagGroups, otherPredicate.tagGroups);
