@@ -26,8 +26,8 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = "To " + COMMAND_WORD
-            + " a person to the address book, please follow the given format: "
+    public static final String MESSAGE_USAGE = "To add "
+            + "a person to the address book, please follow the given format: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
@@ -45,8 +45,8 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "friends ";
 
     public static final String MESSAGE_SUCCESS = "New person has been added: %1$s";
-    public static final String MESSAGE_NONEXISTENT_TAG_GROUP = "This Tag Group does not exist, "
-            + "please create the Tag Group first";
+    public static final String MESSAGE_NONEXISTENT_TAG_GROUP = "This Tag Group does not exist. "
+            + "Please create the Tag Group first";
     private static final Logger logger = LogsCenter.getLogger(AddCommand.class);
 
     private final Person toAdd;
@@ -70,7 +70,7 @@ public class AddCommand extends Command {
 
         for (Tag tag : toAdd.getTags()) {
             if (tag.hasGroup() && !model.getTagGroups().contains(tag.getGroup())) {
-                logger.warning("AddCommand failed: Tag group does not exist.");
+                logger.warning("AddCommand failed: Tag Group does not exist.");
                 throw new CommandException(MESSAGE_NONEXISTENT_TAG_GROUP);
             }
         }

@@ -8,7 +8,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.TagGroup;
 
 /**
- * Tests that a {@code Person}'s role, status, and/or tag groups match any of the given keywords.
+ * Tests that a {@code Person}'s role, status, and/or Tag Groups match any of the given keywords.
  */
 public class RoleStatusTagGroupPredicate implements Predicate<Person> {
 
@@ -17,11 +17,11 @@ public class RoleStatusTagGroupPredicate implements Predicate<Person> {
     private final Set<TagGroup> tagGroups;
 
     /**
-     * Creates a predicate with the given roles, statuses, and tag groups.
+     * Creates a predicate with the given roles, statuses, and Tag Groups.
      *
      * @param roles      the set of roles to match
      * @param statuses   the set of statuses to match
-     * @param tagGroups  the set of tag groups to match
+     * @param tagGroups  the set of Tag Groups to match
      */
     public RoleStatusTagGroupPredicate(Set<Role> roles, Set<Status> statuses, Set<TagGroup> tagGroups) {
         this.roles = roles;
@@ -30,7 +30,7 @@ public class RoleStatusTagGroupPredicate implements Predicate<Person> {
     }
 
     /**
-     * Returns true if the given {@code Person} matches the roles, statuses, or tag groups.
+     * Returns true if the given {@code Person} matches the roles, statuses, or Tag Groups.
      */
     @Override
     public boolean test(Person person) {
@@ -39,7 +39,7 @@ public class RoleStatusTagGroupPredicate implements Predicate<Person> {
             return false;
         }
 
-        // A person matches if they match any of the specified roles OR statuses OR tag groups.
+        // A person matches if they match any of the specified roles OR statuses OR Tag Groups.
         boolean roleMatch = !roles.isEmpty() && person.getRoles().stream()
                 .anyMatch(roles::contains);
         boolean statusMatch = !statuses.isEmpty() && person.getStatus()

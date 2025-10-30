@@ -15,11 +15,10 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = "To " + COMMAND_WORD
-            + " and display all persons whose names contain any of "
+    public static final String MESSAGE_USAGE = "To find "
+            + "and display all persons whose names contain any of "
             + "the specified keywords, please follow the given format: "
-            + COMMAND_WORD
-            + " KEYWORD...\n"
+            + COMMAND_WORD + " KEYWORD...\n"
             + "Example: " + COMMAND_WORD + " john alice";
 
     private final NameContainsKeywordsPredicate predicate;
