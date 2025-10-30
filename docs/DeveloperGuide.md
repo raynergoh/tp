@@ -13,7 +13,21 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+* This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
+
+* Libraries used:
+  * [JavaFX](https://openjfx.io/) - For the graphical user interface
+  * [Jackson](https://github.com/FasterXML/jackson) - For JSON data storage and parsing
+  * [JUnit5](https://github.com/junit-team/junit5) - For unit and integration testing
+
+* Tools used:
+  * [Gradle](https://gradle.org/) - For build automation and dependency management
+  * [PlantUML](https://plantuml.com/) - For UML diagram generation
+  * [MarkBind](https://markbind.org/) - For generating the project documentation website
+  * [CheckStyle](https://checkstyle.sourceforge.io/) - For code style checking
+
+* Documentation:
+  * The structure and format of this Developer Guide is adapted from the [AB3 Developer Guide](https://se-education.org/addressbook-level3/DeveloperGuide.html)
 
 --------------------------------------------------------------------------------------------------------------------
 
