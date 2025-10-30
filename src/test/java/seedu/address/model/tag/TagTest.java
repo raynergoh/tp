@@ -49,6 +49,7 @@ public class TagTest {
     public void isValidTagFormat_startWithDot_returnsFalse() {
         assertFalse(Tag.isValidTagFormat(".propertyTypeHDB"));
         assertFalse(Tag.isValidTagFormat(".locationSengkang"));
+        assertFalse(Tag.isValidTagFormat("location..Sengkang"));
     }
 
     @Test
@@ -58,9 +59,9 @@ public class TagTest {
     }
 
     @Test
-    public void isValidTagFormat_multipleDots_returnsFalse() {
-        assertFalse(Tag.isValidTagFormat("propertyType.HDB.extra"));
-        assertFalse(Tag.isValidTagFormat("group1.value1.another"));
+    public void isValidTagFormat_multipleDots_returnsTrue() {
+        assertTrue(Tag.isValidTagFormat("priceRange.800k-1M"));
+        assertTrue(Tag.isValidTagFormat("group1.value1.another"));
     }
 
     @Test

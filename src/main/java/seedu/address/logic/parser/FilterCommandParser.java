@@ -10,8 +10,8 @@ import java.util.Set;
 
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.MatchesRoleStatusTagGroupPredicate;
 import seedu.address.model.person.Role;
-import seedu.address.model.person.RoleStatusTagGroupPredicate;
 import seedu.address.model.person.Status;
 import seedu.address.model.tag.TagGroup;
 
@@ -42,6 +42,6 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         Set<Status> statuses = ParserUtil.parseStatuses(statusStrings);
         Set<TagGroup> tagGroups = ParserUtil.parseTagGroups(tagGroupStrings);
 
-        return new FilterCommand(new RoleStatusTagGroupPredicate(roles, statuses, tagGroups));
+        return new FilterCommand(new MatchesRoleStatusTagGroupPredicate(roles, statuses, tagGroups));
     }
 }

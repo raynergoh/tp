@@ -15,7 +15,7 @@ import seedu.address.model.tag.TagGroup;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by phone number and email comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
@@ -78,7 +78,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same phone number or email as {@code person} exists in the address book.
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
