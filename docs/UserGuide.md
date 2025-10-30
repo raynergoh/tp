@@ -87,8 +87,8 @@ Each contact in TrackerGuru can have one or more roles that describe their profe
 
 **Example Contact with Roles:**
 
-`add n/John Tan p/91234567 e/john@example.com a/Blk 456 Bishan 
-r/Buyer 
+`add n/John Tan p/91234567 e/john@example.com a/Blk 456 Bishan
+r/Buyer
 r/Lawyer `
 
 ### Understanding Tags and Tag Groups
@@ -143,7 +143,7 @@ Adds a person (see [definition](#person)) to the address book.
 **Note:**
 * Each person must have a **unique** `PHONE_NUMBER` and `EMAIL`.
 * Role is **optional**. You can add multiple roles by repeating `r/ROLE` but a contact made with **duplicate roles** will throw an error message. See [Role](#role) in the glossary for more details.
-<br> Example: `r/Buyer r/Investor` is acceptable, `r/Buyer r/buyer` is unacceptable. 
+<br> Example: `r/Buyer r/Investor` is acceptable, `r/Buyer r/buyer` is unacceptable.
 
 * Status is **optional**. If provided, it must be `Pending` or `Completed` (case-insensitive). Each person can have only one status.
 
@@ -300,7 +300,7 @@ Filters the current list for persons matching the specified parameters.
 
 <box type="info" seamless>
 
-* The filtering of Roles is **case-insensitive**. 
+* The filtering of Roles is **case-insensitive**.
   * e.g. `r/buyer` will match `r/Buyer`
 * You can filter with any combination of: **Role(s)**, **Status(es)**, **TagGroup(s)**
 * You may specify multiple Roles, Statuses, and Tag Groups
@@ -344,7 +344,7 @@ Displays statistics about the status distribution of all contacts in your addres
 
 * Shows the count of contacts for each status category:
   - **Pending**: Contacts with pending status
-  - **Completed**: Contacts with completed status  
+  - **Completed**: Contacts with completed status
   - **No Status**: Contacts without any status
 * Also displays the total number of contacts
 
@@ -447,7 +447,7 @@ Each Person is uniquely identified by their **Phone** or **Email**.
 Multiple optional fields (Role, Status, Tag) allow you to flexibly organize your contacts according to your workflow.
 
 ### Role
-A Role represents the professional relationship of a contact in your address book. 
+A Role represents the professional relationship of a contact in your address book.
 <br> Each contact can have **multiple** roles but cannot have **duplicate** roles.
 
 Commons roles include:
@@ -458,7 +458,7 @@ Commons roles include:
 - **Investor**: Someone interested in property investment
 - **etc**
 
-**Case-insensitivity**: 
+**Case-insensitivity**:
 <br> `buyer`, `Buyer`, and `BUYER` are treated as the same role.
 <br> Using both `r/buyer` and `r/BUYER` in a command will result in a duplicate role error.
 

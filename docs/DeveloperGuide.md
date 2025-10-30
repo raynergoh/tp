@@ -2,6 +2,7 @@
   layout: default.md
   title: "Developer Guide"
   pageNav: 3
+
 ---
 
 # TrackerGuru Developer Guide
@@ -806,15 +807,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 1a. TrackerGuru detects that the Tag Group name is missing or improperly formatted.
-    * 1a1. TrackerGuru displays an error message and shows the correct command format.  
+    * 1a1. TrackerGuru displays an error message and shows the correct command format.
       Use case resumes from step 1.
 
 * 1b. TrackerGuru detects a duplicate Tag Group name.
-    * 1b1. TrackerGuru displays an error message indicating that the Tag Group already exists.  
+    * 1b1. TrackerGuru displays an error message indicating that the Tag Group already exists.
       Use case ends.
 
 * 1c. TrackerGuru fails to save the Tag Group due to a system error.
-    * 1c1. TrackerGuru displays an error message.  
+    * 1c1. TrackerGuru displays an error message.
       Use case ends.
 
 
@@ -877,8 +878,8 @@ They serve as a starting point; you are encouraged to perform **exploratory test
 <box type="info" seamless>
 
 **Note**:
-Each test case includes the command to execute and the expected outcome. 
-Testers should verify that error and success messages match the described behavior. 
+Each test case includes the command to execute and the expected outcome.
+Testers should verify that error and success messages match the described behavior.
 </box>
 
 ### Launch and shutdown
@@ -908,7 +909,7 @@ Testers should verify that error and success messages match the described behavi
 
    3. **Test case**: `delete 0`<br>
       Expected: Error message shown. No person is deleted.
-   
+
    4. **Other invalid commands to try**: `delete`, `delete x` (where `x` > list size)<br>
       Expected: Error message displayed. No changes to list.
 
@@ -933,7 +934,7 @@ Testers should verify that error and success messages match the described behavi
 
 2. **Deleting a tag group**
 
-    1. **Prerequisites**: Create a tag group `Location` using `tg Location` that is not referenced by any contact's tags. 
+    1. **Prerequisites**: Create a tag group `Location` using `tg Location` that is not referenced by any contact's tags.
    Use `tg Property Type` and add a tag of this tag group to the first contact using `edit 1 t/PropertyType.HDB`
 
    2. **Test case**: `dtg Location`<br>
@@ -960,11 +961,11 @@ Testers should verify that error and success messages match the described behavi
 
 ### Creating and managing roles
 1. **Adding roles to a person**
-   1. **Prerequisites**: List all persons using the `list` command. There should be multiple persons in the list. 
-   
+   1. **Prerequisites**: List all persons using the `list` command. There should be multiple persons in the list.
+
    2. **Test case**: `edit 1 r/Buyer`
-   Expected: The first contact’s role list is replaced with a single role “Buyer”. Success message shown. 
-   
+   Expected: The first contact’s role list is replaced with a single role “Buyer”. Success message shown.
+
    3. **Test case**: `edit 1 r/Buyer r/Investor`
    Expected: The first contact’s roles are replaced with “Buyer” and “Investor”. Success message shown.
 
@@ -980,16 +981,16 @@ Testers should verify that error and success messages match the described behavi
 ### Filtering by tag groups, status or roles
 1. **Basic filtering**
     1. **Prerequisites**:
-       - Create tag groups `PropertyType` and `Location`. 
-       - Add tags `t/PropertyType.HDB`, `t/Location.East` to some contacts. 
-       - Add roles `Buyer`, `Seller`, `Investor` to some contacts. 
+       - Create tag groups `PropertyType` and `Location`.
+       - Add tags `t/PropertyType.HDB`, `t/Location.East` to some contacts.
+       - Add roles `Buyer`, `Seller`, `Investor` to some contacts.
        - Assign statuses `Pending` and `Completed` to some contacts.
    2. **Test case**: `filter tg/PropertyType`
       Expected: Lists all contacts with the “PropertyType.HDB” tag.
 
    3. **Test case**: `filter r/Buyer`
-   Expected: Lists all contacts with the “Buyer” role (case-insensitive). 
-   
+   Expected: Lists all contacts with the “Buyer” role (case-insensitive).
+
    4. **Test case**: `filter s/Pending`
    Expected: Lists all contacts with status “Pending” (case-insensitive).
 
@@ -1042,6 +1043,5 @@ Testers should verify that error and success messages match the described behavi
         - Find a person with a tag like `"PropertyType.HDB"`
         - In the `tagGroups` array, delete the `{"tagGroupName": "PropertyType"}` entry
         - Save and relaunch
-
-       **Expected:** For data resilience, TrackerGuru commands still work normally with tag group `PropertyType` and does not affect normal operations. 
+       **Expected:** For data resilience, TrackerGuru commands still work normally with tag group `PropertyType` and does not affect normal operations.
    Only when listing using `tg`, `PropertyType` will not appear.
