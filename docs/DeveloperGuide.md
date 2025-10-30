@@ -13,7 +13,21 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+* This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
+
+* Libraries used:
+  * [JavaFX](https://openjfx.io/) - For the graphical user interface
+  * [Jackson](https://github.com/FasterXML/jackson) - For JSON data storage and parsing
+  * [JUnit5](https://github.com/junit-team/junit5) - For unit and integration testing
+
+* Tools used:
+  * [Gradle](https://gradle.org/) - For build automation and dependency management
+  * [PlantUML](https://plantuml.com/) - For UML diagram generation
+  * [MarkBind](https://markbind.org/) - For generating the project documentation website
+  * [CheckStyle](https://checkstyle.sourceforge.io/) - For code style checking
+
+* Documentation:
+  * The structure and format of this Developer Guide is adapted from the [AB3 Developer Guide](https://se-education.org/addressbook-level3/DeveloperGuide.html)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -662,7 +676,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to add a contact together with their relevant details.
+1. User requests to add a contact.
 2. TrackerGuru saves the contact and its details.
 3. TrackerGuru displays a success message to the user.
 
@@ -674,13 +688,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1a1. TrackerGuru displays an error message and the proper command format to the user.
       Use case resumes from step 1.
 
-* 1b. TrackerGuru detects a duplicate contact (same phone number).
-    * 1b1. TrackerGuru requests confirmation to overwrite or abort.
-    * 1b2. User chooses to overwrite → TrackerGuru updates the contact and displays a success message.
-    * 1b3. User chooses to abort → Use case ends.
+* 1b. TrackerGuru detects a duplicate contact (same phone number or email).
+    * 1b1. TrackerGuru displays an error message.
+      Use case ends.
 
-* 1c. TrackerGuru fails to save the contact due to a system error.
-    * 1c1. TrackerGuru displays an error message.
+* 1c. Contact uses a Tag Group that has not been created yet.
+    * 1c1. TrackerGuru displays an error message indicating invalid command format.
+    * 1c2. User <u>Creates a Tag Group (UC6)</u>.
+      Use case resumes from step 1.
+
+* 1d. TrackerGuru fails to save the contact due to a system error.
+    * 1d1. TrackerGuru displays an error message.
       Use case ends.
 
 ---
@@ -741,8 +759,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1b1. TrackerGuru displays an error message indicating invalid command format.
       Use case resumes from step 1.
 
-* 1d. TrackerGuru encounters a system error while filtering.
-    * 1d1. TrackerGuru displays an error message.
+* 1c. TrackerGuru encounters a system error while filtering.
+    * 1c1. TrackerGuru displays an error message.
       Use case ends.
 
 ---
@@ -779,27 +797,57 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Guarantees**
 
 * Existing contact information will be updated to the address book only if MSS completes.
-* All the fields in the contact will be of valid type.
+* All the field values in the contact will be valid.
 
 **MSS**
 
 1. User requests to edit contact with together with their relevant details.
-2. System edits and saves the updated contact information.
-3. System displays success message to the user.
-4. System's contact list reflects the updated contact information.
+2. TrackerGuru edits and saves the updated contact information.
+3. TrackerGuru displays success message to the user.
+4. TrackerGuru's contact list reflects the updated contact information.
 
     Use case ends.
 
 **Extensions**
 
-* 1a. System detects an error in the entered data (invalid index).
-
-  * 1a1. System displays error message that the specified index is invalid.
+* 1a. TrackerGuru detects an error in the entered data (invalid index).
+    * 1a1. TrackerGuru displays error message that the specified index is invalid.
     Use case resumes from step 1.
 
-* 2a. System fails to edit the contact information due to a system error.
+* 2a. TrackerGuru fails to edit the contact information due to a system error.
+    * 2a1. TrackerGuru displays an error message indicating the failure.
+    Use case ends.
 
-  * 2a1. System displays an error message indicating the failure. <br> Use case ends.
+---
+
+**Use case: UC6 - Create a Tag Group**
+
+**Guarantees**
+
+* Each Tag Group created will have a unique name within the address book.
+* Once created, the Tag Group will be available for assigning tags to contacts.
+
+**MSS**
+
+1. User requests to create a Tag Group.
+2. TrackerGuru saves the Tag Group name.
+3. TrackerGuru displays a success message to the user.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. TrackerGuru detects that the Tag Group name is missing or improperly formatted.
+    * 1a1. TrackerGuru displays an error message and shows the correct command format.  
+      Use case resumes from step 1.
+
+* 1b. TrackerGuru detects a duplicate Tag Group name.
+    * 1b1. TrackerGuru displays an error message indicating that the Tag Group already exists.  
+      Use case ends.
+
+* 1c. TrackerGuru fails to save the Tag Group due to a system error.
+    * 1c1. TrackerGuru displays an error message.  
+      Use case ends.
 
 
 ### Non-Functional Requirements

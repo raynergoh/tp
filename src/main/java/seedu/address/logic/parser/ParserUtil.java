@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -114,13 +115,39 @@ public class ParserUtil {
     }
 
     /**
+     * Validates that the current collection of Roles does not contain duplicates
+     * with the given newRole, ignoring case.
+     *
+     * @param roles   the collection of Roles to check against
+     * @param newRole the Role to check for duplicates
+     * @throws ParseException if a duplicate is found
+     */
+    public static void validateNoDuplicateRole(Collection<Role> roles, Role newRole) throws ParseException {
+        requireNonNull(roles);
+        requireNonNull(newRole);
+
+        Optional<Role> duplicate = roles.stream()
+                .filter(newRole::isSameRoleIgnoreCase)
+                .findFirst();
+
+        if (duplicate.isPresent()) {
+            throw new ParseException(
+                    "Duplicate roles detected (case-insensitive):" + duplicate.get() + " " + newRole
+                    + "\n Each role can only appear once per contact."
+            );
+        }
+    }
+
+    /**
      * Parses {@code Collection<String> roles} into a {@code Set<Role>}.
      */
     public static Set<Role> parseRoles(Collection<String> roles) throws ParseException {
         requireNonNull(roles);
         final Set<Role> roleSet = new HashSet<>();
         for (String roleName : roles) {
-            roleSet.add(parseRole(roleName));
+            Role parsedRole = parseRole(roleName);
+            validateNoDuplicateRole(roleSet, parsedRole);
+            roleSet.add(parsedRole);
         }
         return roleSet;
     }
