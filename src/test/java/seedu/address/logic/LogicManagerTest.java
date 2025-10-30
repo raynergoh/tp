@@ -71,6 +71,122 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void execute_clearCommand_showsConfirmationPrompt() throws Exception {
+        String clearCommand = "clear";
+        CommandResult result = logic.execute(clearCommand);
+        assertEquals("WARNING: This will delete ALL contacts permanently!\nAre you sure? (y/n)",
+                result.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_clearConfirmationWithY_clearsAddressBook() throws Exception {
+        // First, add a person to the address book
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        logic.execute(addCommand);
+
+        // Execute clear command to get confirmation prompt
+        logic.execute("clear");
+
+        // Confirm with 'y'
+        CommandResult result = logic.execute("y");
+        assertEquals("Address book has been cleared!", result.getFeedbackToUser());
+
+        // Verify address book is empty
+        Model expectedModel = new ModelManager();
+        assertEquals(expectedModel, model);
+    }
+
+    @Test
+    public void execute_clearConfirmationWithN_cancelsOperation() throws Exception {
+        // First, add a person to the address book
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        logic.execute(addCommand);
+
+        // Create expected model with the person
+        Person expectedPerson = new PersonBuilder(AMY).withTags().withoutStatus().build();
+        Model expectedModel = new ModelManager();
+        expectedModel.addPerson(expectedPerson);
+
+        // Execute clear command to get confirmation prompt
+        logic.execute("clear");
+
+        // Cancel with 'n'
+        CommandResult result = logic.execute("n");
+        assertEquals("Clear command cancelled.", result.getFeedbackToUser());
+
+        // Verify address book is unchanged
+        assertEquals(expectedModel, model);
+    }
+
+    @Test
+    public void execute_clearConfirmationWithInvalidInput_showsReprompt() throws Exception {
+        // Execute clear command to get confirmation prompt
+        logic.execute("clear");
+
+        // Try invalid input
+        CommandResult result = logic.execute("maybe");
+        assertEquals("Invalid input. Please enter 'y' to confirm or 'n' to cancel.", result.getFeedbackToUser());
+
+        // Should still be in confirmation state - try another invalid input
+        result = logic.execute("yes");
+        assertEquals("Invalid input. Please enter 'y' to confirm or 'n' to cancel.", result.getFeedbackToUser());
+
+        // Finally confirm with 'y'
+        result = logic.execute("y");
+        assertEquals("Address book has been cleared!", result.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_clearConfirmationWithUppercaseY_clearsAddressBook() throws Exception {
+        // Execute clear command to get confirmation prompt
+        logic.execute("clear");
+
+        // Confirm with uppercase 'Y'
+        CommandResult result = logic.execute("Y");
+        assertEquals("Address book has been cleared!", result.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_clearConfirmationWithUppercaseN_cancelsOperation() throws Exception {
+        // Execute clear command to get confirmation prompt
+        logic.execute("clear");
+
+        // Cancel with uppercase 'N'
+        CommandResult result = logic.execute("N");
+        assertEquals("Clear command cancelled.", result.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_normalCommandAfterClearCancellation_success() throws Exception {
+        // Execute clear command to get confirmation prompt
+        logic.execute("clear");
+
+        // Cancel with 'n'
+        logic.execute("n");
+
+        // Normal command should work after cancellation
+        String listCommand = ListCommand.COMMAND_WORD;
+        CommandResult result = logic.execute(listCommand);
+        assertEquals(ListCommand.MESSAGE_SUCCESS, result.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_normalCommandAfterClearConfirmation_success() throws Exception {
+        // Execute clear command to get confirmation prompt
+        logic.execute("clear");
+
+        // Confirm with 'y'
+        logic.execute("y");
+
+        // Normal command should work after confirmation
+        String listCommand = ListCommand.COMMAND_WORD;
+        CommandResult result = logic.execute(listCommand);
+        assertEquals(ListCommand.MESSAGE_SUCCESS, result.getFeedbackToUser());
+    }
+
+    @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         assertCommandFailureForExceptionFromStorage(DUMMY_IO_EXCEPTION, String.format(
                 LogicManager.FILE_OPS_ERROR_FORMAT, DUMMY_IO_EXCEPTION.getMessage()));

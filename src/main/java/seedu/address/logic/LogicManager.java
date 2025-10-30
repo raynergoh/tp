@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -56,12 +57,12 @@ public class LogicManager implements Logic {
             if (input.equals("y")) {
                 awaitingClearConfirmation = false;
                 // Directly create command with "y" confirmation
-                Command command = new seedu.address.logic.commands.ClearCommand("y");
+                Command command = new ClearCommand("y");
                 commandResult = command.execute(model);
             } else if (input.equals("n")) {
                 awaitingClearConfirmation = false;
                 // Directly create command with "n" confirmation
-                Command command = new seedu.address.logic.commands.ClearCommand("n");
+                Command command = new ClearCommand("n");
                 commandResult = command.execute(model);
             } else {
                 // Invalid input, re-prompt (keep awaitingClearConfirmation = true)
@@ -71,8 +72,8 @@ public class LogicManager implements Logic {
             Command command = addressBookParser.parseCommand(commandText);
             commandResult = command.execute(model);
 
-            // Check if this command is requesting clear confirmation
-            if (commandResult.getFeedbackToUser().contains("Are you sure? (y/n)")) {
+            // Check if this command is requesting confirmation
+            if (commandResult.isAwaitingConfirmation()) {
                 awaitingClearConfirmation = true;
             }
         }

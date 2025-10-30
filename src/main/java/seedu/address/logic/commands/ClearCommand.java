@@ -35,11 +35,16 @@ public class ClearCommand extends Command {
         requireNonNull(model);
 
         // If no input provided, ask for confirmation
-        if (confirmationInput == null || confirmationInput.trim().isEmpty()) {
-            return new CommandResult(MESSAGE_CONFIRMATION_REQUIRED);
+        if (confirmationInput == null) {
+            return new CommandResult(MESSAGE_CONFIRMATION_REQUIRED, false, false, true);
         }
 
-        String input = confirmationInput.trim().toLowerCase();
+        String trimmedInput = confirmationInput.trim();
+        if (trimmedInput.isEmpty()) {
+            return new CommandResult(MESSAGE_CONFIRMATION_REQUIRED, false, false, true);
+        }
+
+        String input = trimmedInput.toLowerCase();
 
         // User confirmed with 'y'
         if (input.equals("y")) {
@@ -47,7 +52,7 @@ public class ClearCommand extends Command {
             return new CommandResult(MESSAGE_SUCCESS);
         }
 
-        // User cancelled with 'n' (parser ensures only y/n reach here)
+        // User cancelled with 'n' (input validation is handled in LogicManager's state handling)
         return new CommandResult(MESSAGE_CANCELLED);
     }
 
