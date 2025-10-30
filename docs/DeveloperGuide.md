@@ -471,7 +471,7 @@ The following validation rules are enforced for tag group operations:
         - Uses `anyMatch()` to check if any tag references the group
 
 4. **Tags with groups:**
-    * Format: `t/GROUP.VALUE` (e.g., `t/propertyType.HDB`)
+    * Format: `t/GROUP.VALUE` (e.g. `t/propertyType.HDB`)
     * **GROUP** (before the dot) must:
       - Be alphanumeric only
       - Match an existing tag group name

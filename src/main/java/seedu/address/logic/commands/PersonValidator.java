@@ -12,8 +12,8 @@ import seedu.address.model.person.Person;
  * Performs duplicate checks for phone numbers and email addresses.
  */
 public class PersonValidator {
-    public static final String MESSAGE_DUPLICATE_EMAIL = "This email address already exists in the address book";
-    public static final String MESSAGE_DUPLICATE_PHONE = "This phone number already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_EMAIL = "This email address already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PHONE = "This phone number already exists in the address book.";
 
     private static final Logger logger = LogsCenter.getLogger(PersonValidator.class);
 

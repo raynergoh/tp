@@ -7,19 +7,19 @@ import seedu.address.model.Model;
 import seedu.address.model.tag.TagGroup;
 
 /**
- * Deletes an existing TagGroup from the address book.
+ * Deletes an existing Tag Group from the address book.
  */
 public class DeleteTagGroupCommand extends Command {
 
     public static final String COMMAND_WORD = "dtg";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the specified TagGroup from the address book.\n"
-            + "Parameters: TAG_GROUP_NAME\n"
+    public static final String MESSAGE_USAGE = "To delete "
+            + "a specified Tag Group from the address book, please follow the given format: "
+            + COMMAND_WORD + " TAG_GROUP_NAME\n"
             + "Example: " + COMMAND_WORD + " location";
 
-    public static final String MESSAGE_DELETE_SUCCESS = "Deleted TagGroup: %1$s";
-    public static final String MESSAGE_TAGGROUP_NOT_FOUND = "TagGroup does not exist: %1$s";
+    public static final String MESSAGE_DELETE_SUCCESS = "Tag Group has been deleted: %1$s";
+    public static final String MESSAGE_TAGGROUP_NOT_FOUND = "This Tag Group does not exist: %1$s";
 
     private final TagGroup toDelete;
 
@@ -40,7 +40,7 @@ public class DeleteTagGroupCommand extends Command {
         }
 
         if (model.isTagGroupInUse(toDelete)) {
-            throw new CommandException("Cannot delete tag group: It is still used by contacts."
+            throw new CommandException("Cannot delete Tag Group: It is still used by contacts."
                     + " Please delete all tags associated with this Tag Group first.");
         }
 

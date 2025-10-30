@@ -7,16 +7,16 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.TagGroup;
 
 /**
- * Jackson-friendly version of TagGroup.
+ * Jackson-friendly version of Tag Group.
  */
 public class JsonAdaptedTagGroup {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "TagGroup's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Tag Group's %s field is missing!";
 
     private final String name;
 
     /**
-     * Constructs a {@code JsonAdaptedTagGroup} with the given tag group name.
+     * Constructs a {@code JsonAdaptedTagGroup} with the given Tag Group name.
      */
     @JsonCreator
     public JsonAdaptedTagGroup(@JsonProperty("name") String name) {
@@ -31,9 +31,9 @@ public class JsonAdaptedTagGroup {
     }
 
     /**
-     * Converts this Jackson-friendly adapted tag group object into the model's {@code TagGroup} object.
+     * Converts this Jackson-friendly adapted Tag Group object into the model's {@code TagGroup} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted tag group.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted Tag Group.
      */
     public TagGroup toModelType() throws IllegalValueException {
         if (name == null) {
@@ -41,13 +41,13 @@ public class JsonAdaptedTagGroup {
         }
 
         if (name.isEmpty()) {
-            throw new IllegalValueException("TagGroup name cannot be empty");
+            throw new IllegalValueException("Tag Group name cannot be empty");
         }
 
         try {
             return new TagGroup(name);
         } catch (IllegalArgumentException e) {
-            throw new IllegalValueException("Invalid TagGroup name: " + e.getMessage());
+            throw new IllegalValueException("Invalid Tag Group name: " + e.getMessage());
         }
     }
 }
