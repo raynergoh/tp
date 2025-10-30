@@ -136,8 +136,7 @@ In this example:
 
 However, it has to start with alphanumeric, and can contain any combination after. For example, `t/price.1.5M-2M` is valid, but `t/price.-2M` is not.
 
--</box>
----
+</box>
 
 ### Adding a person: `add`
 ###### Command: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE]…​ [s/STATUS] [t/TAG]…​`
@@ -219,7 +218,6 @@ Finds persons whose names contain any of the provided keywords.
 Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Filtering persons by Role, Status, Tag Group: `filter`
 ###### Command: `filter [r/ROLE]…​ [s/STATUS]…​ [tg/TAG_GROUP]…​`
