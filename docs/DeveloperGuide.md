@@ -2,6 +2,7 @@
   layout: default.md
   title: "Developer Guide"
   pageNav: 3
+
 ---
 
 # TrackerGuru Developer Guide
@@ -831,15 +832,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Extensions**
 
 * 1a. TrackerGuru detects that the Tag Group name is missing or improperly formatted.
-    * 1a1. TrackerGuru displays an error message and shows the correct command format.  
+    * 1a1. TrackerGuru displays an error message and shows the correct command format.
       Use case resumes from step 1.
 
 * 1b. TrackerGuru detects a duplicate Tag Group name.
-    * 1b1. TrackerGuru displays an error message indicating that the Tag Group already exists.  
+    * 1b1. TrackerGuru displays an error message indicating that the Tag Group already exists.
       Use case ends.
 
 * 1c. TrackerGuru fails to save the Tag Group due to a system error.
-    * 1c1. TrackerGuru displays an error message.  
+    * 1c1. TrackerGuru displays an error message.
       Use case ends.
 
 
@@ -896,95 +897,156 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ## **Appendix: Instructions for manual testing**
 
-Given below are instructions to test the app manually.
+The following are sample instructions for manually testing TrackerGuru.
+They serve as a starting point; you are encouraged to perform **exploratory testing** beyond these examples to uncover edge cases.
 
 <box type="info" seamless>
 
-**Note:** These instructions only provide a starting point for testers to work on;
-testers are expected to do more *exploratory* testing.
-
+**Note**:
+Each test case includes the command to execute and the expected outcome.
+Testers should verify that error and success messages match the described behavior.
 </box>
 
 ### Launch and shutdown
 
-1. Initial launch
+1. **Initial launch**
 
-   1. Download the jar file and copy into an empty folder
+   1. Download the `.jar` file and place it into an empty folder.
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   2. Double-click the file to launch.
+   <br> **Expected**: The GUI opens with sample contacts loaded. The window size may not be optimal initially.
 
-1. Saving window preferences
+2. **Saving window preferences**
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+   1. Resize the window and move it to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
-
-1. _{ more test cases …​ }_
+      2. Close and relaunch the application by double-clicking the `.jar` file <br>
+          Expected: The previous window size and location are retained.
 
 ### Deleting a person
 
-1. Deleting a person while all persons are being shown
+1. **Deleting While All Persons Are Shown**
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. **Prerequisites**: Use `list` command to show all persons. Ensure there are multiple persons listed.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   2. **Test case**: `delete 1`<br>
+      Expected: The first contact is deleted. The status message shows details of the deleted person.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   3. **Test case**: `delete 0`<br>
+      Expected: Error message shown. No person is deleted.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
-
-1. _{ more test cases …​ }_
+   4. **Other invalid commands to try**: `delete`, `delete x` (where `x` > list size)<br>
+      Expected: Error message displayed. No changes to list.
 
 ### Creating and managing tag groups
 
-1. Creating a new tag group
+1. **Creating a New Tag Group**
 
-    1. Test case: `tg PropertyType`<br>
-       Expected: A new tag group "PropertyType" is created. Success message shown in the status message.
+    1. **Test case**: `tg PropertyType`<br>
+       Expected: Tag group "PropertyType" created successfully. Confirmation message shown.
 
-    1. Test case: `tg PropertyType`<br>
-       Expected: Error message indicating the tag group already exists.
+   2. **Test case**: `tg PropertyType`<br>
+       Expected: Error message shown indicating the tag group already exists.
 
-    1. Test case: `tg Property Type` (with space)<br>
-       Expected: Error message indicating tag group names must be alphanumeric with no spaces.
+   3. **Test case**: `tg Property Type` (with space)<br>
+       Expected: Error message shown indicating tag group names must be alphanumeric with no blanks.
 
-    1. Other incorrect commands to try: `tag-Group`, `tagGroup 123!`<br>
+   4. **Test case**: `tg` <br>
+      Expected: A list of all your created tag groups.
+
+   5. **Other invalid commands to try**: `tg tag-Group`, `tg tagGroup 123!`<br>
        Expected: Error message about invalid format.
 
-2. Deleting a tag group
+2. **Deleting a tag group**
 
-    1. Prerequisites: Create a tag group using `tg Location` that is not referenced by any contact's tags.
+    1. **Prerequisites**: Create a tag group `Location` using `tg Location` that is not referenced by any contact's tags.
+   Use `tg Property Type` and add a tag of this tag group to the first contact using `edit 1 t/PropertyType.HDB`
 
-    1. Test case: `dtg Location`<br>
-       Expected: Tag group "Location" is deleted. Success message shown.
+   2. **Test case**: `dtg Location`<br>
+      Expected: Tag group "Location" is deleted. Success message shown.
 
-    1. Test case: `dtg PropertyType` (where PropertyType is in use by a contact with tag "PropertyType.HDB")<br>
-       Expected: Error message indicating the tag group is in use and cannot be deleted.
+   3. **Test case**:  `dtg PropertyType` <br>
+      Expected: Error message indicating the tag group is in use and cannot be deleted.
 
-    1. Test case: `dtg NonExistent`<br>
-       Expected: Error message indicating tag group does not exist.
+   4. **Test case**: `dtg NonExistent`<br>
+      Expected: Error message indicating tag group does not exist.
 
-    1. Other incorrect commands to try: `dtg`, `dtg 123!`<br>
-       Expected: Error message about invalid format.
+   5. **Other invalid commands to try**: `dtg`, `dtg 123!`<br>
+      Expected: Error message about invalid format.
 
-3. Using tags with tag groups
+3. **Using tags with tag groups**
 
-    1. Prerequisites: Create a tag group "PropertyType" using `tg PropertyType`.
+    1. **Prerequisites**: Create a tag group "PropertyType" using `tg PropertyType`.
 
-    1. Test case: Add contact with grouped tag: `add n/John Doe p/98765432 e/johnd@example.com a/123 Street r/Buyer t/PropertyType.HDB`<br>
+   2. **Test case**: Add contact with grouped tag: `add n/John Doe p/98765432 e/johnd@example.com a/123 Street r/Buyer t/PropertyType.HDB`<br>
        Expected: Contact added with tag "PropertyType.HDB". Success message shown.
 
-    1. Test case: Add contact with tag referencing non-existent group: `add n/Jane Doe p/98765433 e/janed@example.com a/456 Street r/Seller t/Nonexistent.Condo`<br>
+   3. **Test case**: Add contact with tag referencing non-existent group: `add n/Jane Doe p/98765433 e/janed@example.com a/456 Street r/Seller t/Nonexistent.Condo`<br>
        Expected: Error message indicating tag group "Nonexistent" does not exist.
 
+### Creating and managing roles
+1. **Adding roles to a person**
+   1. **Prerequisites**: List all persons using the `list` command. There should be multiple persons in the list.
+
+   2. **Test case**: `edit 1 r/Buyer`
+   Expected: The first contact’s role list is replaced with a single role “Buyer”. Success message shown.
+
+   3. **Test case**: `edit 1 r/Buyer r/Investor`
+   Expected: The first contact’s roles are replaced with “Buyer” and “Investor”. Success message shown.
+
+   4. **Test case**: `edit 1 r/`
+   Expected: All roles are removed from the first contact. Success message shown.
+
+    5. **Test case**: `edit 1 r/_Admin or edit 1 r/-Leader`
+    Expected: Error message indicating that roles cannot start with hyphen or underscore.
+
+   6. **Other incorrect commands to try**: `edit 1 r/Inval!d`
+   Expected: Error message about invalid role format.
+
+### Filtering by tag groups, status or roles
+1. **Basic filtering**
+    1. **Prerequisites**:
+       - Create tag groups `PropertyType` and `Location`.
+       - Add tags `t/PropertyType.HDB`, `t/Location.East` to some contacts.
+       - Add roles `Buyer`, `Seller`, `Investor` to some contacts.
+       - Assign statuses `Pending` and `Completed` to some contacts.
+   2. **Test case**: `filter tg/PropertyType`
+      Expected: Lists all contacts with the “PropertyType.HDB” tag.
+
+   3. **Test case**: `filter r/Buyer`
+   Expected: Lists all contacts with the “Buyer” role (case-insensitive).
+
+   4. **Test case**: `filter s/Pending`
+   Expected: Lists all contacts with status “Pending” (case-insensitive).
+
+2. **Multiple filter fields**
+
+   1. **Test case**: `filter tg/PropertyType tg/Location`
+   Expected: Shows contacts that have tags from either tag groups.
+
+   2. **Test case**: `filter r/Buyer r/Investor`
+   Expected: Shows contacts that have either roles.
+
+   3. **Test case**: `filter s/Pending s/Completed`
+   Expected: Shows contacts with either status.
+
+   4. **Test case**: `filter tg/PropertyType r/Buyer s/Pending`
+   Expected: Lists only contacts that satisfy either criteria: tag group `PropertyType`, role `Buyer`, and status `Pending`.
+
+3. **Invalid and edge cases**
+
+   1. **Test case**: `filter`
+   Expected: Error message shown.
+
+   2. **Test case**: `filter t/` or `filter r/` or `filter s/`
+   Expected: Error message shown, filter values must be specified.
+
+   3. **Test case**: `filter t/UnknownTag r/UnknownRole`
+   Expected: No contacts shown, success message with empty list.
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+1. **Dealing with missing/corrupted data files**
 
     1. **Simulating a corrupted data file:**
         - Locate the data file at `[JAR file location]/data/addressbook.json`
@@ -1007,7 +1069,5 @@ testers are expected to do more *exploratory* testing.
         - In the `tagGroups` array, delete the `{"tagGroupName": "PropertyType"}` entry
         - Save and relaunch
 
-       **Expected:** TrackerGuru detects invalid tag-group reference and starts with empty address book, showing an error message.
-
-
-1. _{ more test cases …​ }_
+       **Expected:** For data resilience, TrackerGuru commands still work normally with tag group `PropertyType` and does not affect normal operations.
+   Only when listing using `tg`, `PropertyType` will not appear.
