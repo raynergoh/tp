@@ -1,0 +1,28 @@
+Oct 30, 2025 3:30:23 PM seedu.address.Main main
+WARNING: The warning about Unsupported JavaFX configuration below (if any) can be ignored.
+Oct 30, 2025 3:30:23 PM seedu.address.MainApp init
+INFO: =============================[ Initializing AddressBook ]===========================
+Oct 30, 2025 3:30:23 PM seedu.address.MainApp initConfig
+INFO: Using config file : config.json
+Oct 30, 2025 3:30:23 PM seedu.address.MainApp initConfig
+INFO: Creating new config file config.json
+Oct 30, 2025 3:30:24 PM seedu.address.commons.core.LogsCenter init
+INFO: Log level will be set as: INFO
+Oct 30, 2025 3:30:24 PM seedu.address.MainApp initPrefs
+INFO: Using preference file : preferences.json
+Oct 30, 2025 3:30:24 PM seedu.address.MainApp initPrefs
+INFO: Creating new preference file preferences.json
+Oct 30, 2025 3:30:24 PM seedu.address.MainApp initModelManager
+INFO: Using data file : data/addressbook.json
+Oct 30, 2025 3:30:24 PM seedu.address.MainApp initModelManager
+INFO: Creating a new data file data/addressbook.json populated with a sample AddressBook.
+Oct 30, 2025 3:30:24 PM seedu.address.MainApp start
+INFO: Starting AddressBook V0.2.2ea
+Oct 30, 2025 3:30:24 PM seedu.address.ui.UiManager start
+INFO: Starting UI...
+Oct 30, 2025 3:30:54 PM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][tg]
+Oct 30, 2025 3:30:54 PM seedu.address.ui.MainWindow executeCommand
+INFO: Result: No TagGroups have been created yet.
+Oct 30, 2025 3:31:00 PM seedu.address.MainApp stop
+INFO: ============================ [ Stopping AddressBook ] =============================

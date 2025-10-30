@@ -18,8 +18,8 @@ public class TagGroupCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Manages TagGroups in the address book.\n"
             + "Usage:\n"
-            + "  tg                -> List all TagGroups\n"
-            + "  tg <TagGroupName> -> Create a new TagGroup\n"
+            + "  tg: List all TagGroups\n"
+            + "  tg TAG_GROUP_NAME: Create a new TagGroup\n"
             + "Example: tg location";
 
     public static final String MESSAGE_CREATE_SUCCESS = "Created new TagGroup: %1$s";
