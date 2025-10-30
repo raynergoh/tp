@@ -42,13 +42,20 @@ public class Messages {
                 .append("; Email: ")
                 .append(person.getEmail())
                 .append("; Address: ")
-                .append(person.getAddress())
-                .append("; Roles: ");
-        person.getRoles().forEach(builder::append);
+                .append(person.getAddress());
+
+        if (!person.getRoles().isEmpty()) {
+            builder.append("; Roles: ");
+            person.getRoles().forEach(builder::append);
+        }
+
         person.getStatus().ifPresent(status -> builder.append("; Status: ").append(status));
 
-        builder.append("; Tags: ");
-        person.getTags().forEach(builder::append);
+        if (!person.getTags().isEmpty()) {
+            builder.append("; Tags: ");
+            person.getTags().forEach(builder::append);
+        }
+
         return builder.toString();
     }
 
