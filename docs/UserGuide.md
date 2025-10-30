@@ -121,7 +121,14 @@ In this example:
 - `location.Bishan` - Tag with group (location is Bishan)
 - `priceRange.500k-1M` - Tag with group (price range is 500k-1M)
 - `priority` - Simple tag without group
+  
+<box type="tip" seamless>
 
+**Note:** Tag VALUES (the part after the dot) can contain symbols like hyphens (`-`), underscores (`_`), and dots (`.`) for more flexible categorization. 
+
+However, it has to start with alphanumeric, and can contain any combination after. For example, `t/price.1.5M-2M` is valid, but `t/price.-2M` is not.
+
+-</box>
 ---
 
 ### Getting help : `help`
@@ -478,7 +485,7 @@ Status values are **case-insensitive** (e.g., "pending", "Pending", and "PENDING
 
 ### Tag
 A Tag is an optional label used to provide additional information about a contact.
-A tag can also optionally contain a **tag group** (see [definition](#tag-group)), allowing it to be categorized under a specific group.
+A Tag can also optionally contain a **tag group** (see [definition](#tag-group)), allowing it to be categorized under a specific group.
 
 <box type="tip" seamless>
 
