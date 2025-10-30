@@ -181,7 +181,7 @@ Address book data is persisted as a JSON file through `JsonSerializableAddressBo
 
 
 
-This structure enables centralized storage of tag groups alongside person data, maintaining consistency with the Model component's tag group management.
+This structure enables centralized storage of Tag Groups alongside person data, maintaining consistency with the Model component's Tag Group management.
 ### Common classes
 
 Classes used by multiple components are in the `seedu.address.commons` package.
@@ -197,23 +197,20 @@ This section describes some noteworthy details on how certain features are imple
 
 #### Implementation
 
-The duplicate handling mechanism ensures that no two contacts in the address book can have the same name, phone number or email. This is important for property agents who need to maintain unique contact information for each client, as these fields serve as critical identifiers for communication and identification.
+The duplicate handling mechanism ensures that no two contacts in the address book can have the same phone number or email. This is important for property agents who need to maintain unique contact information for each client, as these fields serve as critical identifiers for communication and identification.
 
 The feature is implemented through checks in the `Model` component, specifically:
 
-* `Model#hasPerson(Person person)` — Checks if any existing person in the address book has the same name as the given person.
 * `Model#hasSamePhoneNumber(Person person)` — Checks if any existing person in the address book has the same phone number as the given person.
 * `Model#hasSameEmail(Person person)` — Checks if any existing person in the address book has the same email as the given person.
 
 These operations are exposed in the `Model` interface and implemented in `ModelManager`, which delegates the checks to `AddressBook` and ultimately to `UniquePersonList`.
 
-Given below is an example usage scenario and how the duplicate handling mechanism behaves. For illustration purposes, we will use phone number as the example, though the same logic applies to name and email checks.
+Given below is an example usage scenario and how the duplicate handling mechanism behaves. For illustration purposes, we will use phone number as the example, though the same logic applies to email checks.
 
 Step 1. The user attempts to add a new contact John with phone number 12345678 by executing the command `add n/John p/12345678 e/john@example.com a/123 Street r/Buyer s/Pending`. The `AddCommand` is created and executed.
 
-Step 2. During execution, `AddCommand` first checks if the exact person (exact name) already exists using `Model#hasPerson(toAdd)`. This check passes (returns false) as John is a new contact.
-
-Step 3. `AddCommand` then performs duplicate checks for phone number and email:
+Step 2. During execution, `AddCommand` performs duplicate validation checks for phone number and email.
    * Checks for duplicate phone number by calling `Model#hasSamePhoneNumber(toAdd)` (illustrated in the sequence diagram below)
    * Checks for duplicate email by calling `Model#hasSameEmail(toAdd)`
 
@@ -222,15 +219,17 @@ Step 3. `AddCommand` then performs duplicate checks for phone number and email:
    * `AddressBook` calls the corresponding `UniquePersonList` method (e.g. `UniquePersonList#containsPhoneNumber(person)`)
    * `UniquePersonList` iterates through all persons to check if any existing person has the same field value
 
-Step 4. If any of the checks return true (e.g. the phone number 12345678 already exists belonging to another contact Alice), `AddCommand` throws a `CommandException` with an appropriate error message such as "This phone number already exists in the address book".
+Step 3. If any of the checks return true (e.g. the phone number 12345678 already exists belonging to another contact Alice), `AddCommand` throws a `CommandException` with an appropriate error message such as "This phone number already exists in the address book".
 
-Step 5. If all checks pass (return false), the new contact is successfully added to the address book.
+Step 4. If all checks pass (return false), the new contact is successfully added to the address book.
 
-The following sequence diagram shows how the duplicate phone number check works during the execution of an add command (the same pattern applies to name and email checks):
+The following sequence diagram shows how the duplicate phone number check works during the execution of an add command (the same pattern applies to email checks):
 
 <puml src="diagrams/DuplicatePhoneHandlingSequenceDiagram.puml"/>
 
 <box type="info" seamless>
+
+**Note:** Name duplication is not checked because property agents may legitimately have multiple contacts with the same name (e.g. common names like "John Tan"). Phone numbers and emails are more reliable unique identifiers for contact management.
 
 </box>
 
@@ -243,7 +242,7 @@ The following sequence diagram shows how the duplicate phone number check works 
     * Simple and straightforward implementation.
     * Error detection happens at the business logic layer, providing clear feedback to users.
     * Consistent with existing duplicate person checking mechanism.
-    * Allows for specific error messages for each field type (name, phone, email).
+    * Allows for specific error messages for each field type.
   * Cons:
     * The checks are performed separately in multiple command classes, leading to some code duplication.
 
@@ -256,7 +255,7 @@ The following sequence diagram shows how the duplicate phone number check works 
 
 **Aspect: Scope of the uniqueness checks:**
 
-* **Alternative 1 (current choice):** Names, phone numbers and emails must be globally unique across all contacts.
+* **Alternative 1 (current choice):** Phone numbers and emails must be globally unique across all contacts.
   * Pros:
     * Prevents confusion and data integrity issues.
     * Aligns with real-world expectation that these fields uniquely identify individuals.
@@ -276,11 +275,11 @@ The following sequence diagram shows how the duplicate phone number check works 
 
 #### Overview
 
-The Tag Group Management feature allows users to organize tags into logical categories (tag groups). This helps property agents categorize and manage their contacts more effectively by grouping related tags together (e.g., `propertyType`, `location`, `priceRange`).
+The Tag Group Management feature allows users to organize tags into logical categories (Tag Groups). This helps property agents categorize and manage their contacts more effectively by grouping related tags together (e.g., `propertyType`, `location`, `priceRange`).
 
-Tag groups provide the following benefits:
+Tag Groups provide the following benefits:
 * **Better organization**: Group related tags together for easier management
-* **Improved filtering**: Filter contacts by tag group categories
+* **Improved filtering**: Filter contacts by Tag Group categories
 * **Clearer structure**: Instantly see which category each tag belongs to
 
 #### Tag Validation
@@ -308,29 +307,29 @@ The Tag Group Management feature is implemented through multiple layers of the a
 ##### Model Layer
 
 **Core Classes:**
-* `TagGroup`: Represents a tag group with an alphanumeric name. Ensures immutability and validates names using regex patterns.
+* `TagGroup`: Represents a Tag Group with an alphanumeric name. Ensures immutability and validates names using regex patterns.
 * `Tag`: Modified to optionally reference a `TagGroup`. Tags can exist independently or be associated with a group.
-* `AddressBook`: Maintains a `Set<TagGroup>` to store all created tag groups. Provides methods to add, remove, and check tag groups.
-* `Model` interface: Exposes operations for tag group management (`addTagGroup`, `deleteTagGroup`, `hasTagGroup`, `isTagGroupInUse`).
+* `AddressBook`: Maintains a `Set<TagGroup>` to store all created Tag Groups. Provides methods to add, remove, and check Tag Groups.
+* `Model` interface: Exposes operations for Tag Group management (`addTagGroup`, `deleteTagGroup`, `hasTagGroup`, `isTagGroupInUse`).
 
 **Key Methods:**
-* `Model#addTagGroup(TagGroup)`: Adds a new tag group to the address book if it doesn't already exist.
-* `Model#deleteTagGroup(TagGroup)`: Removes a tag group from the address book after validation.
-* `Model#hasTagGroup(TagGroup)`: Checks if a tag group exists in the address book.
-* `Model#isTagGroupInUse(TagGroup)`: Checks if any person's tags reference the specified tag group. Uses Java Streams with `flatMap()` and `anyMatch()` for efficient checking.
+* `Model#addTagGroup(TagGroup)`: Adds a new Tag Group to the address book if it doesn't already exist.
+* `Model#deleteTagGroup(TagGroup)`: Removes a Tag Group from the address book after validation.
+* `Model#hasTagGroup(TagGroup)`: Checks if a Tag Group exists in the address book.
+* `Model#isTagGroupInUse(TagGroup)`: Checks if any person's tags reference the specified Tag Group. Uses Java Streams with `flatMap()` and `anyMatch()` for efficient checking.
 
 ##### Logic Layer
 
 **Command Classes:**
-* `TagGroupCommand`: Creates a new tag group or lists all existing tag groups. Handles both parameterized (create) and parameterless (list) executions.
-* `DeleteTagGroupCommand`: Deletes a tag group after checking that it's not in use by any person's tags.
+* `TagGroupCommand`: Creates a new Tag Group or lists all existing Tag Groups. Handles both parameterized (create) and parameterless (list) executions.
+* `DeleteTagGroupCommand`: Deletes a Tag Group after checking that it's not in use by any person's tags.
 
 **Parser Classes:**
 * `TagGroupCommandParser`: Parses user input for the `tg` command. Distinguishes between listing (no arguments) and creating (with GROUP_NAME argument).
-* `DeleteTagGroupCommandParser`: Parses user input for the `dtg` command and validates the tag group name.
+* `DeleteTagGroupCommandParser`: Parses user input for the `dtg` command and validates the Tag Group name.
 
 **Command Execution Flow:**
-1. User enters a tag group command (e.g., `tg propertyType`)
+1. User enters a Tag Group command (e.g., `tg propertyType`)
 2. `AddressBookParser` routes to the appropriate parser
 3. Parser validates input and creates the command object
 4. Command executes by interacting with the `Model`
@@ -340,69 +339,69 @@ The Tag Group Management feature is implemented through multiple layers of the a
 
 **Storage Classes:**
 * `JsonAdaptedTagGroup`: Jackson-friendly adapter class for `TagGroup` serialization/deserialization.
-* `JsonSerializableAddressBook`: Extended to include a `List<JsonAdaptedTagGroup>` field for persisting tag groups.
+* `JsonSerializableAddressBook`: Extended to include a `List<JsonAdaptedTagGroup>` field for persisting Tag Groups.
 
 **Persistence Flow:**
-* Tag groups are serialized to JSON alongside persons in `addressbook.json`
-* On application startup, tag groups are deserialized and loaded into the `AddressBook`
-* Tag groups persist across sessions automatically
+* Tag Groups are serialized to JSON alongside persons in `addressbook.json`
+* On application startup, Tag Groups are deserialized and loaded into the `AddressBook`
+* Tag Groups persist across sessions automatically
 
 #### Usage Scenarios
 
 ##### Scenario 1: Creating a Tag Group
 
-**User Goal:** Create a tag group called `propertyType`
+**User Goal:** Create a Tag Group called `propertyType`
 
 **Steps:**
 1. User executes `tg propertyType`
 2. `AddressBookParser` creates a `TagGroupCommandParser`
 3. `TagGroupCommandParser` parses the input and creates a `TagGroupCommand` with the group name
-4. `TagGroupCommand#execute()` checks if the tag group already exists using `Model#hasTagGroup()`
-5. If it doesn't exist, `Model#addTagGroup()` is called to add the tag group
-6. Success message "Tag group created: propertyType" is displayed to the user
+4. `TagGroupCommand#execute()` checks if the Tag Group already exists using `Model#hasTagGroup()`
+5. If it doesn't exist, `Model#addTagGroup()` is called to add the Tag Group
+6. Success message "Tag Group created: propertyType" is displayed to the user
 
 **Sequence Diagram:**
 
 <puml src="diagrams/TagGroupCommandSequenceDiagram.puml" alt="TagGroupCommandSequenceDiagram" />
 
-The sequence diagram above illustrates the interaction between Logic and Model components when creating a tag group.
+The sequence diagram above illustrates the interaction between Logic and Model components when creating a Tag Group.
 
 ##### Scenario 2: Listing Tag Groups
 
-**User Goal:** View all created tag groups
+**User Goal:** View all created Tag Groups
 
 **Steps:**
 1. User executes `tg` (without arguments)
 2. `AddressBookParser` creates a `TagGroupCommandParser`
 3. `TagGroupCommandParser` detects no arguments and creates a `TagGroupCommand` for listing
-4. `TagGroupCommand#execute()` retrieves all tag groups using `Model#getTagGroupList()`
-5. List of tag groups is formatted and displayed to the user
+4. `TagGroupCommand#execute()` retrieves all Tag Groups using `Model#getTagGroupList()`
+5. List of Tag Groups is formatted and displayed to the user
 
 ##### Scenario 3: Deleting a Tag Group
 
-**User Goal:** Delete an unused tag group called `propertyType`
+**User Goal:** Delete an unused Tag Group called `propertyType`
 
 **Steps:**
 1. User executes `dtg propertyType`
 2. `AddressBookParser` creates a `DeleteTagGroupCommandParser`
 3. `DeleteTagGroupCommandParser` parses the input and creates a `DeleteTagGroupCommand`
 4. `DeleteTagGroupCommand#execute()` performs validation:
-    - Checks if the tag group exists using `Model#hasTagGroup()`
+    - Checks if the Tag Group exists using `Model#hasTagGroup()`
     - Checks if it's in use using `Model#isTagGroupInUse()`
 5. If validation passes, `Model#deleteTagGroup()` is called
-6. Success message "Tag group deleted: propertyType" is displayed
+6. Success message "Tag Group deleted: propertyType" is displayed
 
 **Activity Diagram:**
 
 <puml src="diagrams/DeleteTagGroupActivityDiagram.puml" alt="DeleteTagGroupActivityDiagram" />
 
-The activity diagram above shows the decision flow when deleting a tag group, including validation steps.
+The activity diagram above shows the decision flow when deleting a Tag Group, including validation steps.
 
 #### Design Considerations:
 
 **Aspect: Tag Group Deletion Policy**
 
-**Alternative 1 (current choice)**: Prevent deletion if tag group is in use
+**Alternative 1 (current choice)**: Prevent deletion if Tag Group is in use
 - **Pros**: Data integrity maintained, prevents orphaned tags
 - **Cons**: Requires manual tag cleanup before group deletion
 - **Rationale**: Chosen to avoid accidental data loss and maintain referential integrity
@@ -415,24 +414,24 @@ The activity diagram above shows the decision flow when deleting a tag group, in
 - **Pros**: Preserves tag associations while removing group
 - **Cons**: Creates inconsistent state, defeats purpose of grouping
 
-**Aspect: Tag group storage structure**
+**Aspect: Tag Group storage structure**
 
 * **Alternative 1 (current choice):** Store as a `Set<TagGroup>` in `AddressBook`
     * Pros: Simple and efficient; automatic duplicate prevention
     * Pros: Fast lookup for existence checks (O(1) on average with HashSet)
-    * Cons: Not ordered; tag groups displayed in arbitrary order
+    * Cons: Not ordered; Tag Groups displayed in arbitrary order
 
-* **Alternative 2:** Store as a `Map<String, TagGroup>` keyed by tag group name
+* **Alternative 2:** Store as a `Map<String, TagGroup>` keyed by Tag Group name
     * Pros: Slightly faster lookup by name (explicit key-based access)
     * Cons: Redundant since `TagGroup` already contains its name
     * Cons: Requires additional boilerplate code for synchronization
 
 * **Alternative 3:** Store as a sorted list for ordered display
-    * Pros: Tag groups displayed in alphabetical order
+    * Pros: Tag Groups displayed in alphabetical order
     * Cons: Slower insertion and duplicate checking (O(n))
     * Cons: Additional complexity in maintaining sort order
 
-**Justification:** Alternative 1 was chosen for its simplicity and efficiency. The unordered nature of the Set is not a significant drawback since tag groups can be sorted when displayed if needed.
+**Justification:** Alternative 1 was chosen for its simplicity and efficiency. The unordered nature of the Set is not a significant drawback since Tag Groups can be sorted when displayed if needed.
 
 **Aspect: Tag and TagGroup relationship design**
 
@@ -450,22 +449,22 @@ The activity diagram above shows the decision flow when deleting a tag group, in
 
 #### Validation Rules
 
-The following validation rules are enforced for tag group operations:
+The following validation rules are enforced for Tag Group operations:
 
-1. **Tag group names:**
+1. **Tag Group names:**
     * Must be alphanumeric (letters and numbers only)
     * Cannot contain spaces or special characters
     * Validated using regex pattern: `^[a-zA-Z0-9]+$`
     * Validation occurs in the `TagGroup` constructor
 
-2. **Creating tag groups:**
-    * Duplicate tag group names are not allowed
+2. **Creating Tag Groups:**
+    * Duplicate Tag Group names are not allowed
     * Checked using `Model#hasTagGroup()` before adding
     * Case-sensitive comparison (e.g., `PropertyType` ≠ `propertytype`)
 
-3. **Deleting tag groups:**
-    * Tag group must exist in the address book
-    * Tag group cannot be in use by any person's tags
+3. **Deleting Tag Groups:**
+    * Tag Group must exist in the address book
+    * Tag Group cannot be in use by any person's tags
     * Checked using `Model#isTagGroupInUse()` which:
         - Iterates through all persons
         - Flattens all tags using `flatMap()`
@@ -475,7 +474,7 @@ The following validation rules are enforced for tag group operations:
     * Format: `t/GROUP.VALUE` (e.g. `t/propertyType.HDB`)
     * **GROUP** (before the dot) must:
       - Be alphanumeric only
-      - Match an existing tag group name
+      - Match an existing Tag Group name
     * **VALUE** (after the dot) can contain:
         - Alphanumeric characters
         - Dots (`.`), hyphens (`-`), and underscores (`_`)
@@ -489,11 +488,11 @@ The feature implements comprehensive error handling for various edge cases:
 
 | Error Scenario | Command | Error Message |
 |----------------|---------|---------------|
-| Invalid tag group name (contains spaces) | `tg property type` | Tag group names should be alphanumeric |
-| Invalid tag group name (special chars) | `tg property-type!` | Tag group names should be alphanumeric |
-| Duplicate tag group | `tg propertyType` (when it exists) | This tag group already exists in the address book. |
-| Delete non-existent tag group | `dtg location` (doesn't exist) | The tag group location does not exist. |
-| Delete tag group in use | `dtg propertyType` (when in use) | This tag group is currently in use and cannot be deleted. Please remove all tags associated with this group first. |
+| Invalid Tag Group name (contains spaces) | `tg property type` | Tag Group names should be alphanumeric |
+| Invalid Tag Group name (special chars) | `tg property-type!` | Tag Group names should be alphanumeric |
+| Duplicate Tag Group | `tg propertyType` (when it exists) | This Tag Group already exists in the address book. |
+| Delete non-existent Tag Group | `dtg location` (doesn't exist) | The Tag Group location does not exist. |
+| Delete Tag Group in use | `dtg propertyType` (when in use) | This Tag Group is currently in use and cannot be deleted. Please remove all tags associated with this group first. |
 
 
 ### \[Proposed\] Undo/redo feature
@@ -638,14 +637,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | new user                | assign a status to a contact during creation                     | I can track each client's transaction status                                             |
 | `* *`    | new user                | delete a status from an existing contact                         | I can remove its status if it no longer applies to the contact                           |
 | `* *`    | new user                | add a status to an existing contact                              | I can freely decide to track status of contacts at a later time                          |
-| `* * *`  | new user                | create tag groups such as property price or location             | I can easily group contacts under business-related categories                            |
-| `* * *`  | new user                | delete an existing tag group                                     | I can clean up tag groupings that I no longer want to track about my contacts            |
-| `* *`    | new user                | view all existing tag groups in a list                           | I can easily view my current tag groups so I do not create duplicates                    |
-| `* * *`  | new user                | create a contact with grouped tags                               | I can easily assign a specific tag values within a tag group when creating a contact     |
-| `* *`    | new user                | create a contact with standalone tags unrelated to any tag group | I can still track unique metrics about a contact that do not belong to any tag group yet |
+| `* * *`  | new user                | create Tag Groups such as property price or location             | I can easily group contacts under business-related categories                            |
+| `* * *`  | new user                | delete an existing Tag Group                                     | I can clean up Tag Groupings that I no longer want to track about my contacts            |
+| `* *`    | new user                | view all existing Tag Groups in a list                           | I can easily view my current Tag Groups so I do not create duplicates                    |
+| `* * *`  | new user                | create a contact with grouped tags                               | I can easily assign a specific tag values within a Tag Group when creating a contact     |
+| `* *`    | new user                | create a contact with standalone tags unrelated to any Tag Group | I can still track unique metrics about a contact that do not belong to any Tag Group yet |
 | `* *`    | expert user             | list all client roles                                            | I can understand what types of roles I have already created so far                       |
 | `* *`    | expert user             | be warned when creating a role that already exists               | I can reduce the number of duplicated roles created                                      |
-| `* *`    | expert user             | filter contacts quickly across some roles, status or tag groups  | I can easily look for specific contacts that match some unique contact information       |
+| `* *`    | expert user             | filter contacts quickly across some roles, status or Tag Groups  | I can easily look for specific contacts that match some unique contact information       |
 | `* *`    | expert user             | easily record the date and history of each status change         | I can easily track when each deal is closed or monitor past transactions                 |
 | `*`      | expert user             | undo commands quickly                                            | I can quickly rectify mistakes                                                           |
 | `*`      | expert user             | redo commands quickly                                            | I can quickly make similar transactions                                                  |
@@ -728,7 +727,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-**Use case: UC3 - Filter contacts by roles, statuses, and tag groups**
+**Use case: UC3 - Filter contacts by roles, statuses, and Tag Groups**
 
 **Guarantees**
 
@@ -737,7 +736,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to filter contacts by specifying one or more criteria such as role, status, and/or tag group.
+1. User requests to filter contacts by specifying one or more criteria such as role, status, and/or Tag Group.
 2. TrackerGuru processes the filter criteria and retrieves matching contacts.
 3. TrackerGuru displays the filtered list of contacts to the user.
 
@@ -883,9 +882,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **role**: A field that defines the function or relationship of a contact (e.g. buyer, seller, landlord, tenant) in the property business
 * **status**: A label indicating the current state of a client transaction (e.g. Pending, Completed).
 * **tag**: A simple standalone label used to categorize or describe a contact
-* **grouped tag**: A label described by a tag value belonging to a tag group
-* **tag group**: A category for organizing related tags together (e.g. "PropertyType", "Location"), enabling structured tag management and group-based filtering of contacts
-* **tag value**: A specific value of a tag group (e.g. "Condo" of "PropertyType")
+* **grouped tag**: A label described by a tag value belonging to a Tag Group
+* **Tag Group**: A category for organizing related tags together (e.g. "PropertyType", "Location"), enabling structured tag management and group-based filtering of contacts
+* **tag value**: A specific value of a Tag Group (e.g. "Condo" of "PropertyType")
 * **sample contact**: Preloaded example contacts provided in TrackerGuru to help new users explore app features before entering their own data
 * **help instructions**: User guide in the TrackerGuru webpage to assist users in learning how to use the app
 * **new user**: A first-time user of TrackerGuru who has not yet created any personal contacts
@@ -938,51 +937,51 @@ Testers should verify that error and success messages match the described behavi
    4. **Other invalid commands to try**: `delete`, `delete x` (where `x` > list size)<br>
       Expected: Error message displayed. No changes to list.
 
-### Creating and managing tag groups
+### Creating and managing Tag Groups
 
 1. **Creating a New Tag Group**
 
     1. **Test case**: `tg PropertyType`<br>
-       Expected: Tag group "PropertyType" created successfully. Confirmation message shown.
+       Expected: Tag Group "PropertyType" created successfully. Confirmation message shown.
 
    2. **Test case**: `tg PropertyType`<br>
-       Expected: Error message shown indicating the tag group already exists.
+       Expected: Error message shown indicating the Tag Group already exists.
 
    3. **Test case**: `tg Property Type` (with space)<br>
-       Expected: Error message shown indicating tag group names must be alphanumeric with no blanks.
+       Expected: Error message shown indicating Tag Group names must be alphanumeric with no blanks.
 
    4. **Test case**: `tg` <br>
-      Expected: A list of all your created tag groups.
+      Expected: A list of all your created Tag Groups.
 
    5. **Other invalid commands to try**: `tg tag-Group`, `tg tagGroup 123!`<br>
        Expected: Error message about invalid format.
 
-2. **Deleting a tag group**
+2. **Deleting a Tag Group**
 
-    1. **Prerequisites**: Create a tag group `Location` using `tg Location` that is not referenced by any contact's tags.
-   Use `tg Property Type` and add a tag of this tag group to the first contact using `edit 1 t/PropertyType.HDB`
+    1. **Prerequisites**: Create a Tag Group `Location` using `tg Location` that is not referenced by any contact's tags.
+   Use `tg Property Type` and add a tag of this Tag Group to the first contact using `edit 1 t/PropertyType.HDB`
 
    2. **Test case**: `dtg Location`<br>
-      Expected: Tag group "Location" is deleted. Success message shown.
+      Expected: Tag Group "Location" is deleted. Success message shown.
 
    3. **Test case**:  `dtg PropertyType` <br>
-      Expected: Error message indicating the tag group is in use and cannot be deleted.
+      Expected: Error message indicating the Tag Group is in use and cannot be deleted.
 
    4. **Test case**: `dtg NonExistent`<br>
-      Expected: Error message indicating tag group does not exist.
+      Expected: Error message indicating Tag Group does not exist.
 
    5. **Other invalid commands to try**: `dtg`, `dtg 123!`<br>
       Expected: Error message about invalid format.
 
-3. **Using tags with tag groups**
+3. **Using tags with Tag Groups**
 
-    1. **Prerequisites**: Create a tag group "PropertyType" using `tg PropertyType`.
+    1. **Prerequisites**: Create a Tag Group "PropertyType" using `tg PropertyType`.
 
    2. **Test case**: Add contact with grouped tag: `add n/John Doe p/98765432 e/johnd@example.com a/123 Street r/Buyer t/PropertyType.HDB`<br>
        Expected: Contact added with tag "PropertyType.HDB". Success message shown.
 
    3. **Test case**: Add contact with tag referencing non-existent group: `add n/Jane Doe p/98765433 e/janed@example.com a/456 Street r/Seller t/Nonexistent.Condo`<br>
-       Expected: Error message indicating tag group "Nonexistent" does not exist.
+       Expected: Error message indicating Tag Group "Nonexistent" does not exist.
 
 ### Creating and managing roles
 1. **Adding roles to a person**
@@ -1003,10 +1002,10 @@ Testers should verify that error and success messages match the described behavi
    6. **Other incorrect commands to try**: `edit 1 r/Inval!d`
    Expected: Error message about invalid role format.
 
-### Filtering by tag groups, status or roles
+### Filtering by Tag Groups, status or roles
 1. **Basic filtering**
     1. **Prerequisites**:
-       - Create tag groups `PropertyType` and `Location`.
+       - Create Tag Groups `PropertyType` and `Location`.
        - Add tags `t/PropertyType.HDB`, `t/Location.East` to some contacts.
        - Add roles `Buyer`, `Seller`, `Investor` to some contacts.
        - Assign statuses `Pending` and `Completed` to some contacts.
@@ -1022,7 +1021,7 @@ Testers should verify that error and success messages match the described behavi
 2. **Multiple filter fields**
 
    1. **Test case**: `filter tg/PropertyType tg/Location`
-   Expected: Shows contacts that have tags from either tag groups.
+   Expected: Shows contacts that have tags from either Tag Groups.
 
    2. **Test case**: `filter r/Buyer r/Investor`
    Expected: Shows contacts that have either roles.
@@ -1031,7 +1030,7 @@ Testers should verify that error and success messages match the described behavi
    Expected: Shows contacts with either status.
 
    4. **Test case**: `filter tg/PropertyType r/Buyer s/Pending`
-   Expected: Lists only contacts that satisfy either criteria: tag group `PropertyType`, role `Buyer`, and status `Pending`.
+   Expected: Lists only contacts that satisfy either criteria: Tag Group `PropertyType`, role `Buyer`, and status `Pending`.
 
 3. **Invalid and edge cases**
 
@@ -1063,11 +1062,11 @@ Testers should verify that error and success messages match the described behavi
 
        **Expected:** TrackerGuru starts with sample contacts (default data).
 
-    1. **Simulating invalid tag group references:**
+    1. **Simulating invalid Tag Group references:**
         - Open `addressbook.json`
         - Find a person with a tag like `"PropertyType.HDB"`
         - In the `tagGroups` array, delete the `{"tagGroupName": "PropertyType"}` entry
         - Save and relaunch
 
-       **Expected:** For data resilience, TrackerGuru commands still work normally with tag group `PropertyType` and does not affect normal operations.
+       **Expected:** For data resilience, TrackerGuru commands still work normally with Tag Group `PropertyType` and does not affect normal operations.
    Only when listing using `tg`, `PropertyType` will not appear.
