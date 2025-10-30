@@ -89,7 +89,8 @@ public class AddressBookParserTest {
         Set<Role> roles = Set.of(new Role("seller"), new Role("buyer"));
         Set<Status> statuses = Set.of(Status.COMPLETED);
         Set<TagGroup> tagGroups = Set.of(new TagGroup("location"));;
-        MatchesRoleStatusTagGroupPredicate predicate = new MatchesRoleStatusTagGroupPredicate(roles, statuses, tagGroups);
+        MatchesRoleStatusTagGroupPredicate predicate =
+                new MatchesRoleStatusTagGroupPredicate(roles, statuses, tagGroups);
 
         FilterCommand command = (FilterCommand) parser.parseCommand(
                 FilterCommand.COMMAND_WORD + " r/seller s/COMPLETED r/buyer tg/location");
