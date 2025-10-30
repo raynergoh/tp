@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.person.RoleStatusTagGroupPredicate;
+import seedu.address.model.person.MatchesRoleStatusTagGroupPredicate;
 
 /**
  * Filters and lists all persons in the address book whose role, status, and/or tag groups
@@ -20,14 +20,14 @@ public class FilterCommand extends Command {
             + "Parameters: [r/ROLE]... [s/STATUS]... [tg/TAGGROUP]...\n"
             + "Example: " + COMMAND_WORD + " r/buyer s/completed tg/location";
 
-    private final RoleStatusTagGroupPredicate predicate;
+    private final MatchesRoleStatusTagGroupPredicate predicate;
 
     /**
      * Creates a new FilterCommand with the given predicate.
      *
      * @param predicate the predicate containing the role, status, and/or tag group filters
      */
-    public FilterCommand(RoleStatusTagGroupPredicate predicate) {
+    public FilterCommand(MatchesRoleStatusTagGroupPredicate predicate) {
         this.predicate = predicate;
     }
 

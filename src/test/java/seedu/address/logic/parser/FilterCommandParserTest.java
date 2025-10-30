@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.model.person.Role;
-import seedu.address.model.person.RoleStatusTagGroupPredicate;
+import seedu.address.model.person.MatchesRoleStatusTagGroupPredicate;
 import seedu.address.model.person.Status;
 import seedu.address.model.tag.TagGroup;
 
@@ -31,7 +31,7 @@ public class FilterCommandParserTest {
         Set<Status> statuses = Collections.emptySet();
         Set<TagGroup> tagGroups = Collections.emptySet();
 
-        RoleStatusTagGroupPredicate predicate = new RoleStatusTagGroupPredicate(roles, statuses, tagGroups);
+        MatchesRoleStatusTagGroupPredicate predicate = new MatchesRoleStatusTagGroupPredicate(roles, statuses, tagGroups);
         FilterCommand expectedCommand = new FilterCommand(predicate);
 
         assertParseSuccess(parser, ROLE_DESC_CUSTOMER, expectedCommand);
@@ -44,7 +44,7 @@ public class FilterCommandParserTest {
         statuses.add(Status.PENDING);
         Set<TagGroup> tagGroups = Collections.emptySet();
 
-        RoleStatusTagGroupPredicate predicate = new RoleStatusTagGroupPredicate(roles, statuses, tagGroups);
+        MatchesRoleStatusTagGroupPredicate predicate = new MatchesRoleStatusTagGroupPredicate(roles, statuses, tagGroups);
         FilterCommand expectedCommand = new FilterCommand(predicate);
 
         assertParseSuccess(parser, STATUS_DESC_PENDING, expectedCommand);
@@ -58,7 +58,7 @@ public class FilterCommandParserTest {
         statuses.add(Status.COMPLETED);
         Set<TagGroup> tagGroups = Collections.emptySet();
 
-        RoleStatusTagGroupPredicate predicate = new RoleStatusTagGroupPredicate(roles, statuses, tagGroups);
+        MatchesRoleStatusTagGroupPredicate predicate = new MatchesRoleStatusTagGroupPredicate(roles, statuses, tagGroups);
         FilterCommand expectedCommand = new FilterCommand(predicate);
 
         assertParseSuccess(parser, ROLE_DESC_CUSTOMER + STATUS_DESC_COMPLETED, expectedCommand);
@@ -71,7 +71,7 @@ public class FilterCommandParserTest {
         Set<TagGroup> tagGroups = new HashSet<>();
         tagGroups.add(new TagGroup("location"));
 
-        RoleStatusTagGroupPredicate predicate = new RoleStatusTagGroupPredicate(roles, statuses, tagGroups);
+        MatchesRoleStatusTagGroupPredicate predicate = new MatchesRoleStatusTagGroupPredicate(roles, statuses, tagGroups);
         FilterCommand expectedCommand = new FilterCommand(predicate);
 
         assertParseSuccess(parser, " tg/location", expectedCommand);
@@ -85,7 +85,7 @@ public class FilterCommandParserTest {
         tagGroups.add(new TagGroup("location"));
         tagGroups.add(new TagGroup("department"));
 
-        RoleStatusTagGroupPredicate predicate = new RoleStatusTagGroupPredicate(roles, statuses, tagGroups);
+        MatchesRoleStatusTagGroupPredicate predicate = new MatchesRoleStatusTagGroupPredicate(roles, statuses, tagGroups);
         FilterCommand expectedCommand = new FilterCommand(predicate);
 
         assertParseSuccess(parser, " tg/location tg/department", expectedCommand);
@@ -100,7 +100,7 @@ public class FilterCommandParserTest {
         Set<TagGroup> tagGroups = new HashSet<>();
         tagGroups.add(new TagGroup("location"));
 
-        RoleStatusTagGroupPredicate predicate = new RoleStatusTagGroupPredicate(roles, statuses, tagGroups);
+        MatchesRoleStatusTagGroupPredicate predicate = new MatchesRoleStatusTagGroupPredicate(roles, statuses, tagGroups);
         FilterCommand expectedCommand = new FilterCommand(predicate);
 
         assertParseSuccess(parser, ROLE_DESC_CUSTOMER + STATUS_DESC_COMPLETED + " tg/location", expectedCommand);
