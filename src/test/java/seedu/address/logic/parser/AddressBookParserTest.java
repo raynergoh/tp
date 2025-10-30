@@ -27,10 +27,10 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.TagGroupCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.MatchesRoleStatusTagGroupPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Role;
-import seedu.address.model.person.RoleStatusTagGroupPredicate;
 import seedu.address.model.person.Status;
 import seedu.address.model.tag.TagGroup;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -89,7 +89,8 @@ public class AddressBookParserTest {
         Set<Role> roles = Set.of(new Role("seller"), new Role("buyer"));
         Set<Status> statuses = Set.of(Status.COMPLETED);
         Set<TagGroup> tagGroups = Set.of(new TagGroup("location"));;
-        RoleStatusTagGroupPredicate predicate = new RoleStatusTagGroupPredicate(roles, statuses, tagGroups);
+        MatchesRoleStatusTagGroupPredicate predicate =
+                new MatchesRoleStatusTagGroupPredicate(roles, statuses, tagGroups);
 
         FilterCommand command = (FilterCommand) parser.parseCommand(
                 FilterCommand.COMMAND_WORD + " r/seller s/COMPLETED r/buyer tg/location");
