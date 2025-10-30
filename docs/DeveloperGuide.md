@@ -1005,7 +1005,7 @@ Testers should verify that error and success messages match the described behavi
    3. **Test case**: `filter s/Pending s/Completed`
    Expected: Shows contacts with either status.
 
-   4**Test case**: `filter tg/PropertyType r/Buyer s/Pending`
+   4. **Test case**: `filter tg/PropertyType r/Buyer s/Pending`
    Expected: Lists only contacts that satisfy either criteria: tag group `PropertyType`, role `Buyer`, and status `Pending`.
 
 3. **Invalid and edge cases**
