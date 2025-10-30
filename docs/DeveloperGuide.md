@@ -1043,5 +1043,6 @@ Testers should verify that error and success messages match the described behavi
         - Find a person with a tag like `"PropertyType.HDB"`
         - In the `tagGroups` array, delete the `{"tagGroupName": "PropertyType"}` entry
         - Save and relaunch
+
        **Expected:** For data resilience, TrackerGuru commands still work normally with tag group `PropertyType` and does not affect normal operations.
    Only when listing using `tg`, `PropertyType` will not appear.
