@@ -53,15 +53,16 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
+        phone.setText("📞 " + person.getPhone().value);
+        address.setText("📍 " + person.getAddress().value);
+        email.setText("📧 " + person.getEmail().value);
         person.getRoles().stream()
                 .sorted(Comparator.comparing(role -> role.roleName))
                 .forEach(role -> roles.getChildren().add(new Label(role.roleName)));
 
         person.getStatus().ifPresent(s -> {
-            status.setText(s.toString());
+            String statusIcon = s.toString().equals("PENDING") ? "⏳ " : "✅ ";
+            status.setText(statusIcon + s.toString());
             status.setVisible(true);
             status.setManaged(true);
         });
