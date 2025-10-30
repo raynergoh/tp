@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.logic.commands.TagGroupCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.TagGroup;
@@ -25,8 +27,8 @@ public class TagGroupCommandParser implements Parser<TagGroupCommand> {
 
         // Non-empty means attempt to create a TagGroup
         if (!TagGroup.isValidTagGroupName(trimmedArgs)) {
-            throw new ParseException("Invalid Tag Group name. "
-                    + "Tag Group names should only contain alphanumeric characters, and it should not be blank.");
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagGroupCommand.MESSAGE_USAGE));
         }
 
         TagGroup toCreate = new TagGroup(trimmedArgs);

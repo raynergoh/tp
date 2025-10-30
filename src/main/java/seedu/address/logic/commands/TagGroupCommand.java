@@ -16,11 +16,12 @@ public class TagGroupCommand extends Command {
 
     public static final String COMMAND_WORD = "tg";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Manages Tag Groups in the address book.\n"
-            + "Usage:\n"
-            + "  tg                -> List all Tag Groups\n"
-            + "  tg TAG_GROUP      -> Create a new Tag Group\n"
-            + "Example: tg location";
+    public static final String MESSAGE_USAGE = "To list "
+            + "Tag Groups, please follow the given format: "
+            + COMMAND_WORD + "\n"
+            + "To create Tag Groups, please follow the given format: "
+            + COMMAND_WORD + " TAG_GROUP\n"
+            + "Example: " + COMMAND_WORD + " location";
 
     public static final String MESSAGE_CREATE_SUCCESS = "New Tag Group has been created: %1$s";
     public static final String MESSAGE_LIST_SUCCESS = "Existing Tag Groups: %1$s";
