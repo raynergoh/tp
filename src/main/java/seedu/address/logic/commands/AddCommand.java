@@ -26,29 +26,27 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
-            + "Parameters: "
+    public static final String MESSAGE_USAGE = "To add "
+            + "a person to the address book, please follow the given format: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
             + "[" + PREFIX_ROLE + "ROLE]... "
-            + PREFIX_STATUS + "STATUS "
+            + "[" + PREFIX_STATUS + "STATUS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_NAME + "John "
+            + PREFIX_PHONE + "12345678 "
+            + PREFIX_EMAIL + "john@gmail.com "
+            + PREFIX_ADDRESS + "bishan "
             + PREFIX_ROLE + "Buyer "
-            + PREFIX_ROLE + "Interior Designer "
             + PREFIX_STATUS + "Pending "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TAG + "friends ";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_NONEXISTENT_TAG_GROUP = "This Tag Group does not exist, "
-            + "please create the Tag Group first";
+    public static final String MESSAGE_SUCCESS = "New person has been added: %1$s";
+    public static final String MESSAGE_NONEXISTENT_TAG_GROUP = "This Tag Group does not exist. "
+            + "Please create the Tag Group first";
     private static final Logger logger = LogsCenter.getLogger(AddCommand.class);
 
     private final Person toAdd;
@@ -72,7 +70,7 @@ public class AddCommand extends Command {
 
         for (Tag tag : toAdd.getTags()) {
             if (tag.hasGroup() && !model.getTagGroups().contains(tag.getGroup())) {
-                logger.warning("AddCommand failed: Tag group does not exist.");
+                logger.warning("AddCommand failed: Tag Group does not exist.");
                 throw new CommandException(MESSAGE_NONEXISTENT_TAG_GROUP);
             }
         }
