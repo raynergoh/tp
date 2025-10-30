@@ -8,9 +8,9 @@
 TrackerGuru is a **keyboard-focused desktop app for property agents** to efficiently manage their contacts. It is designed for users who want to complete contact management tasks faster than conventional point-and-click tools.
 
 **Target users and assumptions:**
-* Property agents who need to manage various contact types involved in their deals such as buyers, sellers or other stakeholders.
+* Property agents who need to manage various contact types involved in their deals such as *buyers*, *sellers* or other stakeholders.
 * Users are assumed to be comfortable typing fast.
-* No prior knowledge of programming or Java is required and users only need to follow simple installation steps.
+* No prior knowledge of programming or Java is required, except following download instructions.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -44,7 +44,7 @@ Move the `.jar` file into any folder on your device. This will be your _home fol
  | `list` | List all contacts                                                                      |
  | `delete 3` | Delete the 3rd contact displayed.                                                      |
  | `clear` | Delete **all contacts** in the Address Book <br> **⚠️:** _This action is irreversible!_ |
- | `exit` | Exit the TrackerGuru application                                                       |
+ | `exit` | Exit the TrackerGuru application                                                        |
 
 _Refer to the [Features: Section](#features) below for more details and commands_
 
@@ -61,31 +61,43 @@ Before you start using the commands in this section, please take a moment to go 
 
 <box type="info" seamless>
 
-**Notes about the Command Format:**<br>
+##### Command Format Notes
 
-* Words in `UPPER_CASE` represent parameters that you need to supply.<br>
-  * For example, in `add n/NAME`, `NAME` is a parameter. It can be used as `add n/John Doe`.
+* **Parameters**: `UPPER_CASE` words should be supplied by the user.
+  <br> e.g. `add n/NAME`: replace `NAME` with an actual name such as `add n/John Doe`.
 
-* Items in square brackets `[]` are optional.<br>
-  * For example, `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* **Optional fields**: Items in `[square brackets]` are optional.
+  <br> e.g `n/NAME [t/TAG]`: both `n/John Doe t/friend` and `n/John Doe` are acceptable.
 
-* Items followed by `…`​ after them can be used multiple times or omitted.<br>
-  * For example, `[t/TAG]…​` can be used as:
-    * No tags at all → simply omit it
-    * One tag -> `t/friend`
-    * Multiple tags ->`t/friend t/family`
+* **Repeatable fields**: Items followed by `…` can be repeated any number of times, including zero.
+  <br> e.g. `[t/TAG]…`: valid usages are `t/friend`, `t/friend t/family` etc.
 
-* Parameters can be in any order.<br>
-  * Both `n/NAME p/PHONE_NUMBER` and `p/PHONE_NUMBER n/NAME` are acceptable.
+* **Flexible order**: Parameters can appear in any order.
+  <br> e.g. both `n/NAME p/PHONE_NUMBER` and `p/PHONE_NUMBER n/NAME` are acceptable.
 
-* Commands that do not require parameters (such as help, list etc) will ignore any additional input. 
-  * For example, `help 123` will be interpreted as `help`.
+* **Commands without parameters**: `help`, `list`, `exit`, `clear`... will ignore any additional input.
+  <br> e.g. `help 123` is interpreted as `help`.
 
 </box>
 
 <box type="warning" seamless>
-When using the PDF version of this document, note that copying multiple-line commands may remove spaces around line breaks. Please check that spaces are correct before pasting into the application.
+When using the PDF version of this document, note that copying multiple-line commands may remove spaces around line breaks. Please check that spaces around line breaks are preserved before pasting.
 </box>
+
+### Understanding Roles
+
+Each contact in TrackerGuru can have one or more roles that describe their professional relationship or purpose to you:
+
+**Why use Roles?**
+- **Better segmentation**: Classify contacts easily by their professional relationship
+- **Easier filtering**: For example, use `filter r/Landlord r/Tenant` to find all landlords or tenants
+- **Flexible categorization**: A single contact can play multiple roles (e.g. Buyer and Lawyer)
+
+**Example Contact with Roles:**
+
+`add n/John Tan p/91234567 e/john@example.com a/Blk 456 Bishan 
+r/Buyer 
+r/Lawyer `
 
 ### Understanding Tags and Tag Groups
 Before diving into specific commands, it’s helpful to understand **tags**, which are an optional but powerful way to organise your contacts.
@@ -93,7 +105,7 @@ Before diving into specific commands, it’s helpful to understand **tags**, whi
 TrackerGuru supports two ways to tag your contacts:
 
 1. **Simple Tags**: Basic labels without categories
-    - Example: `t/friend`, `t/priority`, `t/urgent`
+    - Example: `t/vip`, `t/priority`, `t/urgent`
 
 2. **Tags with Groups** (recommended for organization): Tags organized into categories
     - Format: `t/GROUP.VALUE`
@@ -101,7 +113,7 @@ TrackerGuru supports two ways to tag your contacts:
 
 **Why use Tag Groups?**
 - **Better organization**: Group related tags together (all property types, all locations, etc.)
-- **Easier filtering**: Use `filter tg/propertyType` to find all contacts with any property type tag
+- **Easier filtering**: For example, use `filter tg/propertyType` to find all contacts with any property type tag
 - **Clearer contact management**: Instantly see which category each tag belongs to
 
 **Example Contact with Tag Groups:**
@@ -122,20 +134,22 @@ In this example:
 ---
 
 ### Adding a person: `add`
-###### Command: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE]…​ [s/STATUS] [t/TAG]…`
+###### Command: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE]…​ [s/STATUS] [t/TAG]…​`
 
-Adds a person (see [definition](#Person)) to the address book.
+Adds a person (see [definition](#person)) to the address book.
 
 <box type="tip" seamless>
 
 **Note:**
-* No two persons can share the same `PHONE_NUMBER` or `EMAIL`.
-* You can add multiple roles by repeating `r/ROLE` (e.g., `r/Buyer r/Investor`).
-* Status must be either **Pending** or **Completed** (case-insensitive). Each person can have only one status.
-* Status is optional. If not specified, the person will have no status.
-* Tags can either be in the format:
-    - `t/GROUP.VALUE` where both `GROUP` and `VALUE` are alphanumeric
-    - a simple Tag `t/TAG` with alphanumeric text
+* Each person must have a **unique** `PHONE_NUMBER` and `EMAIL`.
+* Role is **optional**. You can add multiple roles by repeating `r/ROLE` but a contact made with **duplicate roles** will throw an error message. See [Role](#role) in the glossary for more details.
+<br> Example: `r/Buyer r/Investor` is acceptable, `r/Buyer r/buyer` is unacceptable. 
+
+* Status is **optional**. If provided, it must be `Pending` or `Completed` (case-insensitive). Each person can have only one status.
+
+* Tags are **optional** and can be formatted as either:
+    - `t/GROUP.VALUE`: both `GROUP` and `VALUE` are alphanumeric
+    -  `t/TAG`: a single alphanumeric tag
 </box>
 
 Examples:
@@ -227,17 +241,30 @@ Examples:
 
 Edits an existing person in the address book.
 
-* Edits the person at the specified `INDEX`.
+<box type="info" seamless>
+
+**General**:
+
+* Edit the person at the specified `INDEX`.
   - `INDEX` refers to the number shown beside each person in the displayed list.
   - `INDEX` **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values for `name`, `phone`, `email`, and `address` will be updated to the input values.
-* When editing roles, the existing roles of the person will be removed (i.e., adding roles is not cumulative). You can specify multiple roles using multiple `r/` prefixes.
-* Status must be either **Pending** or **Completed** (case-insensitive). Editing status will replace the existing status.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-* You can remove all the person's roles by typing `r/` without specifying any role after it.
-* You can remove a person's status by typing `s/` without specifying any status after it.
+* At least one optional field must be provided for the edit to take effect.
+
+**Field Updates**:
+* The person's `name`, `phone`, `email`, and `address` will be replaced with the new values you enter.
+* Editing **roles** replace all existing roles: roles are not **cumulative**.
+  * You can specify multiple new roles using multiple `r/` prefixes (e.g. `r/Buyer r/Investor`).
+* Editing **status** replaces the existing one.
+  * Status must be either **Pending** or **Completed** (case-insensitive).
+* Editing **tags** replaces all existing tags: tags are **not cumulative**.
+
+**Removing all values from a field**:
+* To remove all roles: type `r/` without any value.
+* To remove all tags: type `r/` without any value.
+* To remove the status: type `s/` without any value.
+* `name`, `phone`, `email`, and `address` must always contain a value.
+
+</box>
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -246,17 +273,21 @@ Examples:
 *  `edit 3 r/Buyer r/Landlord` Replaces all existing roles of the 3rd person with `Buyer` and `Landlord`.
 *  `edit 4 s/` Removes the status from the 4th person.
 
-### Locating persons by name: `find`
-###### Command: `find KEYWORD [MORE_KEYWORDS]`
+### Finding persons by name: `find`
+###### Command: `find KEYWORD [MORE_KEYWORDS]…​`
 
-Finds persons whose names contain any of the given keywords.
+Finds persons whose names contain any of the provided keywords.
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+<box type="info" seamless>
+
+* The search is **case-insensitive** (e.g `hans` will match `Hans`).
+* The **order of the keywords does not matter** (e.g. `Hans Bo` will match `Bo Hans`).
+* Only the **name field** is searched.
+* Only **full words** will be matched (e.g. `Han` does not match `Hans`).
+* Persons matching **at least one keyword** will be returned (i.e. `OR` search).
+  * e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+
+</box>
 
 Examples:
 * `find John` returns `john` and `John Doe`
@@ -266,16 +297,18 @@ Examples:
 ### Filtering persons by Role, Status, Tag Group: `filter`
 ###### Command: `filter [r/ROLE]…​ [s/STATUS]…​ [tg/TAG_GROUP]…​`
 
-Filters the contact list to show only persons matching the specified parameters.
+Filters the current list for persons matching the specified parameters.
 
-Format: `filter [r/ROLE]…​ [s/STATUS]…​ [tg/TAG_GROUP]…​`
+<box type="info" seamless>
 
-* The filtering of Roles and Tag Groups is **case-sensitive**. 
-  * e.g. `buyer` will not match `Buyer`
+* The filtering of Roles is **case-insensitive**. 
+  * e.g. `r/buyer` will match `r/Buyer`
 * You can filter with any combination of: **Role(s)**, **Status(es)**, **TagGroup(s)**
 * You may specify multiple Roles, Statuses, and Tag Groups
 * A person will be shown if they match **any** of the specified parameters
 * If no parameters are provided, no filtering will occur
+
+</box>
 
 Examples:
 * `filter r/buyer` returns all persons with the role **buyer**
@@ -348,21 +381,15 @@ TrackerGuru data are saved automatically as a JSON file `[JAR file location]/dat
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file invalidate its format, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to save a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g. if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
-
-[//]: # (### Archiving data files `[coming in v2.0]`)
-
-[//]: # ()
-[//]: # ()
-[//]: # (_Details coming soon ..._)
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
-**Q**: How do I check my Java version?<br>
+##### **Q**: How do I check my Java version?
 **A**: To verify your Java version:
 1. Open a terminal and enter `java -version`
 2. You should see an output similar to:
@@ -374,8 +401,8 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 3. **If the command is not recognised** or the version is less than 17: Follow this [guide](https://se-education.org/guides/tutorials/javaInstallation.html) for installation.
 4. After installation, type `java -version` to verify the correct version.
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app on the new computer. Then, locate the new TrackerGuru home folder and replace its data folder with the data folder from your old computer.
+##### **Q**: How do I transfer my data to another Computer?
+**A**: Follow the [Quick Start: Section](#quick-start) to install the app on the new computer. Then, locate the new TrackerGuru home folder and replace its data folder with the data folder from your old computer.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -390,14 +417,14 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE]…​ [s/STATUS] [t/TAG] [t/GROUP.VALUE]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 r/Buyer r/Investor s/Pending t/priority t/propertyType.HDB`
+**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE]…​ [s/STATUS] [t/TAG] [t/GROUP.VALUE]…​` <br><br> e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 r/Buyer r/Investor s/Pending t/priority t/propertyType.HDB`
 **Clear**  | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE]…​ [s/STATUS] [t/TAG] [t/GROUP.VALUE]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com s/Completed`
-**Filter** | `filter [r/ROLE]…​ [s/STATUS]…​ [tg/TAG_GROUP]…​`<br> e.g., `filter r/buyer s/pending tg/price`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**Create Tag Group**| `tg GROUP` <br> e.g., `tg PropertyType`
-**Delete Tag Group**| `dtg GROUP` <br> e.g., `dtg PropertyType`
+**Delete** | `delete INDEX`<br><br> e.g. `delete 3`
+**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [r/ROLE]…​ [s/STATUS] [t/TAG] [t/GROUP.VALUE]…​`<br><br> e.g.`edit 2 n/James Lee e/jameslee@example.com s/Completed`
+**Filter** | `filter [r/ROLE]…​ [s/STATUS]…​ [tg/TAG_GROUP]…​`<br><br> e.g. `filter r/buyer s/pending tg/price`
+**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br><br> e.g. `find James Jake`
+**Create Tag Group**| `tg GROUP` <br><br> e.g. `tg PropertyType`
+**Delete Tag Group**| `dtg GROUP` <br><br> e.g. `dtg PropertyType`
 **List Tag Groups**| `tg`
 **List**   | `list`
 **Stats**  | `stats`
@@ -421,23 +448,32 @@ A Person represents an individual contact entry in TrackerGuru. Each person stor
 
 **Optional Fields:**
 - **Role (`r/`)** – See definition of [Role](#role).
-- **Status (`s/`)** – See definition of [Status](#status)
-- **Tag (`t/`)** – See definition of [Tag](#tag)
+- **Status (`s/`)** – See definition of [Status](#status).
+- **Tag (`t/`)** – See definition of [Tag](#tag).
 
 Each Person is uniquely identified by their **Phone** or **Email**.
 Multiple optional fields (Role, Status, Tag) allow you to flexibly organize your contacts according to your workflow.
 
 ### Role
-A Role categorises the type of contact in your address book. Each contact can have **multiple roles**.
+A Role represents the professional relationship of a contact in your address book. 
+<br> Each contact can have **multiple** roles but cannot have **duplicate** roles.
 
-Common roles for property agents include:
+Commons roles include:
 - **Buyer**: Someone looking to purchase property
 - **Seller**: Someone looking to sell property
 - **Landlord**: Property owner who rents out properties
 - **Tenant**: Someone looking to rent property
 - **Investor**: Someone interested in property investment
+- **etc**
 
-Roles are **case-sensitive** (e.g., "buyer", "Buyer", and "BUYER" are not treated the same). You can use any text as a role to fit your needs.
+**Case-insensitivity**: 
+<br> `buyer`, `Buyer`, and `BUYER` are treated as the same role.
+<br> Using both `r/buyer` and `r/BUYER` in a command will result in a duplicate role error.
+
+**Format rules**:
+- Roles may include letters, numbers, spaces, hyphens `-`, and underscores `_`.
+- Roles **cannot** start with a hyphen or underscore.
+- Roles **cannot** be blank.
 
 ### Status
 A Status tracks the progress or state of your interaction with a contact. Each contact can have **only one status** (or none).
