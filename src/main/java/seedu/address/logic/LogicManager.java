@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -32,6 +33,7 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private boolean awaitingClearConfirmation = false;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -47,8 +49,34 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+
+        // Handle clear confirmation state
+        if (awaitingClearConfirmation) {
+            String input = commandText.trim().toLowerCase();
+
+            if (input.equals("y")) {
+                awaitingClearConfirmation = false;
+                // Directly create command with "y" confirmation
+                Command command = new ClearCommand("y");
+                commandResult = command.execute(model);
+            } else if (input.equals("n")) {
+                awaitingClearConfirmation = false;
+                // Directly create command with "n" confirmation
+                Command command = new ClearCommand("n");
+                commandResult = command.execute(model);
+            } else {
+                // Invalid input, re-prompt (keep awaitingClearConfirmation = true)
+                return new CommandResult("Invalid input. Please enter 'y' to confirm or 'n' to cancel.");
+            }
+        } else {
+            Command command = addressBookParser.parseCommand(commandText);
+            commandResult = command.execute(model);
+
+            // Check if this command is requesting confirmation
+            if (commandResult.isAwaitingConfirmation()) {
+                awaitingClearConfirmation = true;
+            }
+        }
 
         try {
             storage.saveAddressBook(model.getAddressBook());
