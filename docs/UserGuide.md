@@ -230,8 +230,6 @@ Filters the current list for persons matching the specified parameters.
 
 * The filtering of Roles is **case-insensitive**.
     * e.g. `r/buyer` will match `r/Buyer`
-* The filtering of Roles is **case-insensitive**.
-  * e.g. `r/buyer` will match `r/Buyer`
 * You can filter with any combination of: **Role(s)**, **Status(es)**, **TagGroup(s)**
 * You may specify multiple Roles, Statuses, and Tag Groups
 * A person will be shown if they match **any** of the specified parameters
