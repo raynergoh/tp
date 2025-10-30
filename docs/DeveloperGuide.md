@@ -608,6 +608,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | expert user             | filter contacts quickly across some roles, status or tag groups  | I can easily look for specific contacts that match some unique contact information       |
 | `* *`    | expert user             | easily record the date and history of each status change         | I can easily track when each deal is closed or monitor past transactions                 |
 | `*`      | expert user             | undo commands quickly                                            | I can quickly rectify mistakes                                                           |
+| `*`      | expert user             | redo commands quickly                                            | I can quickly make similar transactions                                                  |
 | `*`      | expert user             | apply advanced filters on contacts using boolean-style filtering | I can have finer control over filtering                                                  |
 | `*`      | expert user             | filter contacts with substring matching                          | I can filter more generically if I am unsure of the exact details                        |
 | `*`      | expert user             | export my contact book                                           | I can migrate my data to other devices                                                   |
@@ -615,8 +616,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | user with many contacts | find a contact by exact name                                     | I can find if a contact exist without having to go through the entire list               |
 | `* *`    | user with many contacts | find a contact with a substring match of the name                | I can find a contact if I forgot how to spell his exact name                             |
 | `* *`    | user with many contacts | view statistics of clients grouped by their transaction status   | I can quickly see how many clients are pending, completed, or have no status             |
-| `*`      | user with many contacts | view other summary statistics like total clients or total buyers | I can have an overview of my own portfolio                                               |
-| `*`      | user with many contacts | sort contacts by name alphabetically                             | I can locate contacts easily                                                             |
 
 ### Use cases
 
