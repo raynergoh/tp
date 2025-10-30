@@ -67,7 +67,7 @@ public class AddCommand extends Command {
 
         logger.info("Executing AddCommand for person: " + toAdd.getName().fullName);
 
-        // Checks for duplicate name, phone number and email
+        // Checks for duplicate phone number and email
         PersonValidator.validatePersonForAdd(model, toAdd);
 
         for (Tag tag : toAdd.getTags()) {
