@@ -14,7 +14,7 @@
 
 Property agents juggle scattered client and property data across multiple projects. TrackerGuru gives fast typists a lightweight, keyboard-first workspace to instantly add, search, and update contacts with no clutter, no clicks. It provides speed, structure, and focus that lets agents close deals faster.
 * If you are interested in using TrackerGuru, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.html#quick-start).
-* If you are interested about developing TrackerGuru, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.
+* If you are interested in developing TrackerGuru, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.
 
 
 **Acknowledgements**

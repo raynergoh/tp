@@ -8,9 +8,9 @@
 TrackerGuru is a **keyboard-focused desktop app for property agents** to efficiently manage their contacts. It is designed for users who want to complete contact management tasks faster than conventional point-and-click tools.
 
 **Target users and assumptions:**
-* Property agents who need to track a variety of contact roles such as *Buyer*, *Seller*, *Landlord* etc.
+* Property agents who need to manage various contact types involved in their deals such as buyers, sellers or other stakeholders.
 * Users are assumed to be comfortable typing fast.
-* No prior knowledge of programming or Java is required, except following download instructions.
+* No prior knowledge of programming or Java is required and users only need to follow simple installation steps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -18,6 +18,8 @@ TrackerGuru is a **keyboard-focused desktop app for property agents** to efficie
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
+In this section, you’ll learn how to install TrackerGuru, run your first command and get familiar with the interface.
+
 ##### Step 1: Check Java version
 TrackerGuru requires **Java 17** or above installed on your computer. (See our [FAQ: Section](#faq) for instructions on how to check your Java version)
 
@@ -29,7 +31,7 @@ Move the `.jar` file into any folder on your device. This will be your _home fol
 
 ##### Step 4: Run the app
 1. Open a command terminal. `cd /path/to/your/home/folder`
-2. Run the app. `java -jar addressbook.jar`
+2. Run the app. `java -jar trackerguru.jar`
 3. A GUI like this should appear in a few seconds with sample data
    ![Ui](images/Ui.png)
 
@@ -38,8 +40,8 @@ Move the `.jar` file into any folder on your device. This will be your _home fol
 
  | Command | You Should Expect To                                                                   |
  |---------|----------------------------------------------------------------------------------------|
- | `list` | List all contacts                                                                      |
  | `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` | Add a contact `John Doe` with his specified fields                                     |
+ | `list` | List all contacts                                                                      |
  | `delete 3` | Delete the 3rd contact displayed.                                                      |
  | `clear` | Delete **all contacts** in the Address Book <br> **⚠️:** _This action is irreversible!_ |
  | `exit` | Exit the TrackerGuru application                                                       |
@@ -53,34 +55,40 @@ To access this User Guide anytime from the app, use the **`help`** command.
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
+In this section, you’ll explore how to add, update and organise your contacts using TrackerGuru’s contact management commands.
+
+Before you start using the commands in this section, please take a moment to go through the notes below to understand how command parameters and symbols are used throughout this guide.
 
 <box type="info" seamless>
 
-**Notes about the command format:**<br>
+**Notes about the Command Format:**<br>
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` represent parameters that you need to supply.<br>
+  * For example, in `add n/NAME`, `NAME` is a parameter. It can be used as `add n/John Doe`.
 
-* Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items in square brackets `[]` are optional.<br>
+  * For example, `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items followed by `…`​ after them can be used multiple times or omitted.<br>
+  * For example, `[t/TAG]…​` can be used as:
+    * No tags at all → simply omit it
+    * One tag -> `t/friend`
+    * Multiple tags ->`t/friend t/family`
 
 * Parameters can be in any order.<br>
-  e.g. `n/NAME p/PHONE_NUMBER` and `p/PHONE_NUMBER n/NAME` are both acceptable.
+  * Both `n/NAME p/PHONE_NUMBER` and `p/PHONE_NUMBER n/NAME` are acceptable.
 
-* Tags should either be in the format:
-  - `t/GROUP.VALUE` where both `GROUP` and `VALUE` are alphanumeric
-  - a simple Tag `t/TAG` with an alphanumeric string
+* Commands that do not require parameters (such as help, list etc) will ignore any additional input. 
+  * For example, `help 123` will be interpreted as `help`.
 
-* Commands that do not require parameters (such as help, list, exit, and clear) will ignore any additional input.
-  e.g. `help 123` will be interpreted as `help`.
+</box>
 
-* When using the PDF version of this document, note that copying multiple-line commands may remove spaces around line breaks. Please check that spaces are correct before pasting into the application.
+<box type="warning" seamless>
+When using the PDF version of this document, note that copying multiple-line commands may remove spaces around line breaks. Please check that spaces are correct before pasting into the application.
 </box>
 
 ### Understanding Tags and Tag Groups
+Before diving into specific commands, it’s helpful to understand **tags**, which are an optional but powerful way to organise your contacts.
 
 TrackerGuru supports two ways to tag your contacts:
 
@@ -112,15 +120,6 @@ In this example:
 - `priority` - Simple tag without group
 
 ---
-
-### Getting help : `help`
-###### Command: `help`
-
-Opens the following help window, which will direct you to this exact User Guide.
-
-![help message](images/helpMessage.png)
-
-
 
 ### Adding a person: `add`
 ###### Command: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE]…​ [s/STATUS] [t/TAG]…`
@@ -306,6 +305,13 @@ Clears all entries from the address book.
 
 Exits the program.
 
+### Getting help : `help`
+###### Command: `help`
+
+Opens the following help window, which will direct you to this exact User Guide.
+
+![help message](images/helpMessage.png)
+
 ### Viewing status statistics : `stats`
 ###### Command: `stats`
 
@@ -333,11 +339,11 @@ Total: 80 contact(s)
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+TrackerGuru data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+TrackerGuru data are saved automatically as a JSON file `[JAR file location]/data/trackerguru.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
