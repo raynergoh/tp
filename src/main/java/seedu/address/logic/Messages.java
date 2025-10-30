@@ -13,7 +13,7 @@ import seedu.address.model.person.Person;
 public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "This is an unknown command.\n"
-            + "Type 'help' to see the list of available commands.";
+            + "Please Type 'help' to see the list of available commands.";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "This command format is invalid. \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The index provided is invalid.\n"
             + "Please type 'list' to view valid indexes.";
