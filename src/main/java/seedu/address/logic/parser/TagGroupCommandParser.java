@@ -25,8 +25,8 @@ public class TagGroupCommandParser implements Parser<TagGroupCommand> {
 
         // Non-empty means attempt to create a TagGroup
         if (!TagGroup.isValidTagGroupName(trimmedArgs)) {
-            throw new ParseException("Invalid TagGroup name. "
-                    + "TagGroup names should only contain alphanumeric characters, and it should not be blank.");
+            throw new ParseException("Invalid Tag Group name. "
+                    + "Tag Group names should only contain alphanumeric characters, and it should not be blank.");
         }
 
         TagGroup toCreate = new TagGroup(trimmedArgs);

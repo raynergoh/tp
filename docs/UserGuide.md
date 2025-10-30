@@ -136,8 +136,7 @@ In this example:
 
 However, it has to start with alphanumeric, and can contain any combination after. For example, `t/price.1.5M-2M` is valid, but `t/price.-2M` is not.
 
--</box>
----
+</box>
 
 ### Adding a person: `add`
 ###### Command: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [r/ROLE]…​ [s/STATUS] [t/TAG]…​`
@@ -219,7 +218,6 @@ Finds persons whose names contain any of the provided keywords.
 Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Filtering persons by Role, Status, Tag Group: `filter`
 ###### Command: `filter [r/ROLE]…​ [s/STATUS]…​ [tg/TAG_GROUP]…​`
@@ -263,24 +261,24 @@ Shows a list of all persons in the address book.
 ### Creating a Tag Group : `tg`
 ###### Command: `tg GROUP_NAME`
 
-Creates a new tag group to organize your tags into categories.
+Creates a new Tag Group to organize your tags into categories.
 
 <box type="info" seamless>
 
 **Notes:**
 * `GROUP_NAME` must be **alphanumeric** (letters and numbers only, no spaces or special characters).
-* Tag group names are **case-sensitive** (e.g., `PropertyType` and `propertytype` are different).
-* Duplicate tag group names are not allowed. If the tag group already exists, an error message will be shown.
-* Once created, you can use the tag group when adding or editing contacts using the format `t/GROUP.VALUE`.
+* Tag Group names are **case-sensitive** (e.g., `PropertyType` and `propertytype` are different).
+* Duplicate Tag Group names are not allowed. If the Tag Group already exists, an error message will be shown.
+* Once created, you can use the Tag Group when adding or editing contacts using the format `t/GROUP.VALUE`.
 
 </box>
 
 Examples:
-* `tg propertyType` creates a tag group called `propertyType`.
-* `tg location` creates a tag group called `location`.
-* `tg priceRange` creates a tag group called `priceRange`.
+* `tg propertyType` creates a Tag Group called `propertyType`.
+* `tg location` creates a Tag Group called `location`.
+* `tg priceRange` creates a Tag Group called `priceRange`.
 
-**After creating a tag group**, you can assign tags within that group to contacts:
+**After creating a Tag Group**, you can assign tags within that group to contacts:
 * `add n/John Doe p/98765432 e/john@example.com a/123 Street t/propertyType.HDB t/location.Bishan`
 * `edit 1 t/propertyType.Condo t/priceRange.500k-1M`
 
@@ -288,49 +286,49 @@ Examples:
 ### Deleting a Tag Group : `dtg`
 ###### Command: `dtg GROUP_NAME`
 
-Deletes an existing tag group.
+Deletes an existing Tag Group.
 
 <box type="warning" seamless>
 
 **Important:**
-* You **cannot delete a tag group** if it is currently in use by any contact's tags.
-* To delete a tag group that's in use, you must first:
+* You **cannot delete a Tag Group** if it is currently in use by any contact's tags.
+* To delete a Tag Group that's in use, you must first:
     1. Remove all tags using that group from your contacts (using the `edit` command), **OR**
     2. Delete the contacts that have tags in that group.
-* Tag group names are **case-sensitive**.
+* Tag Group names are **case-sensitive**.
 
 </box>
 
 Examples:
-* `dtg propertyType` deletes the `propertyType` tag group (only if not in use).
-* `dtg location` deletes the `location` tag group (only if not in use).
+* `dtg propertyType` deletes the `propertyType` Tag Group (only if not in use).
+* `dtg location` deletes the `location` Tag Group (only if not in use).
 
 **Error scenarios:**
-* **Tag group does not exist**: `The tag group propertyType does not exist.`
-* **Tag group in use**: `This tag group is currently in use and cannot be deleted. Please remove all tags associated with this group first.`
+* **Tag Group does not exist**: `The Tag Group propertyType does not exist.`
+* **Tag Group in use**: `This Tag Group is currently in use and cannot be deleted. Please remove all tags associated with this group first.`
 
 <box type="tip" seamless>
 
-**Tip:** Use the `tg` command to list all your tag groups before attempting to delete one!
+**Tip:** Use the `tg` command to list all your Tag Groups before attempting to delete one!
 
 </box>
 
 ### Listing all Tag Groups : `tg`
 ###### Command: `tg`
 
-Lists all tag groups you have created.
+Lists all Tag Groups you have created.
 
 <box type="info" seamless>
 
 **Notes:**
-* If no tag groups have been created yet, a message will inform you that no tag groups exist.
-* This command helps you check which tag groups are available before assigning tags to contacts.
-* Tag groups persist across sessions and are automatically saved.
+* If no Tag Groups have been created yet, a message will inform you that no Tag Groups exist.
+* This command helps you check which Tag Groups are available before assigning tags to contacts.
+* Tag Groups persist across sessions and are automatically saved.
 
 </box>
 
 Examples:
-* `tg` displays all existing tag groups such as `propertyType`, `location`, `price`, etc.
+* `tg` displays all existing Tag Groups such as `propertyType`, `location`, `price`, etc.
 
 ### Viewing status statistics : `stats`
 ###### Command: `stats`
@@ -490,13 +488,13 @@ Status values are **case-insensitive** (e.g., "pending", "Pending", and "PENDING
 
 ### Tag
 A Tag is an optional label used to provide additional information about a contact.
-A Tag can also optionally contain a **tag group** (see [definition](#tag-group)), allowing it to be categorized under a specific group.
+A Tag can also optionally contain a **Tag Group** (see [definition](#tag-group)), allowing it to be categorised under a specific group.
 
 <box type="tip" seamless>
 
 **Note:**
 * TrackerGuru must already contain the tag group for a tag to be assigned under said group.
-  * Refer to [creating a tag group](#Creating-a-tag-group--tg).
+  * Refer to [creating a Tag Group](#Creating-a-tag-group--tg).
 
 </box>
 
@@ -512,11 +510,11 @@ A Tag Group organizes tags into broader categories for more structured classific
 It is a way to group related tags under a shared category.
 
 **How it works:**
-- Tag groups are created using the `tg GROUP_NAME` command.
+- Tag Groups are created using the `tg GROUP_NAME` command.
 - Once created, you can assign tags within that group using the format `t/GROUP.VALUE`.
-- Tag groups allow you to categorize tags into logical categories.
+- Tag Groups allow you to categorize tags into logical categories.
 
-Common tag groups include:
+Common Tag Groups include:
 - **PropertyType**:
     - Example tags using this group: `t/PropertyType.Condo`, `t/PropertyType.Landed`, `t/PropertyType.HDB`
 - **Location**:
@@ -524,4 +522,4 @@ Common tag groups include:
 - **Project**:
     - Example tags using this group: `t/Project.X`, `t/Project.Y`, `t/Project.Z`
 
-Tag groups are also **case-sensitive** (e.g., "Client" and "client" are treated differently), and are automatically saved and persist across sessions.
+Tag Groups are also **case-sensitive** (e.g., "Client" and "client" are treated differently), and are automatically saved and persist across sessions.

@@ -55,8 +55,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the contents of the tag group list with {@code tagGroups}.
-     * {@code tagGroups} must not contain duplicate tag groups.
+     * Replaces the contents of the Tag Group list with {@code tagGroups}.
+     * {@code tagGroups} must not contain duplicate Tag Groups.
      */
     public void setTagGroups(Set<TagGroup> tagGroups) {
         requireNonNull(tagGroups);
@@ -142,8 +142,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds the given TagGroup to the registry.
-     * @param group TagGroup to add
+     * Adds the given Tag Group to the registry.
+     * @param group Tag Group to add
      */
     public void addTagGroup(TagGroup group) {
         requireNonNull(group);
@@ -151,8 +151,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes the given TagGroup from the registry.
-     * @param group TagGroup to remove
+     * Removes the given Tag Group from the registry.
+     * @param group Tag Group to remove
      */
     public void removeTagGroup(TagGroup group) {
         requireNonNull(group);
