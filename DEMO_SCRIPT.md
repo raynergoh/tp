@@ -52,7 +52,6 @@ TrackerGuru uses tag groups to organize tags. Create all required tag groups fir
 
 ```bash
 # Create tag groups for the demo
-tg listing
 tg location
 tg budget
 tg rooms
@@ -63,13 +62,12 @@ tg deal
 ```
 
 **Why these tag groups:**
-- `listing` - For property listings (listing.3room, listing.4room, etc.)
 - `location` - For geographic areas (location.amk, location.tampines, etc.)
 - `budget` - For price points (budget.300k, budget.500k, etc.)
-- `rooms` - For room specifications (rooms.3, rooms.4, etc.)
+- `rooms` - For room specifications (rooms.3, rooms.4, etc.) - **Used by BOTH buyers and sellers**
 - `urgent` - For priority levels (urgent.low, urgent.medium, urgent.high)
 - `viewing` - For viewing milestones (viewing.scheduled)
-- `offer` - For offer tracking (offer.made)
+- `offer` - For offer tracking (offer.made, offer.received)
 - `deal` - For deal closure (deal.closed)
 
 ### 3. Add realistic sample contacts (for context - shows Xiao Ming's existing workload)
@@ -83,22 +81,22 @@ These contacts are strategically designed to showcase filtering capabilities:
 
 ```bash
 # Contact 1: Seller with 3-room in AMK
-add n/David Chen p/98765432 e/david@email.com a/Blk 456 Ang Mo Kio Ave 3 #12-34 r/seller t/listing.3room t/location.amk t/budget.400k
+add n/David Chen p/98765432 e/david@email.com a/Blk 456 Ang Mo Kio Ave 3 #12-34 r/seller t/rooms.3 t/location.amk t/budget.400k
 
 # Contact 2: Low-urgency buyer looking for 3-room in Bedok
-add n/Mary Wong p/87654321 e/mary@email.com a/Blk 789 Bedok North St 2 #08-11 r/buyer t/budget.300k t/location.bedok t/rooms.3 t/urgent.low
+add n/Mary Wong p/87654321 e/mary@email.com a/Blk 789 Bedok North St 2 #08-11 r/buyer t/rooms.3 t/location.bedok t/budget.300k t/urgent.low
 
 # Contact 3: Seller with 4-room in Jurong (higher budget)
-add n/James Tan p/91112233 e/james@email.com a/Blk 234 Jurong West St 52 #06-18 r/seller t/listing.4room t/location.jurong t/budget.550k
+add n/James Tan p/91112233 e/james@email.com a/Blk 234 Jurong West St 52 #06-18 r/seller t/rooms.4 t/location.jurong t/budget.550k
 
 # Contact 4: Seller with PERFECT PROPERTY for Sarah!
-add n/Linda Lee p/82223344 e/linda@email.com a/Blk 88 Tampines Ave 10 #10-25 r/seller t/listing.4room t/location.tampines t/budget.500k
+add n/Linda Lee p/82223344 e/linda@email.com a/Blk 88 Tampines Ave 10 #10-25 r/seller t/rooms.4 t/location.tampines t/budget.500k
 
 # Contact 5: Seller with 5-room in Yishun (premium)
-add n/Robert Ng p/93334455 e/robert@email.com a/Blk 102 Yishun Ring Rd #03-07 r/seller t/listing.5room t/location.yishun t/budget.650k
+add n/Robert Ng p/93334455 e/robert@email.com a/Blk 102 Yishun Ring Rd #03-07 r/seller t/rooms.5 t/location.yishun t/budget.650k
 
 # Contact 6: Low-urgency buyer for 3-room in Pasir Ris
-add n/Michelle Koh p/84445566 e/michelle@email.com a/Blk 567 Pasir Ris St 51 #12-88 r/buyer t/budget.350k t/location.pasirris t/rooms.3 t/urgent.low
+add n/Michelle Koh p/84445566 e/michelle@email.com a/Blk 567 Pasir Ris St 51 #12-88 r/buyer t/rooms.3 t/location.pasirris t/budget.350k t/urgent.low
 ```
 
 **Why these contacts matter:**
@@ -180,75 +178,56 @@ list
 
 **[Xiao Ming types]:**
 ```
-filter t/listing.4room t/location.tampines t/budget.500k
+filter t/rooms.4 t/location.tampines t/budget.500k
 ```
 
 **[Narrator]:**
-"**Three tags. Instant results.** One match appears: Linda Lee!"
+"**Three tags. Instant results.** Two matches appear: Linda Lee and Sarah Tan!"
 
-**[Screen shows Linda only]**
+**[Screen shows Linda (#1) and Sarah (#2)]**
 
 **[Narrator - with excitement]:**
-"Linda is a SELLER with a 4-room HDB in Tampines listed at exactly $500k. This isn't just a match—this is **the perfect property** for Sarah. Notice: James has a 4-room listing but not in Tampines. Sarah needs a 4-room in Tampines but she's a buyer, not a seller. Only Linda has **all three criteria**—that's precision filtering. But here's the magic: Xiao Ming didn't remember Linda's listing had these exact specifications. He would have had to scroll through all 7 contacts, reading each tag manually. But TrackerGuru found her in one second."
+"Linda is a SELLER with a 4-room HDB in Tampines listed at exactly $500k. Sarah is a BUYER looking for exactly the same thing. This isn't just a match—this is **a deal waiting to happen**. Notice: James has a 4-room property but in Jurong, not Tampines. Mary and Michelle are looking for 3-room, not 4-room. Only Linda and Sarah have **all three criteria**—that's precision filtering with AND logic."
 
 **[Key Insight Moment]:**
-"This isn't just filtering. This is **instant opportunity recognition**. In the time it takes other agents to open their spreadsheet, Xiao Ming is already texting Sarah: 'I have the perfect property. Can you view it today?'"
+"But here's the magic: Xiao Ming didn't remember Linda's property matched Sarah's needs perfectly. He would have had to scroll through all 7 contacts, reading each tag, mentally matching criteria. But TrackerGuru found both in one second. Now they're right here—Linda at position #1, Sarah at position #2. Ready to update as the deal progresses."
 
 **[Pause for effect]**
 
-"That's the difference between **searching** and **finding**. Between **working hard** and **working smart**."
+"This isn't just filtering. This is **instant opportunity recognition**. In the time it takes other agents to open their spreadsheet, Xiao Ming is already texting Sarah: 'I have the perfect property. Can you view it today?'"
 
 **[Key Rhetorical Point]:**
-"Time saved: 10 minutes. Viewing scheduled: Today. Commission potential: $500,000."
-
----
-
-### Step 3b: Return to Full View & Identify Contacts
-
-**[Narrator]:**
-"Linda's property is perfect. Now Xiao Ming needs to update both contacts as the deal progresses."
-
-**[Xiao Ming types]:**
-```
-list
-```
-
-**[Narrator]:**
-"Back to the full view. Sarah is contact #7. Linda is contact #4. Both need to be tracked as this deal unfolds."
-
-**[Screen shows all 7 contacts with Sarah at position 7 and Linda at position 4]**
+"Time saved: 10 minutes. Viewing scheduled: Today. Commission potential: $500,000. And now, let's watch as Xiao Ming tracks this deal from both sides."
 
 ---
 
 ### Step 4: Updating Progress - Viewing Scheduled (Ethos - Professionalism)
 
 **[Narrator]:**
-"Two days later, Sarah views Linda's property. Xiao Ming updates BOTH contacts—because in real estate, **every touchpoint matters**. Sarah first."
+"Two days later, Sarah views Linda's property. Xiao Ming updates BOTH contacts—because in real estate, **every touchpoint matters**. We're still on the filtered view, so Linda is #1, Sarah is #2. Linda first."
 
 **[Xiao Ming types]:**
 ```
-edit 7 s/PENDING t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled
+edit 1 s/PENDING t/rooms.4 t/location.tampines t/budget.500k t/viewing.scheduled
 ```
 
 **[Narrator]:**
-"Notice the number: 7. That's Sarah's position in the list. Status set to PENDING, viewing tag added, all original tags preserved."
+"Linda's status: PENDING. Viewing tag added. Notice: edit #1 because Linda is first in the filtered list."
 
-**[Result shows Sarah updated]**
+**[Result shows Linda updated]**
 
 **[Narrator]:**
-"Now Linda, the seller."
+"Now Sarah, the buyer."
 
 **[Xiao Ming types]:**
 ```
-edit 4 s/PENDING t/listing.4room t/location.tampines t/budget.500k t/viewing.scheduled
+edit 2 s/PENDING t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled
 ```
 
-**[Result shows Linda updated with viewing tag]**
+**[Result shows Sarah updated with viewing tag]**
 
 **[Narrator]:**
-"No forms. No menus. Just **type and go**. Both contacts updated in seconds. This is what professionals demand—tools that keep pace with their hustle."
-
-**[Result shows Sarah with PENDING status and added viewing.scheduled tag, all original tags preserved]**
+"No forms. No menus. Just **type and go**. Both contacts updated in seconds. Edit #1 for Linda, edit #2 for Sarah. Simple. Fast. Professional. This is what professionals demand—tools that keep pace with their hustle."
 
 ---
 
@@ -259,26 +238,26 @@ edit 4 s/PENDING t/listing.4room t/location.tampines t/budget.500k t/viewing.sch
 
 **[Xiao Ming types]:**
 ```
-edit 7 s/PENDING t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled t/offer.made
+edit 1 t/rooms.4 t/location.tampines t/budget.500k t/viewing.scheduled t/offer.received
 ```
 
 **[Narrator]:**
-"Sarah's offer is documented."
-
-**[Result shows offer.made tag added to Sarah's existing tags]**
-
-**[Xiao Ming types]:**
-```
-edit 4 s/PENDING t/listing.4room t/location.tampines t/budget.500k t/viewing.scheduled t/offer.received
-```
-
-**[Narrator]:**
-"And Linda's property now shows an offer has been received."
+"Linda's property: offer received."
 
 **[Result shows offer.received tag added to Linda's tags]**
 
+**[Xiao Ming types]:**
+```
+edit 2 t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled t/offer.made
+```
+
+**[Narrator]:**
+"Sarah's offer: documented."
+
+**[Result shows offer.made tag added to Sarah's existing tags]**
+
 **[Key Rhetorical Point]:**
-"Every update is a checkpoint. Every checkpoint is confidence that nothing falls through. The tags build a complete timeline—both sides of the transaction, everything documented."
+"Every update is a checkpoint. Every checkpoint is confidence that nothing falls through. The tags build a complete timeline—both sides of the transaction, everything documented. And the numbering? Dead simple. #1 and #2. That's it."
 
 ---
 
@@ -289,23 +268,23 @@ edit 4 s/PENDING t/listing.4room t/location.tampines t/budget.500k t/viewing.sch
 
 **[Xiao Ming types]:**
 ```
-edit 7 s/COMPLETED t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled t/offer.made t/deal.closed
+edit 1 s/COMPLETED t/rooms.4 t/location.tampines t/budget.500k t/viewing.scheduled t/offer.received t/deal.closed
 ```
 
 **[Narrator]:**
-"Sarah's status: COMPLETED. Urgency cleared since the deal is done."
+"Linda's property: SOLD. Status COMPLETED."
 
-**[Result shows Sarah with COMPLETED status]**
+**[Result shows Linda with COMPLETED status]**
 
 **[Xiao Ming types]:**
 ```
-edit 4 s/COMPLETED t/listing.4room t/location.tampines t/budget.500k t/viewing.scheduled t/offer.received t/deal.closed
+edit 2 s/COMPLETED t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled t/offer.made t/deal.closed
 ```
 
 **[Narrator]:**
-"And Linda's property: SOLD. Both sides of the transaction documented."
+"Sarah's deal: COMPLETED. Urgency tag cleared since the deal is done."
 
-**[Result shows Linda with COMPLETED status]**
+**[Result shows Sarah with COMPLETED status]**
 
 **[Narrator]:**
 "Two contacts. Two weeks. Zero leads lost. One successful transaction. This is the difference between **hoping you remember** and **knowing you won't forget**."
@@ -410,8 +389,7 @@ list
 # Clear existing data
 clear
 
-# Create all required tag groups
-tg listing
+# Create all required tag groups (NO listing tag group - use rooms for both buyers/sellers)
 tg location
 tg budget
 tg rooms
@@ -421,17 +399,17 @@ tg offer
 tg deal
 
 # Add diverse contact base (6 contacts showing varied criteria)
-add n/David Chen p/98765432 e/david@email.com a/Blk 456 Ang Mo Kio Ave 3 #12-34 r/seller t/listing.3room t/location.amk t/budget.400k
+add n/David Chen p/98765432 e/david@email.com a/Blk 456 Ang Mo Kio Ave 3 #12-34 r/seller t/rooms.3 t/location.amk t/budget.400k
 
-add n/Mary Wong p/87654321 e/mary@email.com a/Blk 789 Bedok North St 2 #08-11 r/buyer t/budget.300k t/location.bedok t/rooms.3 t/urgent.low
+add n/Mary Wong p/87654321 e/mary@email.com a/Blk 789 Bedok North St 2 #08-11 r/buyer t/rooms.3 t/location.bedok t/budget.300k t/urgent.low
 
-add n/James Tan p/91112233 e/james@email.com a/Blk 234 Jurong West St 52 #06-18 r/seller t/listing.4room t/location.jurong t/budget.550k
+add n/James Tan p/91112233 e/james@email.com a/Blk 234 Jurong West St 52 #06-18 r/seller t/rooms.4 t/location.jurong t/budget.550k
 
-add n/Linda Lee p/82223344 e/linda@email.com a/Blk 88 Tampines Ave 10 #10-25 r/seller t/listing.4room t/location.tampines t/budget.500k
+add n/Linda Lee p/82223344 e/linda@email.com a/Blk 88 Tampines Ave 10 #10-25 r/seller t/rooms.4 t/location.tampines t/budget.500k
 
-add n/Robert Ng p/93334455 e/robert@email.com a/Blk 102 Yishun Ring Rd #03-07 r/seller t/listing.5room t/location.yishun t/budget.650k
+add n/Robert Ng p/93334455 e/robert@email.com a/Blk 102 Yishun Ring Rd #03-07 r/seller t/rooms.5 t/location.yishun t/budget.650k
 
-add n/Michelle Koh p/84445566 e/michelle@email.com a/Blk 567 Pasir Ris St 51 #12-88 r/buyer t/budget.350k t/location.pasirris t/rooms.3 t/urgent.low
+add n/Michelle Koh p/84445566 e/michelle@email.com a/Blk 567 Pasir Ris St 51 #12-88 r/buyer t/rooms.3 t/location.pasirris t/budget.350k t/urgent.low
 ```
 
 ### Main Demo Commands (in order)
@@ -442,29 +420,28 @@ add n/Sarah Tan p/91234567 e/sarah.tan@email.com a/Blk 123 Tampines St 11 #05-67
 # 2. Filter urgent leads
 filter t/urgent.high
 
-# 3. Find matching property for Sarah
-filter t/listing.4room t/location.tampines t/budget.500k
+# 3. Find matching property - Shows BOTH Linda (seller) and Sarah (buyer)
+filter t/rooms.4 t/location.tampines t/budget.500k
 
-# 3b. Return to full list to see contact positions
-list
+# NOTE: Stay on filtered view! Linda is #1, Sarah is #2
 
-# 4a. Update Sarah (contact #7) - Viewing scheduled
-edit 7 s/PENDING t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled
+# 4a. Update Linda (contact #1 in filtered view) - Viewing scheduled
+edit 1 s/PENDING t/rooms.4 t/location.tampines t/budget.500k t/viewing.scheduled
 
-# 4b. Update Linda (contact #4) - Viewing scheduled
-edit 4 s/PENDING t/listing.4room t/location.tampines t/budget.500k t/viewing.scheduled
+# 4b. Update Sarah (contact #2 in filtered view) - Viewing scheduled  
+edit 2 s/PENDING t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled
 
-# 5a. Update Sarah (contact #7) - Offer made
-edit 7 s/PENDING t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled t/offer.made
+# 5a. Update Linda (contact #1) - Offer received
+edit 1 s/PENDING t/rooms.4 t/location.tampines t/budget.500k t/viewing.scheduled t/offer.received
 
-# 5b. Update Linda (contact #4) - Offer received
-edit 4 s/PENDING t/listing.4room t/location.tampines t/budget.500k t/viewing.scheduled t/offer.received
+# 5b. Update Sarah (contact #2) - Offer made
+edit 2 s/PENDING t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled t/offer.made
 
-# 6a. Close deal for Sarah (contact #7)
-edit 7 s/COMPLETED t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled t/offer.made t/deal.closed
+# 6a. Close deal for Linda (contact #1)
+edit 1 s/COMPLETED t/rooms.4 t/location.tampines t/budget.500k t/viewing.scheduled t/offer.received t/deal.closed
 
-# 6b. Close deal for Linda (contact #4)
-edit 4 s/COMPLETED t/listing.4room t/location.tampines t/budget.500k t/viewing.scheduled t/offer.received t/deal.closed
+# 6b. Close deal for Sarah (contact #2) - Note: urgent.high removed
+edit 2 s/COMPLETED t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled t/offer.made t/deal.closed
 
 # 7. Show final result
 list
@@ -553,4 +530,5 @@ After this demo, evaluators should understand:
 4. ✅ **The Differentiator**: Speed and precision vs traditional CRMs
 
 **Target Emotional Response**: "I need this tool. It would solve my exact problem."
+
 

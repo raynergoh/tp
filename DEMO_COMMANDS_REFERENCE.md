@@ -12,8 +12,7 @@ Run these commands to prepare the demo environment:
 # 1. Clear existing data
 clear
 
-# 2. Create all required tag groups
-tg listing
+# 2. Create all required tag groups (NO listing - use rooms for both buyers/sellers!)
 tg location
 tg budget
 tg rooms
@@ -23,22 +22,22 @@ tg offer
 tg deal
 
 # 3. Add contact 1: David Chen (Seller - 3-room AMK)
-add n/David Chen p/98765432 e/david@email.com a/Blk 456 Ang Mo Kio Ave 3 #12-34 r/seller t/listing.3room t/location.amk t/budget.400k
+add n/David Chen p/98765432 e/david@email.com a/Blk 456 Ang Mo Kio Ave 3 #12-34 r/seller t/rooms.3 t/location.amk t/budget.400k
 
 # 4. Add contact 2: Mary Wong (Buyer - Low urgency, 3-room Bedok)
-add n/Mary Wong p/87654321 e/mary@email.com a/Blk 789 Bedok North St 2 #08-11 r/buyer t/budget.300k t/location.bedok t/rooms.3 t/urgent.low
+add n/Mary Wong p/87654321 e/mary@email.com a/Blk 789 Bedok North St 2 #08-11 r/buyer t/rooms.3 t/location.bedok t/budget.300k t/urgent.low
 
 # 5. Add contact 3: James Tan (Seller - 4-room Jurong)
-add n/James Tan p/91112233 e/james@email.com a/Blk 234 Jurong West St 52 #06-18 r/seller t/listing.4room t/location.jurong t/budget.550k
+add n/James Tan p/91112233 e/james@email.com a/Blk 234 Jurong West St 52 #06-18 r/seller t/rooms.4 t/location.jurong t/budget.550k
 
 # 6. Add contact 4: Linda Lee (Seller - PERFECT PROPERTY FOR SARAH!)
-add n/Linda Lee p/82223344 e/linda@email.com a/Blk 88 Tampines Ave 10 #10-25 r/seller t/listing.4room t/location.tampines t/budget.500k
+add n/Linda Lee p/82223344 e/linda@email.com a/Blk 88 Tampines Ave 10 #10-25 r/seller t/rooms.4 t/location.tampines t/budget.500k
 
 # 7. Add contact 5: Robert Ng (Seller - 5-room Yishun)
-add n/Robert Ng p/93334455 e/robert@email.com a/Blk 102 Yishun Ring Rd #03-07 r/seller t/listing.5room t/location.yishun t/budget.650k
+add n/Robert Ng p/93334455 e/robert@email.com a/Blk 102 Yishun Ring Rd #03-07 r/seller t/rooms.5 t/location.yishun t/budget.650k
 
 # 8. Add contact 6: Michelle Koh (Buyer - Low urgency, 3-room Pasir Ris)
-add n/Michelle Koh p/84445566 e/michelle@email.com a/Blk 567 Pasir Ris St 51 #12-88 r/buyer t/budget.350k t/location.pasirris t/rooms.3 t/urgent.low
+add n/Michelle Koh p/84445566 e/michelle@email.com a/Blk 567 Pasir Ris St 51 #12-88 r/buyer t/rooms.3 t/location.pasirris t/budget.350k t/urgent.low
 
 # 9. Verify setup (should show 6 contacts)
 list
@@ -59,13 +58,13 @@ Before starting your demo, verify:
 - [ ] Data cleared: Run `clear` command
 
 ### Tag Groups Created
-- [ ] All 8 tag groups created (listing, location, budget, rooms, urgent, viewing, offer, deal)
+- [ ] All 7 tag groups created (location, budget, rooms, urgent, viewing, offer, deal - NO listing!)
 - [ ] Verify: Try adding a test tag like `t/urgent.test` - should work without error
 
 ### Contacts Added
 - [ ] 6 contacts added successfully
 - [ ] Verify: Run `list` - should show exactly 6 contacts
-- [ ] Linda Lee is contact #4 (seller) with tags: listing.4room, location.tampines, budget.500k
+- [ ] Linda Lee is contact #4 (seller) with tags: rooms.4, location.tampines, budget.500k
 
 ### Commands Ready
 - [ ] DEMO_COMMANDS_REFERENCE.md open on second screen
@@ -101,81 +100,72 @@ filter t/urgent.high
 
 ### Step 3: Find Matching Properties
 ```bash
-filter t/listing.4room t/location.tampines t/budget.500k
+filter t/rooms.4 t/location.tampines t/budget.500k
 ```
-**Expected:** Shows Linda ONLY (1 seller with matching property)  
-**Why:** Linda has ALL 3 tags. James has only listing.4room. Sarah has location.tampines and budget.500k but not listing.4room.  
-**Talking Point:** "Linda has the PERFECT property for Sarah! TrackerGuru just found an immediate viewing opportunity."
+**Expected:** Shows Linda (#1) AND Sarah (#2) - both have ALL 3 tags  
+**Why:** Linda is seller with rooms.4 property, Sarah is buyer seeking rooms.4. James has rooms.4 but in Jurong. Others don't have all 3 tags.  
+**Talking Point:** "Linda HAS what Sarah WANTS! A 4-room in Tampines at $500k. TrackerGuru just matched buyer and seller instantly."
 
-**Note:** Multiple tags use AND logic - contact must have ALL specified tags.
+**Note:** Multiple tags use AND logic - contact must have ALL specified tags.  
+**CRITICAL:** Stay on this filtered view! Linda is #1, Sarah is #2. All subsequent edits use these numbers!
 
 ---
 
-### Step 3b: Return to Full List (Find Contact Numbers)
+### Step 4a: Update Linda - Viewing Scheduled
 ```bash
-list
+edit 1 s/PENDING t/rooms.4 t/location.tampines t/budget.500k t/viewing.scheduled
 ```
-**Expected:** Shows all 7 contacts  
-**Important:** Note contact positions - Sarah is #7, Linda is #4  
-**Talking Point:** "Linda's property is perfect for Sarah. Now let's track this deal for both parties."
+**Expected:** Linda (contact #1 in filtered view) updated with status PENDING and viewing.scheduled tag  
+**Talking Point:** "Linda's property: viewing scheduled. Edit #1 because Linda is first in filtered view."
+
+**⚠️ CRITICAL:** Edit #1 because Linda is first in the FILTERED list (not full list)!
 
 ---
 
-### Step 4a: Update Sarah - Viewing Scheduled
+### Step 4b: Update Sarah - Viewing Scheduled
 ```bash
-edit 7 s/PENDING t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled
+edit 2 s/PENDING t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled
 ```
-**Expected:** Sarah (contact #7) now has status PENDING and 5 tags (added viewing.scheduled)  
-**Talking Point:** "Sarah's viewing scheduled. Notice: contact #7, not #1."
-
-**⚠️ CRITICAL:** Edit #7 because Sarah is the 7th contact in the full list!
+**Expected:** Sarah (contact #2 in filtered view) updated with viewing.scheduled tag  
+**Talking Point:** "Sarah's viewing: scheduled. Edit #2 for Sarah. Both sides tracked. Simple. Fast."
 
 ---
 
-### Step 4b: Update Linda - Viewing Scheduled
+### Step 5a: Update Linda - Offer Received
 ```bash
-edit 4 s/PENDING t/listing.4room t/location.tampines t/budget.500k t/viewing.scheduled
-```
-**Expected:** Linda (contact #4) updated with viewing.scheduled tag  
-**Talking Point:** "Both sides of the transaction tracked. No forms, no menus. Just type and go."
-
----
-
-### Step 5a: Update Sarah - Offer Made
-```bash
-edit 7 s/PENDING t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled t/offer.made
-```
-**Expected:** Sarah now has 6 tags (added offer.made)  
-**Talking Point:** "Sarah's offer documented."
-
----
-
-### Step 5b: Update Linda - Offer Received
-```bash
-edit 4 s/PENDING t/listing.4room t/location.tampines t/budget.500k t/viewing.scheduled t/offer.received
+edit 1 s/PENDING t/rooms.4 t/location.tampines t/budget.500k t/viewing.scheduled t/offer.received
 ```
 **Expected:** Linda now has offer.received tag  
-**Talking Point:** "Linda's property has an offer. Complete timeline for both parties."
+**Talking Point:** "Linda's property: offer received."
 
 ---
 
-### Step 6a: Close Deal - Sarah
+### Step 5b: Update Sarah - Offer Made
 ```bash
-edit 7 s/COMPLETED t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled t/offer.made t/deal.closed
+edit 2 s/PENDING t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled t/offer.made
 ```
-**Expected:** Status COMPLETED, removed urgent.high, added deal.closed (6 tags total)  
-**Talking Point:** "Sarah's deal: COMPLETED. Urgency cleared."
-
-**Note:** Intentionally removed urgent.high (deal closed, no longer urgent)
+**Expected:** Sarah now has offer.made tag (6 tags total)  
+**Talking Point:** "Sarah's offer: documented. Complete timeline for both parties. Still #1 and #2."
 
 ---
 
-### Step 6b: Close Deal - Linda
+### Step 6a: Close Deal - Linda
 ```bash
-edit 4 s/COMPLETED t/listing.4room t/location.tampines t/budget.500k t/viewing.scheduled t/offer.received t/deal.closed
+edit 1 s/COMPLETED t/rooms.4 t/location.tampines t/budget.500k t/viewing.scheduled t/offer.received t/deal.closed
 ```
 **Expected:** Linda's status COMPLETED, added deal.closed  
-**Talking Point:** "Linda's property: SOLD. Two contacts. Two weeks. Zero leads lost. One successful transaction."
+**Talking Point:** "Linda's property: SOLD. Status COMPLETED."
+
+---
+
+### Step 6b: Close Deal - Sarah
+```bash
+edit 2 s/COMPLETED t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled t/offer.made t/deal.closed
+```
+**Expected:** Status COMPLETED, removed urgent.high, added deal.closed (6 tags total)  
+**Talking Point:** "Sarah's deal: COMPLETED. Urgency cleared. Two contacts. Two weeks. Zero leads lost. One successful transaction."
+
+**Note:** Intentionally removed urgent.high (deal closed, no longer urgent)
 
 ---
 
@@ -278,7 +268,7 @@ list
 |---------|-------|-------|
 | `list` | 7 | All contacts |
 | `filter t/urgent.high` | 1 | Sarah only |
-| `filter t/listing.4room t/location.tampines t/budget.500k` | 1 | Linda (seller with property) |
+| `filter t/rooms.4 t/location.tampines t/budget.500k` | 2 | Linda (#1 seller), Sarah (#2 buyer) |
 | `filter r/buyer` | 3 | Sarah, Mary, Michelle |
 | `filter t/location.tampines` | 2 | Sarah (buyer), Linda (seller) |
 
