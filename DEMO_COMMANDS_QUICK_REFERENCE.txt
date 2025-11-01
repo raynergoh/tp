@@ -1,0 +1,84 @@
+═══════════════════════════════════════════════════════════════════════
+  TRACKERGURU DEMO - QUICK REFERENCE CARD (Xiao Ming & Sarah Story)
+═══════════════════════════════════════════════════════════════════════
+
+PRE-DEMO (Optional - for clean slate):
+┌─────────────────────────────────────────────────────────────────────┐
+│ clear                                                                │
+│                                                                      │
+│ add n/John Lim p/98765432 e/john@email.com a/Blk 456 Ang Mo Kio Ave│
+│  3 #12-34 r/seller t/listing.3room t/location.amk                  │
+│                                                                      │
+│ add n/Mary Wong p/87654321 e/mary@email.com a/Blk 789 Bedok North  │
+│ St 2 #08-11 r/buyer t/budget.300k t/location.bedok                 │
+└─────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════
+MAIN DEMO COMMANDS (Copy-Paste Ready):
+═══════════════════════════════════════════════════════════════════════
+
+1️⃣  ADD SARAH (The Hot Lead)
+┌─────────────────────────────────────────────────────────────────────┐
+│ add n/Sarah Tan p/91234567 e/sarah.tan@email.com a/Blk 123         │
+│ Tampines St 11 #05-67 r/buyer t/urgent.high t/budget.500k          │
+│ t/location.tampines t/rooms.4                                       │
+└─────────────────────────────────────────────────────────────────────┘
+NARRATION: "One command. Seven fields. Done."
+
+2️⃣  FILTER URGENT LEADS
+┌─────────────────────────────────────────────────────────────────────┐
+│ filter t/urgent.high                                                 │
+└─────────────────────────────────────────────────────────────────────┘
+NARRATION: "Focus follows priority."
+
+3️⃣  FIND MATCHING PROPERTIES
+┌─────────────────────────────────────────────────────────────────────┐
+│ filter t/rooms.4 t/location.tampines t/budget.500k                  │
+└─────────────────────────────────────────────────────────────────────┘
+NARRATION: "Three tags. Instant results."
+
+[Optional: Show all contacts again]
+┌─────────────────────────────────────────────────────────────────────┐
+│ list                                                                 │
+└─────────────────────────────────────────────────────────────────────┘
+
+4️⃣  UPDATE TO VIEWING
+┌─────────────────────────────────────────────────────────────────────┐
+│ edit 1 t/status.viewing                                              │
+└─────────────────────────────────────────────────────────────────────┘
+NARRATION: "Just type and go."
+
+5️⃣  UPDATE TO OFFER MADE
+┌─────────────────────────────────────────────────────────────────────┐
+│ edit 1 t/status.offer-made                                           │
+└─────────────────────────────────────────────────────────────────────┘
+NARRATION: "Every checkpoint is confidence."
+
+6️⃣  CLOSE THE DEAL
+┌─────────────────────────────────────────────────────────────────────┐
+│ edit 1 t/status.closed t/urgent.none                                 │
+└─────────────────────────────────────────────────────────────────────┘
+NARRATION: "One contact. Two weeks. Zero leads lost."
+
+7️⃣  SHOW FINAL RESULT
+┌─────────────────────────────────────────────────────────────────────┐
+│ list                                                                 │
+└─────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════
+KEY TALKING POINTS:
+═══════════════════════════════════════════════════════════════════════
+✓ PROBLEM: Agents lose $500K deals due to poor contact management
+✓ SOLUTION: Intelligent tagging = instant filtering
+✓ VALUE: Speed = Competence = Commissions protected
+✓ TAGLINE: "Track smarter. Close faster. Win more."
+
+═══════════════════════════════════════════════════════════════════════
+EMERGENCY BACKUP:
+═══════════════════════════════════════════════════════════════════════
+If demo breaks: "Let me show you the command syntax..."
+Have this file visible on second screen or printed.
+
+Branch: filter-by-tag (make sure you're on this branch!)
+Check: git branch --show-current
+
