@@ -7,37 +7,6 @@
 
 ---
 
-## ⚠️ CRITICAL: Edit Command Behavior
-
-**READ THIS BEFORE DEMO!**
-
-### Edit Commands Are NOT Cumulative for Tags
-
-When using `edit`, you must **re-specify ALL tags** you want to keep. Tags not included will be **removed**.
-
-**Wrong:**
-```bash
-edit 1 t/viewing.scheduled  # This REMOVES all other tags!
-```
-
-**Correct:**
-```bash
-edit 1 s/PENDING t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled
-```
-
-### Status Field Usage
-- **Status** is a separate enum field: `s/PENDING` or `s/COMPLETED`
-- **Not a tag!** Don't use `t/status.anything`
-
-### Tag Evolution Strategy
-- **Keep throughout:** budget.500k, location.tampines, rooms.4 (describes needs)
-- **Remove when done:** urgent.high (temporary priority)
-- **Add progressively:** viewing.scheduled, offer.made, deal.closed (timeline)
-
-**Practice these commands 3-5 times before presenting!**
-
----
-
 ## Pre-Demo Setup
 
 ### 1. Start with a clean slate
@@ -212,12 +181,20 @@ edit 1 s/PENDING t/rooms.4 t/location.tampines t/budget.500k t/viewing.scheduled
 ```
 
 **[Narrator]:**
-"Linda's status: PENDING. Viewing tag added. Notice: edit #1 because Linda is first in the filtered list."
+"Linda's status: PENDING. Viewing tag added."
 
-**[Result shows Linda updated]**
+**[Result shows Linda updated, then returns to full list]**
 
 **[Narrator]:**
-"Now Sarah, the buyer."
+"After editing, TrackerGuru returns to the full contact list. Let's filter back to our matched pair."
+
+**[Xiao Ming types]:**
+```
+filter t/rooms.4 t/location.tampines t/budget.500k
+```
+
+**[Narrator]:**
+"Back to our matched pair. Linda and Sarah. Now update Sarah."
 
 **[Xiao Ming types]:**
 ```
@@ -227,14 +204,22 @@ edit 2 s/PENDING t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/vie
 **[Result shows Sarah updated with viewing tag]**
 
 **[Narrator]:**
-"No forms. No menus. Just **type and go**. Both contacts updated in seconds. Edit #1 for Linda, edit #2 for Sarah. Simple. Fast. Professional. This is what professionals demand—tools that keep pace with their hustle."
+"No forms. No menus. Just **type and go**. Both contacts updated. This is what professionals demand—tools that keep pace with their hustle."
 
 ---
 
 ### Step 5: Updating Progress - Offer Made (Logos - Tracking)
 
 **[Narrator]:**
-"One week in, Sarah makes an offer on Linda's property. Xiao Ming updates both contacts to reflect this milestone."
+"One week in, Sarah makes an offer on Linda's property. Xiao Ming updates both contacts to reflect this milestone. Filter back to our pair first."
+
+**[Xiao Ming types]:**
+```
+filter t/rooms.4 t/location.tampines t/budget.500k
+```
+
+**[Narrator]:**
+"Linda and Sarah. Linda first."
 
 **[Xiao Ming types]:**
 ```
@@ -242,9 +227,17 @@ edit 1 t/rooms.4 t/location.tampines t/budget.500k t/viewing.scheduled t/offer.r
 ```
 
 **[Narrator]:**
-"Linda's property: offer received."
+"Linda's property: offer received. Status remains PENDING."
 
-**[Result shows offer.received tag added to Linda's tags]**
+**[Result shows offer.received tag added to Linda's tags, returns to full list]**
+
+**[Narrator]:**
+"Filter again."
+
+**[Xiao Ming types]:**
+```
+filter t/rooms.4 t/location.tampines t/budget.500k
+```
 
 **[Xiao Ming types]:**
 ```
@@ -264,7 +257,15 @@ edit 2 t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/viewing.sched
 ### Step 6: Closing the Deal (Pathos - Victory)
 
 **[Narrator]:**
-"Day 13. The offer is accepted. While competitors are still looking for phone numbers in their notes app, Xiao Ming closes the deal for both parties."
+"Day 13. The offer is accepted. While competitors are still looking for phone numbers in their notes app, Xiao Ming closes the deal for both parties. Filter to our pair."
+
+**[Xiao Ming types]:**
+```
+filter t/rooms.4 t/location.tampines t/budget.500k
+```
+
+**[Narrator]:**
+"Linda and Sarah. Close Linda's property first."
 
 **[Xiao Ming types]:**
 ```
@@ -274,7 +275,15 @@ edit 1 s/COMPLETED t/rooms.4 t/location.tampines t/budget.500k t/viewing.schedul
 **[Narrator]:**
 "Linda's property: SOLD. Status COMPLETED."
 
-**[Result shows Linda with COMPLETED status]**
+**[Result shows Linda with COMPLETED status, returns to full list]**
+
+**[Narrator]:**
+"Filter one more time."
+
+**[Xiao Ming types]:**
+```
+filter t/rooms.4 t/location.tampines t/budget.500k
+```
 
 **[Xiao Ming types]:**
 ```
@@ -428,19 +437,34 @@ filter t/rooms.4 t/location.tampines t/budget.500k
 # 4a. Update Linda (contact #1 in filtered view) - Viewing scheduled
 edit 1 s/PENDING t/rooms.4 t/location.tampines t/budget.500k t/viewing.scheduled
 
-# 4b. Update Sarah (contact #2 in filtered view) - Viewing scheduled  
+# 4b. Filter back to see both contacts
+filter t/rooms.4 t/location.tampines t/budget.500k
+
+# 4c. Update Sarah (contact #2 in filtered view) - Viewing scheduled  
 edit 2 s/PENDING t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled
 
-# 5a. Update Linda (contact #1) - Offer received
-edit 1 s/PENDING t/rooms.4 t/location.tampines t/budget.500k t/viewing.scheduled t/offer.received
+# 5a. Filter back to see both contacts
+filter t/rooms.4 t/location.tampines t/budget.500k
 
-# 5b. Update Sarah (contact #2) - Offer made
-edit 2 s/PENDING t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled t/offer.made
+# 5b. Update Linda (contact #1) - Offer received (status already PENDING, no need to specify)
+edit 1 t/rooms.4 t/location.tampines t/budget.500k t/viewing.scheduled t/offer.received
 
-# 6a. Close deal for Linda (contact #1)
+# 5c. Filter back to see both contacts
+filter t/rooms.4 t/location.tampines t/budget.500k
+
+# 5d. Update Sarah (contact #2) - Offer made (status already PENDING)
+edit 2 t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled t/offer.made
+
+# 6a. Filter back to see both contacts
+filter t/rooms.4 t/location.tampines t/budget.500k
+
+# 6b. Close deal for Linda (contact #1) - NOW we change status to COMPLETED
 edit 1 s/COMPLETED t/rooms.4 t/location.tampines t/budget.500k t/viewing.scheduled t/offer.received t/deal.closed
 
-# 6b. Close deal for Sarah (contact #2) - Note: urgent.high removed
+# 6c. Filter back to see both contacts
+filter t/rooms.4 t/location.tampines t/budget.500k
+
+# 6d. Close deal for Sarah (contact #2) - Change status to COMPLETED, remove urgent.high
 edit 2 s/COMPLETED t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled t/offer.made t/deal.closed
 
 # 7. Show final result
@@ -496,28 +520,6 @@ list
 - If a command fails, have the correct syntax visible
 - Practice the demo flow 3-5 times to build muscle memory
 - Keep a printed copy of commands as reference
-
----
-
-## Technical Notes
-
-### Why This Branch?
-The `filter-by-tag` branch implements precise tag filtering (e.g., `filter t/budget.500k`), which is not available in the main branch due to feature freeze. This capability is essential for the demo narrative of "instant pattern matching."
-
-### Reverting After Demo
-After the presentation, you can switch back to the main branch:
-```bash
-git checkout main
-```
-
-### Line Count of Changes
-Approximately **35 lines** of functional code changed across 4 files:
-1. `MatchesRoleStatusTagGroupPredicate.java` (~15 lines)
-2. `FilterCommandParser.java` (~10 lines)
-3. `FilterCommand.java` (~5 lines)
-4. `CliSyntax.java` (~0 lines - PREFIX_TAG already existed)
-
-All test files updated to maintain compatibility.
 
 ---
 

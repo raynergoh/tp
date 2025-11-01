@@ -116,56 +116,84 @@ filter t/rooms.4 t/location.tampines t/budget.500k
 edit 1 s/PENDING t/rooms.4 t/location.tampines t/budget.500k t/viewing.scheduled
 ```
 **Expected:** Linda (contact #1 in filtered view) updated with status PENDING and viewing.scheduled tag  
-**Talking Point:** "Linda's property: viewing scheduled. Edit #1 because Linda is first in filtered view."
+**Result:** Returns to full list after edit
 
 **⚠️ CRITICAL:** Edit #1 because Linda is first in the FILTERED list (not full list)!
 
 ---
 
-### Step 4b: Update Sarah - Viewing Scheduled
+### Step 4b: Filter Back and Update Sarah
+```bash
+filter t/rooms.4 t/location.tampines t/budget.500k
+```
+**Expected:** Shows Linda (#1) and Sarah (#2) again  
+**Talking Point:** "Filter back to our matched pair."
+
 ```bash
 edit 2 s/PENDING t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled
 ```
-**Expected:** Sarah (contact #2 in filtered view) updated with viewing.scheduled tag  
-**Talking Point:** "Sarah's viewing: scheduled. Edit #2 for Sarah. Both sides tracked. Simple. Fast."
+**Expected:** Sarah (contact #2) updated with viewing.scheduled tag, status set to PENDING  
+**Talking Point:** "Both sides tracked. Simple. Fast."
 
 ---
 
-### Step 5a: Update Linda - Offer Received
+### Step 5a: Filter Back and Update Linda - Offer Received
 ```bash
-edit 1 s/PENDING t/rooms.4 t/location.tampines t/budget.500k t/viewing.scheduled t/offer.received
+filter t/rooms.4 t/location.tampines t/budget.500k
+```
+**Expected:** Shows Linda (#1) and Sarah (#2) again
+
+```bash
+edit 1 t/rooms.4 t/location.tampines t/budget.500k t/viewing.scheduled t/offer.received
 ```
 **Expected:** Linda now has offer.received tag  
+**Note:** No s/PENDING needed - status already PENDING from Step 4  
 **Talking Point:** "Linda's property: offer received."
 
 ---
 
-### Step 5b: Update Sarah - Offer Made
+### Step 5b: Filter Back and Update Sarah - Offer Made
 ```bash
-edit 2 s/PENDING t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled t/offer.made
+filter t/rooms.4 t/location.tampines t/budget.500k
+```
+**Expected:** Shows Linda (#1) and Sarah (#2) again
+
+```bash
+edit 2 t/urgent.high t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled t/offer.made
 ```
 **Expected:** Sarah now has offer.made tag (6 tags total)  
-**Talking Point:** "Sarah's offer: documented. Complete timeline for both parties. Still #1 and #2."
+**Note:** No s/PENDING needed - status already PENDING from Step 4  
+**Talking Point:** "Sarah's offer: documented. Complete timeline for both parties."
 
 ---
 
-### Step 6a: Close Deal - Linda
+### Step 6a: Filter Back and Close Deal - Linda
+```bash
+filter t/rooms.4 t/location.tampines t/budget.500k
+```
+**Expected:** Shows Linda (#1) and Sarah (#2) again
+
 ```bash
 edit 1 s/COMPLETED t/rooms.4 t/location.tampines t/budget.500k t/viewing.scheduled t/offer.received t/deal.closed
 ```
-**Expected:** Linda's status COMPLETED, added deal.closed  
+**Expected:** Linda's status changed to COMPLETED, added deal.closed  
+**Note:** NOW we specify s/COMPLETED - changing status from PENDING  
 **Talking Point:** "Linda's property: SOLD. Status COMPLETED."
 
 ---
 
-### Step 6b: Close Deal - Sarah
+### Step 6b: Filter Back and Close Deal - Sarah
+```bash
+filter t/rooms.4 t/location.tampines t/budget.500k
+```
+**Expected:** Shows Linda (#1) and Sarah (#2) again
+
 ```bash
 edit 2 s/COMPLETED t/budget.500k t/location.tampines t/rooms.4 t/viewing.scheduled t/offer.made t/deal.closed
 ```
 **Expected:** Status COMPLETED, removed urgent.high, added deal.closed (6 tags total)  
-**Talking Point:** "Sarah's deal: COMPLETED. Urgency cleared. Two contacts. Two weeks. Zero leads lost. One successful transaction."
-
-**Note:** Intentionally removed urgent.high (deal closed, no longer urgent)
+**Note:** Specify s/COMPLETED to change status. Intentionally removed urgent.high (deal closed)  
+**Talking Point:** "Sarah's deal: COMPLETED. Urgency cleared. Two contacts. Two weeks. Zero leads lost."
 
 ---
 
